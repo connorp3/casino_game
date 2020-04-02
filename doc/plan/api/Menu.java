@@ -4,5 +4,6 @@ public interface Menu  {
 
     void CreateGameButtons();
 
-    
+    void
+
 }
