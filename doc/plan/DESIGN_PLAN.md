@@ -1,20 +1,23 @@
-
-# Introduction
-This section describes the problem your team is trying to solve by writing this program, the primary design goals of the project (i.e., where is it most flexible), and the primary architecture of the design (i.e., what is closed and what is open). Discuss the design at a high-level (i.e., without referencing specific classes, data structures, or code).
+## Introduction
+This section describes the problem your team is trying to solve by writing this program, the primary design goals of the project 
+(i.e., where is it most flexible), and the primary architecture of the design (i.e., what is closed and what is open). 
+Discuss the design at a high-level (i.e., without referencing specific classes, data structures, or code).
 * We want to create a casino themed software game that supports the easy addition/variation of several casino games such as Black Jack, Slot Machines, Roulette, etc.  
 * We would like this program to be most flexible in adding new games to the program, as often casino games are quite similar in structure (Bet, Random Event, Outcome)  
 * We would also like it to be somewhat flexible in the layout of the GUI (choosing light vs dark mode or color preferences)  
 * We would like our interface/abstract class that progresses any game to be closed (casino game progress in very similar ways  
 * We would like many features of the GUI to be open to change based on the game that is being played or the style selections of the user  
 * We plan to make the implementation of different rules for each casino game open, but within an inheritance hierarchy  
-## High Level Design:
-* We will be creating an MVC-based program
-There will be a menu with different game options
-Clicking one instantiates a new view class with a game engine as a parameter, and this game engine will take specific game object parameters  (inheritance hierarchies) for the certain game
-View will have general formatting with game specific features (possibly abstract class)
-Progression of game will be inputted into view and passed to game engine through method calls
-View will take important game information from game objects for display
-Overview
+* High Level Design:
+..* We will be creating an MVC-based program
+..* There will be a menu with different game options
+..* Clicking one instantiates a new view class with a game engine as a parameter, and this game engine will take specific game object parameters  (inheritance hierarchies) for the certain game
+..* View will have general formatting with game specific features (possibly abstract class)
+..* Progression of game will be inputted into view and passed to game engine through method calls
+..* View will take important game information from game objects for display
+
+
+Overview  
 This section serves as a map of your design for other programmers to gain a general understanding of how and why the program was divided up, and how the individual parts work together to provide the desired functionality. Describe specific modules you intend to create, their purpose with regards to the program's functionality, and how they collaborate with each other, focusing specifically on each one's API. Include a picture of how the modules are related (these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a UML design program). Discuss specific classes, methods, and data structures, but not individual lines of code.
 
 
