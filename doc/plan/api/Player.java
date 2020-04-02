@@ -7,7 +7,7 @@ public interface Player  {
     It will be used by the view to display the amount of money the player has in
     the bankroll
     @return - integer representing the amount in the bankroll
-    /*
+    */
     int getBankroll();
     
     /*
@@ -16,7 +16,7 @@ public interface Player  {
     Called by the Bet class.
     Marks the status of player as bet pending when called.
     @param amount - int containing the value to be subtracted from balance.
-    /*
+    */
     void placeBet(int amount);
     
     /*
@@ -27,7 +27,14 @@ public interface Player  {
     @param amount - int contaning the value to be added to the player
     representing the amount in the bankroll
     Removes the bet pending status on player.
+    Registers a won bet for statistics purposes.
+    */
+    void betWon(int amount);
+    
     /*
-    void betResult(int amount);
+    Registers a lost bet for statistics purposes.
+    Removes the bet pending status on player.
+    */
+    void betLost();
 
 }
