@@ -29,19 +29,22 @@ how they collaborate with each other, focusing specifically on each one's API.
 Include a picture of how the modules are related (these pictures can be hand drawn and 
 scanned in, created with a standard drawing program, or screen shots from a UML 
 design program). Discuss specific classes, methods, and data structures, but 
-not individual lines of code.
+not individual lines of code.  
 
+CRC Card 1: 
+![alt text](card1.png "Card 1")  
 
-
+CRC Card 2: 
+![alt text](card2.png "Card 2")  
 
 ## Design Details  
 This section describes each module introduced in the Overview in detail (as well as any other sub-modules that may be needed but are not significant to include in a high-level description of the program). Describe how each module's API handles specific features given in the assignment specification, what resources it might use, how it collaborates with other modules, and how each could be extended to include additional requirements (from the assignment specification or discussed by your team). Finally, justify the decision to create each module with respect to the design's key goals, principles, and abstractions.  
 * GameTable (View) 
   * GameTable is an abstract class that would produce the general layout of the GUI once a game is selected. The idea is that each game will have a very similar visual layout (Bankroll, betting, clear bet, switch game, cash out), which can be represented in this general class
   * Each game would then have a specific implementation of this class based on what game is being played that displays the proper features such as cards or a slot machine or a roulette board and wheel
-These specific GameTable implementations would work with their specific Game class (non-View) to perform functionality specific to the game
-This class would handle dark vs. light mode for any game by knowing to choose a dark vs. light CSS and/or properties file for both general game features and game features specific to that game
-This module is justified because it attempts to take advantage of similarities within the casino game genre using an inheritance hierarchy while still giving the user the ability to implement other games by extending it
+  * These specific GameTable implementations would work with their specific Game class (non-View) to perform functionality specific to the game
+  * This class would handle dark vs. light mode for any game by knowing to choose a dark vs. light CSS and/or properties file for both general game features and game features specific to that game
+  * This module is justified because it attempts to take advantage of similarities within the casino game genre using an inheritance hierarchy while still giving the user the ability to implement other games by extending it
 * Menu(View)
 This module, in its basic form will have buttons that generate the proper GameTable and Game given a button click
 It will also generate the overall game element (The Player) and be able to save or load a game using info from the the Player with the implementation of SaveGame
