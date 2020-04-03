@@ -31,11 +31,12 @@ scanned in, created with a standard drawing program, or screen shots from a UML
 design program). Discuss specific classes, methods, and data structures, but 
 not individual lines of code.  
 
-CRC Card 1: 
-![alt text](card1.png "Card 1")  
+Overview: 
+![alt text](overview.JPG "Card 1")  
 
-CRC Card 2: 
-![alt text](card2.png "Card 2")  
+Overview: 
+![alt text](overview.JPG "Card 1")  
+
 
 ## Design Details  
 This section describes each module introduced in the Overview in detail (as well as any other sub-modules that may be needed but are not significant to include in a high-level description of the program). Describe how each module's API handles specific features given in the assignment specification, what resources it might use, how it collaborates with other modules, and how each could be extended to include additional requirements (from the assignment specification or discussed by your team). Finally, justify the decision to create each module with respect to the design's key goals, principles, and abstractions.  
