@@ -35,7 +35,7 @@ Overview:
 ![alt text](doc/plan/pics/crc/overview.JPG "Overview")  
 
 CRC 1: 
-![alt text]doc/plan/pics/crc/crc1.JPG "Card 1")  
+![alt text](doc/plan/pics/crc/crc1.JPG "Card 1")  
 
 CRC 2: 
 ![alt text](doc/plan/pics/crc/crc2.JPG "Card 2")  
