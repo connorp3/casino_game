@@ -35,4 +35,4 @@ Blackjack:
 Roulette: 
 ![Roulette](doc/plan/pics/ui/roulette.JPG "Roulette")  
 Slot Machine: 
-![Slot Machine](doc/plan/pics/ui/slots.JPG "Slot Machine")  
+![Slot Machine](doc/plan/pics/ui/Slots.JPG "Slot Machine")  
