@@ -28,5 +28,11 @@ Secondary: can provide support and suggestions to primary person
 
 ## UI Wireframe
 
-Wireframe 1: 
-![Wireframe 1 - Image missing](wireframe1.png "Wireframe 1")
+Menu: 
+![Menu](menu.JPG "Menu")
+Blackjack: 
+![Blackjack](bj.JPG "Blackjack")
+Roulette: 
+![Roulette](roulette.JPG "Roulette")
+Slot Machine: 
+![Slot Machine](slots.JPG "Slot Machine")
