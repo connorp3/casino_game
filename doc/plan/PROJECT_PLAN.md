@@ -29,10 +29,10 @@ Secondary: can provide support and suggestions to primary person
 ## UI Wireframe
 
 Menu: 
-![Menu](ui/menu.JPG "Menu")  
+![Menu](/ui/menu.JPG "Menu")  
 Blackjack: 
-![Blackjack](ui/bj.JPG "Blackjack")  
+![Blackjack]/(ui/bj.JPG "Blackjack")  
 Roulette: 
-![Roulette](ui/roulette.JPG "Roulette")  
+![Roulette](/ui/roulette.JPG "Roulette")  
 Slot Machine: 
-![Slot Machine](ui/slots.JPG "Slot Machine")  
+![Slot Machine](/ui/slots.JPG "Slot Machine")  
