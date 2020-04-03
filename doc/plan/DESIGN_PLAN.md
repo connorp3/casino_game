@@ -32,22 +32,22 @@ design program). Discuss specific classes, methods, and data structures, but
 not individual lines of code.  
 
 Overview: 
-![alt text](/src/doc/plan/pics/crc/overview.JPG "Overview")  
+![alt text](doc/plan/pics/crc/overview.JPG "Overview")  
 
 CRC 1: 
-![alt text](/src/doc/plan/pics/crc/crc1.JPG "Card 1")  
+![alt text]doc/plan/pics/crc/crc1.JPG "Card 1")  
 
 CRC 2: 
-![alt text](/src/doc/plan/pics/crc/crc2.JPG "Card 2")  
+![alt text](doc/plan/pics/crc/crc2.JPG "Card 2")  
 
 CRC 3: 
-![alt text](/src/doc/plan/pics/crc/crc3.JPG "Card 3") 
+![alt text](doc/plan/pics/crc/crc3.JPG "Card 3") 
 
 CRC 4: 
-![alt text](/src/doc/plan/pics/crc/crc4.JPG "Card 4")  
+![alt text](doc/plan/pics/crc/crc4.JPG "Card 4")  
 
 CRC 5: 
-![alt text](/src/doc/plan/pics/crc/crc5.JPG "Card 5") 
+![alt text](doc/plan/pics/crc/crc5.JPG "Card 5") 
 
 
 
