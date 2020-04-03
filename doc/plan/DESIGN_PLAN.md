@@ -35,56 +35,56 @@ not individual lines of code.
 
 
 ## Design Details  
-This section describes each module introduced in the Overview in detail (as well as any other sub-modules that may be needed but are not significant to include in a high-level description of the program). Describe how each module's API handles specific features given in the assignment specification, what resources it might use, how it collaborates with other modules, and how each could be extended to include additional requirements (from the assignment specification or discussed by your team). Finally, justify the decision to create each module with respect to the design's key goals, principles, and abstractions.
-GameTable (View) 
+This section describes each module introduced in the Overview in detail (as well as any other sub-modules that may be needed but are not significant to include in a high-level description of the program). Describe how each module's API handles specific features given in the assignment specification, what resources it might use, how it collaborates with other modules, and how each could be extended to include additional requirements (from the assignment specification or discussed by your team). Finally, justify the decision to create each module with respect to the design's key goals, principles, and abstractions.  
+* GameTable (View) 
 GameTable is an abstract class that would produce the general layout of the GUI once a game is selected. The idea is that each game will have a very similar visual layout (Bankroll, betting, clear bet, switch game, cash out), which can be represented in this general class
 Each game would then have a specific implementation of this class based on what game is being played that displays the proper features such as cards or a slot machine or a roulette board and wheel
 These specific GameTable implementations would work with their specific Game class (non-View) to perform functionality specific to the game
 This class would handle dark vs. light mode for any game by knowing to choose a dark vs. light CSS and/or properties file for both general game features and game features specific to that game
 This module is justified because it attempts to take advantage of similarities within the casino game genre using an inheritance hierarchy while still giving the user the ability to implement other games by extending it
-Menu(View)
+* Menu(View)
 This module, in its basic form will have buttons that generate the proper GameTable and Game given a button click
 It will also generate the overall game element (The Player) and be able to save or load a game using info from the the Player with the implementation of SaveGame
 This is justified as a module because it is necessary in order to manage the game flow between games and save/load games in a general way
-Bet (Model)
+* Bet (Model)
 This module will hold different bets for a given game and will learn of the outcome of a game from the Game module
 This outcome will be compared to the different bets and a certain payout will then be communicated to the player class
 This is justified, as this class could hold any number of betting outcomes (perhaps as a sub-module inheritance hierarchy) for a specific game, thus creating an extendible class for new games to be added
-Game (backend)
+* Game (backend)
 API that provides general methods for doing a round of a specific game
 Method call in a view class would call this method to play a round of game
 Justified because it exploits generality of all games in Casino happening in discrete rounds
-RouletteGame (backend)
+* RouletteGame (backend)
 Implements Game
 Contains the data structures for the game of roulette with the different event types and payouts depending on the outcome.
 Randomizes outcomes
 Communicates with the Bet class - the player can place multiple bets in roulette and a Bet object would be created for each bet.
-BlackJackGame (backend)
+* BlackJackGame (backend)
 Implements Game
 Contains the data structures and rules for the game of blackjack
 Knows dealer hand and player hand
 Can deal cards randomly and shuffle the deck
 Checks for a bust if the value of the  cards is greater than 21
 Communicates with Bet, GameTable, and Hand.
-SlotMachineGame (backend)
+* SlotMachineGame (backend)
 Implements Game
 Contains the data structures and rules for the game of slot machine
 Can generate outcomes based on spinning the wheel
 Communicates with GameTable and Bet
-Player (backend)
+* Player (backend)
 Keeps track of the money the player has. Is initialized with an amount of money that can only change through playing casino games.
 Communicates the amount of money to the view 
 Public methods available to change the amount of money the player has
 Communicates with GameTable and the Bet class
-Hand (backend)
+* Hand (backend)
 Responsibility is to hold cards of the player
 Only be used for Blackjack or card games
 Hold Card objects for the hand of the player, can have multiple hards
 Communicates that information to the BlackJackGame class
-SaveGame
+* SaveGame
 Accesses data classes from model and converts them to proper file format
 Justified because it can be made general enough to save gametype and bankroll for any given casino game
-LoadGame
+* LoadGame
 Accesses game files and passes the information to the menu to instantiate the proper game with the correct bankroll
 Justified because information passed to the menu can be handled in a general way in the GUI
 
