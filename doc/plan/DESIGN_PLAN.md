@@ -46,67 +46,69 @@ This section describes each module introduced in the Overview in detail (as well
   * This class would handle dark vs. light mode for any game by knowing to choose a dark vs. light CSS and/or properties file for both general game features and game features specific to that game
   * This module is justified because it attempts to take advantage of similarities within the casino game genre using an inheritance hierarchy while still giving the user the ability to implement other games by extending it
 * Menu(View)
-This module, in its basic form will have buttons that generate the proper GameTable and Game given a button click
-It will also generate the overall game element (The Player) and be able to save or load a game using info from the the Player with the implementation of SaveGame
-This is justified as a module because it is necessary in order to manage the game flow between games and save/load games in a general way
+  * This module, in its basic form will have buttons that generate the proper GameTable and Game given a button click
+  * It will also generate the overall game element (The Player) and be able to save or load a game using info from the the Player with the implementation of SaveGame
+  * This is justified as a module because it is necessary in order to manage the game flow between games and save/load games in a general way
 * Bet (Model)
-This module will hold different bets for a given game and will learn of the outcome of a game from the Game module
-This outcome will be compared to the different bets and a certain payout will then be communicated to the player class
-This is justified, as this class could hold any number of betting outcomes (perhaps as a sub-module inheritance hierarchy) for a specific game, thus creating an extendible class for new games to be added
+  * This module will hold different bets for a given game and will learn of the outcome of a game from the Game module
+  * This outcome will be compared to the different bets and a certain payout will then be communicated to the player class
+  * This is justified, as this class could hold any number of betting outcomes (perhaps as a sub-module inheritance hierarchy) for a specific game, thus creating an extendible class for new games to be added
 * Game (backend)
-API that provides general methods for doing a round of a specific game
-Method call in a view class would call this method to play a round of game
-Justified because it exploits generality of all games in Casino happening in discrete rounds
+  * API that provides general methods for doing a round of a specific game
+  * Method call in a view class would call this method to play a round of game
+  * Justified because it exploits generality of all games in Casino happening in discrete rounds
 * RouletteGame (backend)
-Implements Game
-Contains the data structures for the game of roulette with the different event types and payouts depending on the outcome.
-Randomizes outcomes
-Communicates with the Bet class - the player can place multiple bets in roulette and a Bet object would be created for each bet.
+  * Implements Game
+  * Contains the data structures for the game of roulette with the different event types and payouts depending on the outcome.
+  * Randomizes outcomes
+  * Communicates with the Bet class - the player can place multiple bets in roulette and a Bet object would be created for each bet.
 * BlackJackGame (backend)
-Implements Game
-Contains the data structures and rules for the game of blackjack
-Knows dealer hand and player hand
-Can deal cards randomly and shuffle the deck
-Checks for a bust if the value of the  cards is greater than 21
-Communicates with Bet, GameTable, and Hand.
+  * Implements Game
+  * Contains the data structures and rules for the game of blackjack
+  * Knows dealer hand and player hand
+  * Can deal cards randomly and shuffle the deck
+  * Checks for a bust if the value of the  cards is greater than 21
+  * Communicates with Bet, GameTable, and Hand.
 * SlotMachineGame (backend)
-Implements Game
-Contains the data structures and rules for the game of slot machine
-Can generate outcomes based on spinning the wheel
-Communicates with GameTable and Bet
+  * Implements Game
+  * Contains the data structures and rules for the game of slot machine
+  * Can generate outcomes based on spinning the wheel
+  * Communicates with GameTable and Bet
 * Player (backend)
-Keeps track of the money the player has. Is initialized with an amount of money that can only change through playing casino games.
-Communicates the amount of money to the view 
-Public methods available to change the amount of money the player has
-Communicates with GameTable and the Bet class
+  * Keeps track of the money the player has. Is initialized with an amount of money that can only change through playing casino games.
+  * Communicates the amount of money to the view 
+  * Public methods available to change the amount of money the player has
+  * Communicates with GameTable and the Bet class
 * Hand (backend)
-Responsibility is to hold cards of the player
-Only be used for Blackjack or card games
-Hold Card objects for the hand of the player, can have multiple hards
-Communicates that information to the BlackJackGame class
+  * Responsibility is to hold cards of the player
+  * Only be used for Blackjack or card games
+  * Hold Card objects for the hand of the player, can have multiple hards
+  * Communicates that information to the BlackJackGame class
 * SaveGame
-Accesses data classes from model and converts them to proper file format
-Justified because it can be made general enough to save gametype and bankroll for any given casino game
+  * Accesses data classes from model and converts them to proper file format
+  * Justified because it can be made general enough to save gametype and bankroll for any given casino game
 * LoadGame
-Accesses game files and passes the information to the menu to instantiate the proper game with the correct bankroll
-Justified because information passed to the menu can be handled in a general way in the GUI
+  * Accesses game files and passes the information to the menu to instantiate the proper game with the correct bankroll
+  * Justified because information passed to the menu can be handled in a general way in the GUI
 
 ## Example games  
 
 Describe three example games that differ significantly in detail. Clearly identify how the functional differences in these games is supported by your design. Use these examples to help clarify the abstractions in your design.
-Roulette
-Popular casino gameDark. In the game, players may choose to place bets on either a single number, various groupings of numbers, the colors red or black, whether the number is odd or even, or if the numbers are high (19–36) or low (1–18). To determine the winning number and color, a croupier spins a wheel in one direction, then spins a ball in the opposite direction around a tilted circular track running around the outer edge of the wheel. The ball eventually loses momentum, passes through an area of deflectors, and falls onto the wheel and into one of 37 colored and numbered pockets on the wheel. The winnings are then paid to the player who has placed a successful bet.
-The functional differences in the design are supported by the RouletteGame class (backend) and RouletteGameTable (view) which can handle the logic and views respectively.
-Slot machine
-Its layout features a screen displaying three reels that spin when the game is activated. Uses a random number generator.
-The functional differences in the design are supported by the SlotMachineGame and SlotMachineGameTable classes to handle the backend and frontend respectively. The odds are different in slot machine games than in the other casino games. The SlotMachineGameTable would support the implementation of the 3 reels that are shown to the user. The class also managed inputs.
-It is necessary to handle the implementation of the backend in a SlotMachineGame class because the game of slot machines is quite unique and nothing like the other games. We could not determine how to create an inheritance hierarchy to support this.
-Blackjack
-Black Jack is a popular casino card game in which the player plays against the dealer to see who can get closest to 21 without going over
-Our GameTable hierarchy would support unique implementation of cards that are displayed to the User
-Our GameTable hierarchy would also support the progression of the a round of Black Jack which is unique to how black jack runs
-Our Bet hierarchy would be a general framework that could support the outcomes associated with Black Jack given a certain bet (basically three outcomes with distinct payouts: Win, Loss, or Tie)
-The implementation of a BlackJack game class would be necessary to handle the specific progression of the round of Black Jack. This round progression is quite unique to Black Jack, and we could not determine at the moment how to create an inheritance hierarchy to support this.
+
+
+* Roulette
+  * Popular casino game. In the game, players may choose to place bets on either a single number, various groupings of numbers, the colors red or black, whether the number is odd or even, or if the numbers are high (19–36) or low (1–18). To determine the winning number and color, a croupier spins a wheel in one direction, then spins a ball in the opposite direction around a tilted circular track running around the outer edge of the wheel. The ball eventually loses momentum, passes through an area of deflectors, and falls onto the wheel and into one of 37 colored and numbered pockets on the wheel. The winnings are then paid to the player who has placed a successful bet.
+  * The functional differences in the design are supported by the RouletteGame class (backend) and RouletteGameTable (view) which can handle the logic and views respectively.
+* Slot machine
+  * Its layout features a screen displaying three reels that spin when the game is activated. Uses a random number generator.
+  * The functional differences in the design are supported by the SlotMachineGame and SlotMachineGameTable classes to handle the backend and frontend respectively. The odds are different in slot machine games than in the other casino games. The SlotMachineGameTable would support the implementation of the 3 reels that are shown to the user. The class also managed inputs.
+  * It is necessary to handle the implementation of the backend in a SlotMachineGame class because the game of slot machines is quite unique and nothing like the other games. We could not determine how to create an inheritance hierarchy to support this.
+* Blackjack
+  * Black Jack is a popular casino card game in which the player plays against the dealer to see who can get closest to 21 without going over
+  * Our GameTable hierarchy would support unique implementation of cards that are displayed to the User
+  * Our GameTable hierarchy would also support the progression of the a round of Black Jack which is unique to how black jack runs
+  * Our Bet hierarchy would be a general framework that could support the outcomes associated with Black Jack given a certain bet (basically three outcomes with distinct payouts: Win, Loss, or Tie)
+  * The implementation of a BlackJack game class would be necessary to handle the specific progression of the round of Black Jack. This round progression is quite unique to Black Jack, and we could not determine at the moment how to create an inheritance hierarchy to support this.
 
 ## Design Considerations
 This section describes any issues which need to be addressed or resolved before attempting to devise a complete design solution. Include any design decisions discussed at length (include pros and cons from all sides of the discussion) as well as any ambiguities, assumptions, or dependencies regarding the program that impact the overall design.
