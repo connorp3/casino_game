@@ -1,12 +1,15 @@
 package usecases;
 
-import api.Backend.Bet;
+/***
+ * Player has bet 10 on example game outcome and outcome result must be determined and bankroll
+ * updated.
+ */
+public class UseCase1 {
 
-// after playing round of game, user wins an outcome
-class ExampleBet implements Bet {
-    int bet
-    @Override
-    public void generatePayout() {
-
+    public static void main(String[] args) {
+        ExamplePlayer player = new ExamplePlayer(100);
+        ExampleBet bet = new ExampleBet(10);
+        ExampleGame game = new ExampleGame(bet, player);
+        game.playRound();
     }
 }
