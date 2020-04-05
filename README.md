@@ -14,6 +14,14 @@ Finish Date:
 
 Hours Spent:
 
+Connor:
+
+- Plan: 14 hours
+- 4/4/20: 2 hours (Writing basic JavaFX code to make scene and some buttons)
+- 4/4/20: 2.5 hours (Learning new JavaFX skills to debug code for desired functionality)
+- 4/5/20: 2.5 hours (Creating a loop to generate buttons in Menu using properties file)
+- 4/5/20: 1 hour (Plan presentation)
+
 ### Primary Roles
 
 

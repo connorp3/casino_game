@@ -10,7 +10,7 @@ public class GameTable {
     GridPane gameRoot;
     SceneChanger myScene;
 
-    public GameTable(SceneChanger scene) {
+    public GameTable(SceneChanger scene, String game) {
         myScene = scene;
         gameRoot = new GridPane();
         Button MainMenuButton = new Button("Main Menu");
@@ -18,12 +18,16 @@ public class GameTable {
         MainMenuButton.setId("Main Menu");
         gameRoot.add(MainMenuButton,0,0);
         myScene.setRoot(gameRoot);
+        initiateGame(game);
     }
 
     private void returnToMainMenu() {
         gameRoot.getChildren().clear();
-        GridPane menuRoot = new GridPane();
         new Menu(myScene);
 
+    }
+
+    private void initiateGame(String game) {
+        //I think this would be where an interface would be used to create
     }
 }
