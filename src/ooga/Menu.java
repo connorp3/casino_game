@@ -58,6 +58,7 @@ public class Menu {
 
     private void setUpGame(String game) { //should take argument that tells it which game it should set up
         menuRoot.getChildren().clear();
+        Player player = new Player(1000, game);
         new GameTable(myScene, game);
 
 
