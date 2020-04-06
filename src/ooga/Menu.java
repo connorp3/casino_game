@@ -19,8 +19,19 @@ public class Menu {
     private GridPane menuRoot;
     private SceneChanger myScene;
     private ResourceBundle myResources;
+    private Player myPlayer;
 
     public Menu(SceneChanger scene) {
+        myPlayer = new Player(1000, null);
+        initialize(scene);
+    }
+
+    public Menu(SceneChanger scene, Player player) {
+        myPlayer = player;
+        initialize(scene);
+    }
+
+    private void initialize(SceneChanger scene) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + RESOURCES_FILE);
         myScene = scene;
         menuRoot = new GridPane();
@@ -31,6 +42,7 @@ public class Menu {
         makeGameButtons(parseGameResource());
         //access resource bundle
     }
+
 
     private void makeGameButtons(List<String> games) {
         int colInd = 0;
@@ -58,8 +70,9 @@ public class Menu {
 
     private void setUpGame(String game) { //should take argument that tells it which game it should set up
         menuRoot.getChildren().clear();
-        Player player = new Player(1000, game);
-        new GameTable(myScene, game);
+        SlotMachineBoard gameBoard = new SlotMachineBoard();
+        myPlayer.setMyCurrentGame(game);
+        new GameTable(myScene, gameBoard, myPlayer);
 
 
     }

@@ -16,10 +16,22 @@ public class Player {
         myCurrentGame = currentGame;
     }
 
+    public int getMyBankRoll() {
+        return myBankRoll;
+    }
     public void setMyBankRoll(int amount) {
-        myBankRoll += amount;
+        if(checkEnoughFunds(amount)) {
+            myBankRoll += amount;
+        }
+        else{
+            throw new IllegalStateException();
+        }
         if (myBankRoll > maxBankRoll) {
             maxBankRoll = myBankRoll;
         }
+    }
+
+    private boolean checkEnoughFunds(int amount) {
+        return myBankRoll + amount >= 0;
     }
 }
