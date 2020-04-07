@@ -1,6 +1,10 @@
 package ooga;
 
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Border;
@@ -11,7 +15,7 @@ import javafx.scene.text.Text;
 
 
 public class GameTable {
-    BorderPane gameRoot;
+    GridPane gameRoot;
     SceneChanger myScene;
     Player myPlayer;
 
@@ -24,8 +28,10 @@ public class GameTable {
 
     private void initialize(SceneChanger scene) {
         myScene = scene;
-        gameRoot = new BorderPane();
-        gameRoot.
+        gameRoot = new GridPane();
+        gameRoot.setHgap(100);
+        gameRoot.setVgap(100);
+        gameRoot.setAlignment(Pos.TOP_CENTER);
 
         HBox topDisplay = new HBox();
         topDisplay.setSpacing(100);
@@ -37,7 +43,7 @@ public class GameTable {
 
         Text bankRollDisplay = new Text("BankRoll: " + myPlayer.getMyBankRoll());
         topDisplay.getChildren().add(bankRollDisplay);
-        gameRoot.setTop(topDisplay);
+        gameRoot.add(topDisplay, 0, 0);
 
         myScene.setRoot(gameRoot);
     }
@@ -49,7 +55,7 @@ public class GameTable {
     }
 
     private void initiateGame(GameBoard game, Player player) {
-        gameRoot.setCenter(game.drawGame());
-
+        Node gameDisplay = game.drawGame();
+        gameRoot.add(gameDisplay, 0, 1);
     }
 }

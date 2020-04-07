@@ -21,6 +21,8 @@ Connor:
 - 4/4/20: 2.5 hours (Learning new JavaFX skills to debug code for desired functionality)
 - 4/5/20: 2.5 hours (Creating a loop to generate buttons in Menu using properties file)
 - 4/5/20: 1 hour (Plan presentation)
+- 4/6/20: 2.5 hours (Added Player and GameBoard classes (GameBoard extremely hard-coded currently))
+
 
 ### Primary Roles
 
