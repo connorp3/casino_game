@@ -31,6 +31,16 @@ public class Player {
         }
     }
 
+    public void addAmount(int amount) {
+        myBankRoll = myBankRoll + amount;
+    }
+
+    public void subtractAmount(int amount) {
+        if (amount <= myBankRoll) {
+            myBankRoll = myBankRoll - amount;
+        }
+    }
+
     private boolean checkEnoughFunds(int amount) {
         return myBankRoll + amount >= 0;
     }

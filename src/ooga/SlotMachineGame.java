@@ -18,39 +18,62 @@ public class SlotMachineGame {
     }
 
     void placeBet(int amount) {
-        if (amount <= player.getMyBankRoll()) {
-            currentBet = new Bet(amount);
+        if (amount > 0) {
+            currentBet = new Bet(amount, 27, player);
         }
     }
 
-
-
-    List<Integer> spinReels() {
-        if (betAmount <= 0) {
-            System.out.println("Error: You must place a bet to play.");
-        }
-
+    void spinReels() {
         List<Integer> listOfSymbols = new ArrayList<>();
-
 
         for (int i = 0; i < reelCount; i++) {
             listOfSymbols.add(getRandomSymbol());
         }
 
-        if (listOfSymbols.get(0).equals(listOfSymbols.get(1)) && listOfSymbols.get(1).equals(listOfSymbols.get(2))) {
+        System.out.println(listOfSymbols);
 
+        if (listOfSymbols.get(0).equals(listOfSymbols.get(1)) && listOfSymbols.get(1).equals(listOfSymbols.get(2))) {
+            System.out.println("You win");
+            currentBet.betWon();
+        }
+        else {
+            System.out.println("You lose");
+            currentBet.betLost();
         }
 
-        // when spin is over and result is determined
-        betAmount = 0;
+        System.out.println("Your new balance is: " + player.getMyBankRoll());
 
-        return listOfSymbols;
     }
 
     private int getRandomSymbol() {
         Random random = new Random();
         int randomInteger = random.nextInt(symbolCount);
         return randomInteger;
+    }
+
+    public static void main (String[] args) {
+        SlotMachineGame test = new SlotMachineGame(new Player(100, "SlotMachine"));
+        test.placeBet(10);
+        test.spinReels();
+        test.placeBet(10);
+        test.spinReels();
+        test.placeBet(10);
+        test.spinReels();
+        test.placeBet(10);
+        test.spinReels();
+        test.placeBet(10);
+        test.spinReels();
+        test.placeBet(10);
+        test.spinReels();
+        test.placeBet(10);
+        test.spinReels();
+        test.placeBet(10);
+        test.spinReels();
+        test.placeBet(10);
+        test.spinReels();
+        test.placeBet(10);
+        test.spinReels();
+
     }
 
 
