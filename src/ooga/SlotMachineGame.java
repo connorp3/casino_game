@@ -13,6 +13,7 @@ public class SlotMachineGame {
     Bet currentBet;
     Player player;
     int allAlignedMultiple;
+
 //With this GameTable and GameBoard object, you will have access to methods like updateBankRollDisplay, updateTotalBetDisplay, update gameBoard, disableXButton, etc
     //That way, whenever something happens and needs to be displayed in the GUI, you can call these methods and pass the proper information to the GUI
     public SlotMachineGame(Player p, GameTable myGameInfoDisplay, GameBoard gameDisplay) {
@@ -72,8 +73,6 @@ public class SlotMachineGame {
             test.placeBet(1);
             test.spinReels();
         }
-
-
 
     }
 

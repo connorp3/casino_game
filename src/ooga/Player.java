@@ -9,7 +9,6 @@ public class Player {
         myBankRoll = bankroll;
         maxBankRoll = bankroll;
         myCurrentGame = currentGame;
-
     }
 
     public void setMyCurrentGame(String currentGame) {
