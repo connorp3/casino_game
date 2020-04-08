@@ -4,21 +4,22 @@ public class Bet {
 
     int amount;
     boolean betActive;
-    int multiplier;
     Player player;
 
-    public Bet(int betAmount, int mult, Player p) {
+    public Bet(int betAmount, Player p) {
         amount = betAmount;
-        multiplier = mult;
         player = p;
-        player.subtractAmount(betAmount);
+        player.setMyBankRoll(-betAmount);
         betActive = true;
     }
 
-    void betWon() {
+    void betWon(int multiplier) {
         if (betActive) {
-            player.addAmount(amount * multiplier);
+            player.setMyBankRoll(amount * multiplier);
             betActive = false;
+        }
+        else {
+            System.out.println("You need to place a bet in order to play");
         }
     }
 
