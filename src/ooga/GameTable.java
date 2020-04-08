@@ -13,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-
+//This will need to implement an interface to give restricted access of its public methods to each game
 public class GameTable {
     GridPane gameRoot;
     SceneChanger myScene;
@@ -57,5 +57,6 @@ public class GameTable {
     private void initiateGame(GameBoard game, Player player) {
         Node gameDisplay = game.drawGame();
         gameRoot.add(gameDisplay, 0, 1);
+        SlotMachineGame x = new SlotMachineGame(myPlayer, this, game);
     }
 }
