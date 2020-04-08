@@ -38,8 +38,4 @@ public class SlotMachineBoard implements GameBoard {
 
     }
 
-    @Override
-    public void addBet() {
-        //do nothing
-    }
 }

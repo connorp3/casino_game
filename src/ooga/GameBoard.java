@@ -6,6 +6,5 @@ public interface GameBoard {
 
     Node drawGame();
     void showOutcome(Object outcome);
-    void addBet();
 
 }
