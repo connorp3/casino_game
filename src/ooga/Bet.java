@@ -15,6 +15,10 @@ public class Bet {
         player.setMyBankRoll(-newAmount);
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
     void betWon(int multiplier) {
         player.setMyBankRoll(amount * multiplier);
     }

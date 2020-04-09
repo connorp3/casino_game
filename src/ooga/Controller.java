@@ -67,14 +67,14 @@ public class Controller {
 
     public void placeBet(int amount, Object type) {
         currentBet.addFunds(amount);
-        view.updateBetTotal(amount);
+        view.updateBetTotal(currentBet.getAmount());
         view.updateBankRoll(currentPlayer.getMyBankRoll());
     }
 
     public void clearBets() {
+        view.updateBankRoll(currentPlayer.getMyBankRoll() + currentBet.getAmount());
         currentBet.cancel();
         view.updateBetTotal(0);
-        view.updateBankRoll(currentPlayer.getMyBankRoll());
     }
 
     public void setGameTable(GameTable gameTable, GameBoard game) {
