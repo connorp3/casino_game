@@ -64,7 +64,9 @@ public class GameTable {
 
     private void Quit() {
         gameRoot.getChildren().clear();
-        gameOverWindow.close();
+        if(gameOverWindow != null) {
+            gameOverWindow.close();
+        }
         new Menu(myScene);
 
     }
