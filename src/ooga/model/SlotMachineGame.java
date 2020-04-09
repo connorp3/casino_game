@@ -44,7 +44,8 @@ public class SlotMachineGame implements Game {
     public int calculatePayoutMultiple(String outcome) {
         if (outcome.equals("ALL_ALIGNED")) {
             return allAlignedMultiple;
-        } else {
+        }
+        else {
             return 0;
         }
     }

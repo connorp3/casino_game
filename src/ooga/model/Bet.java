@@ -21,6 +21,7 @@ public class Bet {
 
     public void betWon(int multiplier) {
         player.setMyBankRoll(amount * multiplier);
+        amount = 0;
     }
 
     public void betLost() {
@@ -28,8 +29,8 @@ public class Bet {
     }
 
     public void cancel() {
-        amount = 0;
         player.setMyBankRoll(amount);
+        amount = 0;
     }
 
 }
