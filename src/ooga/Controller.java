@@ -8,6 +8,8 @@ public class Controller {
     Bet currentBet;
     boolean betActive;
     Player currentPlayer;
+    GameTable view;
+    GameBoard board;
 
     public Controller() {
 
@@ -19,7 +21,7 @@ public class Controller {
         }
     }
 
-    public void updatePlayer(Player player) {
+    public void loadPlayer(Player player) {
         currentPlayer = player;
     }
 
@@ -38,21 +40,24 @@ public class Controller {
 
             // calculates the payout multiple
             int payoutMultiple = game.calculatePayoutMultiple(result);
-            betActive = false;
 
             // update the bet
             if (payoutMultiple == 0) {
                 currentBet.betLost();
-            }
-            else {
-                currentBet.betWon(payoutMultiple);
-            }
+                if (currentPlayer.getMyBankRoll() == 0) {
+                    view.displayGameOver();
+                }
+            } else currentBet.betWon(payoutMultiple);
+            betActive = false;
 
             // Send that outcome to the view
+            board.showOutcome(symbols);
 
             // Send the interpretation to the view
+            // board.showMessage(result);
 
-            // Send the payout to the view
+            // Send the payout update to the view
+            view.updateBankRoll(currentPlayer.getMyBankRoll());
         }
 
     }
@@ -60,6 +65,7 @@ public class Controller {
     public void placeBet(int amount, Object type) {
         if (amount > 0) {
             currentBet = new Bet(amount, currentPlayer);
+            view.updateBetTotal(amount);
             betActive = true;
         }
     }
@@ -69,4 +75,8 @@ public class Controller {
         betActive = false;
     }
 
+    public void setGameTable(GameTable gameTable, GameBoard game) {
+        view = gameTable;
+        board = game;
+    }
 }
