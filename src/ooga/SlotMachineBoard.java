@@ -27,7 +27,7 @@ public class SlotMachineBoard implements GameBoard {
 
         displaySymbols = new HashMap<Integer, Node>();   //Turn this into a properties file
         for(int x = 0; x<=2; x++) {
-            displaySymbols.put(x+1, new Text("1"));
+            displaySymbols.put(x+1, new Text(Integer.toString(x+1)));
         }
 
 
@@ -42,8 +42,9 @@ public class SlotMachineBoard implements GameBoard {
 
     @Override
     public void showOutcome(List<Integer> outcome) {
+        myWheels.getChildren().clear();
         for(int currWheel : outcome) {
-            myWheels.getChildren().add(displaySymbols.get(currWheel));
+            myWheels.getChildren().add(new Text(Integer.toString(currWheel)));
         }
 
 

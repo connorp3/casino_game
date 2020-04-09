@@ -18,11 +18,14 @@ public class GameTable {
     Text bankrollDisplay;
     Text betTotalDisplay;
     Stage gameOverWindow;
+    Controller myController;
 
 
     public GameTable(SceneChanger scene, GameBoard gameBoard, Player player) {
+        myController = new Controller();
         initialize(scene, player);
         initiateGame(gameBoard, player);
+
     }
 
     private void initialize(SceneChanger scene, Player player) {
@@ -33,7 +36,6 @@ public class GameTable {
         gameRoot.setAlignment(Pos.CENTER);
         gameRoot.setPadding(new Insets(1,1,1,1));
 
-        HBox topDisplay = new HBox();
 
         gameRoot.add(createMainMenuButton(), 0, 0);
 
@@ -45,12 +47,12 @@ public class GameTable {
 
         betTotalDisplay = new Text("Total Bet: $0");
         Button betButton = new Button("$1"); //This will probably have to be created in its own class
-        //betButton.setOnAction(event -> Controller.placeBet(1, null));
+        betButton.setOnAction(event -> myController.placeBet(1, null));
 
         Button clearBet = new Button("Clear Bet");
-        //clearBet.setOnAction(event -> Controller.clearBets());
+        clearBet.setOnAction(event -> myController.clearBets());
         Button playRound = new Button("Play Round");
-        //playRound.setOnAction(event -> Controller.playRound());
+        playRound.setOnAction(event -> myController.playRound());
 
         bottomLeftDisplay.getChildren().addAll(betTotalDisplay, betButton);
         bottomRightDisplay.getChildren().addAll(clearBet, playRound);
@@ -77,10 +79,10 @@ public class GameTable {
     private void initiateGame(GameBoard game, Player player) {
         Node gameDisplay = game.drawGame();
         gameRoot.add(gameDisplay, 1, 1);
-        Controller x = new Controller();
-        x.setGameTable(this, game);
-        x.startGame("SLOTS");
-        x.loadPlayer(player);
+
+        myController.setGameTable(this, game);
+        myController.startGame("SLOTS");
+        myController.loadPlayer(player);
     }
 
     public void updateBankRoll(int bankroll) {
