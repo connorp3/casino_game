@@ -3,25 +3,29 @@ package ooga;
 public class Bet {
 
     int amount;
-    boolean betActive;
     Player player;
 
-    public Bet(int betAmount, Player p) {
-        amount = betAmount;
+    public Bet(Player p) {
+        amount = 0;
         player = p;
-        player.setMyBankRoll(-betAmount);
-        betActive = true;
+    }
+
+    public void addFunds(int newAmount) {
+        amount = amount + newAmount;
+        player.setMyBankRoll(-newAmount);
     }
 
     void betWon(int multiplier) {
-        if (betActive) {
-            player.setMyBankRoll(amount * multiplier);
-            betActive = false;
-        }
+        player.setMyBankRoll(amount * multiplier);
     }
 
     void betLost() {
-        betActive = false;
+        amount = 0;
+    }
+
+    void cancel() {
+        amount = 0;
+        player.setMyBankRoll(amount);
     }
 
 }

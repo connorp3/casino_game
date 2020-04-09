@@ -6,7 +6,6 @@ public class Controller {
 
     Game game;
     Bet currentBet;
-    boolean betActive;
     Player currentPlayer;
     GameTable view;
     GameBoard board;
@@ -18,6 +17,7 @@ public class Controller {
     public void startGame(String type) {
         if (type.equals("SLOTS")) {
             game = new SlotMachineGame(3,3);
+            currentBet = new Bet(currentPlayer);
         }
     }
 
@@ -31,51 +31,49 @@ public class Controller {
 
     public void playRound() {
 
-        if (betActive) {
-            // Generate a random outcome for the game as a list of integers
-            List<Integer> symbols = game.generateRandomOutcome();
+        // Generate a random outcome for the game as a list of integers
+        List<Integer> symbols = game.generateRandomOutcome();
 
-            // Interpret the symbols
-            String result = game.checkOutcome(symbols);
+        // Interpret the symbols
+        String result = game.checkOutcome(symbols);
 
-            // calculates the payout multiple
-            int payoutMultiple = game.calculatePayoutMultiple(result);
+        // calculates the payout multiple
+        int payoutMultiple = game.calculatePayoutMultiple(result);
 
-            // update the bet
-            if (payoutMultiple == 0) {
-                currentBet.betLost();
-                if (currentPlayer.getMyBankRoll() == 0) {
-                    view.displayGameOver();
-                }
-            } else currentBet.betWon(payoutMultiple);
-            betActive = false;
+        // update the money amounts
+        updateAmounts(payoutMultiple);
 
-            // Send that outcome to the view
-            board.showOutcome(symbols);
+        // Send that outcome to the view
+        board.showOutcome(symbols);
 
-            // Send the interpretation to the view
-            // board.showMessage(result);
+        // Send the interpretation to the view
+        // board.showMessage(result);
 
-            // Send the payout update to the view
-            view.updateBankRoll(currentPlayer.getMyBankRoll());
+        // Send the payout update to the view
+        view.updateBankRoll(currentPlayer.getMyBankRoll());
+
+    }
+
+    private void updateAmounts(int payoutMultiple) {
+        if (payoutMultiple == 0) {
+            currentBet.betLost();
+            if (currentPlayer.getMyBankRoll() == 0) {
+                view.displayGameOver();
+            }
+        } else {
+            currentBet.betWon(payoutMultiple);
         }
-
     }
 
     public void placeBet(int amount, Object type) {
-        if (amount > 0) {
-            currentBet = new Bet(amount, currentPlayer);
-            view.updateBetTotal(amount);
-            view.updateBankRoll(currentPlayer.getMyBankRoll());
-            betActive = true;
-        }
+        currentBet.addFunds(amount);
+        view.updateBetTotal(amount);
+        view.updateBankRoll(currentPlayer.getMyBankRoll());
     }
 
     public void clearBets() {
-        currentBet = null;
-        betActive = false;
+        currentBet.cancel();
         view.updateBetTotal(0);
-        // add money back to player
         view.updateBankRoll(currentPlayer.getMyBankRoll());
     }
 
