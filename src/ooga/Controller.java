@@ -58,10 +58,12 @@ public class Controller {
         if (payoutMultiple == 0) {
             currentBet.betLost();
             if (currentPlayer.getMyBankRoll() == 0) {
+                view.updateBetTotal(0);
                 view.displayGameOver();
             }
         } else {
             currentBet.betWon(payoutMultiple);
+            view.updateBetTotal(0);
         }
     }
 
