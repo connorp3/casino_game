@@ -81,8 +81,9 @@ public class GameTable {
         gameRoot.add(gameDisplay, 1, 1);
 
         myController.setGameTable(this, game);
-        myController.startGame("SLOTS");
         myController.loadPlayer(player);
+        myController.startGame("SLOTS");
+
     }
 
     public void updateBankRoll(int bankroll) {
