@@ -44,20 +44,23 @@ public class Controller {
         // Send that outcome to the view
         board.showOutcome(symbols);
 
-        // Interpret the symbols
+        // Distribute payout according to outcome type
         String result = game.checkOutcome(symbols);
+        distributePayout(result);
 
+        updateScreen();
+
+        // Send the interpretation to the view - TBD
+        // board.showMessage(result);
+    }
+
+    private void distributePayout(String result) {
         if (result.equals(ALL_ALIGNED)) { // if it's a win
             betWon(result);
         }
         else { // if it's a loss
             betLost();
         }
-
-        updateScreen();
-
-        // Send the interpretation to the view - TBD
-        // board.showMessage(result);
     }
 
     private void betWon(String result) {
