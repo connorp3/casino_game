@@ -1,4 +1,4 @@
-package ooga;
+package ooga.model;
 
 public class Bet {
 
@@ -19,15 +19,15 @@ public class Bet {
         return amount;
     }
 
-    void betWon(int multiplier) {
+    public void betWon(int multiplier) {
         player.setMyBankRoll(amount * multiplier);
     }
 
-    void betLost() {
+    public void betLost() {
         amount = 0;
     }
 
-    void cancel() {
+    public void cancel() {
         amount = 0;
         player.setMyBankRoll(amount);
     }

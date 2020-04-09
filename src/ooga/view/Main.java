@@ -1,13 +1,8 @@
-package ooga;
+package ooga.view;
 
 
-import api.Backend.Game;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 

@@ -1,4 +1,4 @@
-package ooga;
+package ooga.model;
 
 public class Player {
     private int myBankRoll;

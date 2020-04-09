@@ -1,4 +1,11 @@
-package ooga;
+package ooga.controller;
+
+import ooga.model.Bet;
+import ooga.model.Game;
+import ooga.model.Player;
+import ooga.model.SlotMachineGame;
+import ooga.view.GameBoard;
+import ooga.view.GameTable;
 
 import java.util.List;
 

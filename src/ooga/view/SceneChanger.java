@@ -1,4 +1,4 @@
-package ooga;
+package ooga.view;
 
 import javafx.scene.Parent;
 

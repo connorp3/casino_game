@@ -1,4 +1,4 @@
-package ooga;
+package ooga.model;
 
 import java.util.List;
 

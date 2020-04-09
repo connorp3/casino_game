@@ -1,4 +1,6 @@
-package ooga;
+package ooga.model;
+
+import ooga.model.Game;
 
 import java.util.ArrayList;
 import java.util.List;

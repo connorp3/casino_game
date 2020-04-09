@@ -1,15 +1,15 @@
-package ooga;
+package ooga.view;
 
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import ooga.controller.Controller;
+import ooga.model.Player;
 
 //This will need to implement an interface to give restricted access of its public methods to each game
 public class GameTable {
