@@ -63,8 +63,8 @@ public class Controller {
             }
         } else {
             currentBet.betWon(payoutMultiple);
-            view.updateBetTotal(0);
         }
+        view.updateBetTotal(0);
     }
 
     public void placeBet(int amount, Object type) {
