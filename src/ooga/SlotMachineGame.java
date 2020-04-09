@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class SlotMachineGame {
+public class SlotMachineGame implements Game {
 
     public static final float CASINO_MULTIPLE = (float) 0.95;
 
@@ -19,7 +19,7 @@ public class SlotMachineGame {
     }
 
     // generate a random outcome for the game as a list of integers
-    public List<Integer> spinReels() {
+    public List<Integer> generateRandomOutcome() {
         List<Integer> listOfSymbols = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < reelCount; i++) {

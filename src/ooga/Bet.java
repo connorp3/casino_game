@@ -18,9 +18,6 @@ public class Bet {
             player.setMyBankRoll(amount * multiplier);
             betActive = false;
         }
-        else {
-            System.out.println("You need to place a bet in order to play");
-        }
     }
 
     void betLost() {

@@ -77,7 +77,8 @@ public class GameTable {
     private void initiateGame(GameBoard game, Player player) {
         Node gameDisplay = game.drawGame();
         gameRoot.add(gameDisplay, 1, 1);
-        SlotMachineGame x = new SlotMachineGame(player, this, game);
+        Controller x = new Controller();
+        x.startGame("SLOTS");
     }
 
     public void updateBankRoll(int bankroll) {

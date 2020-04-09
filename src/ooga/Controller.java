@@ -4,34 +4,62 @@ import java.util.List;
 
 public class Controller {
 
-    SlotMachineGame game;
+    Game game;
     Bet currentBet;
     boolean betActive;
+    Player currentPlayer;
 
     public Controller() {
-        game = new SlotMachineGame(3,3);
+
+    }
+
+    public void startGame(String type) {
+        if (type.equals("SLOTS")) {
+            game = new SlotMachineGame(3,3);
+        }
+    }
+
+    public void updatePlayer(Player player) {
+        currentPlayer = player;
+    }
+
+    public void endGame() {
+        game = null;
     }
 
     public void playRound() {
 
         if (betActive) {
-            // generate a random outcome for the game as a list of integers
-            List<Integer> symbols = game.spinReels();
+            // Generate a random outcome for the game as a list of integers
+            List<Integer> symbols = game.generateRandomOutcome();
 
-            // interprets the symbols
+            // Interpret the symbols
             String result = game.checkOutcome(symbols);
 
             // calculates the payout multiple
             int payoutMultiple = game.calculatePayoutMultiple(result);
-
             betActive = false;
+
+            // update the bet
+            if (payoutMultiple == 0) {
+                currentBet.betLost();
+            }
+            else {
+                currentBet.betWon(payoutMultiple);
+            }
+
+            // Send that outcome to the view
+
+            // Send the interpretation to the view
+
+            // Send the payout to the view
         }
 
     }
 
-    public void placeBet(int amount, Object type, Player player) {
+    public void placeBet(int amount, Object type) {
         if (amount > 0) {
-            currentBet = new Bet(amount, player);
+            currentBet = new Bet(amount, currentPlayer);
             betActive = true;
         }
     }
