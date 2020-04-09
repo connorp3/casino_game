@@ -2,9 +2,11 @@ package ooga;
 
 import javafx.scene.Node;
 
+import java.util.List;
+
 public interface GameBoard {
 
     Node drawGame();
-    void showOutcome(Object outcome);
+    void showOutcome(List<Integer> outcome);
 
 }

@@ -68,11 +68,11 @@ public class SlotMachineGame {
     }
 
     public static void main (String[] args) {
-        SlotMachineGame test = new SlotMachineGame(new Player(100000, "SlotMachine"));
-        for (int i = 0; i < 100000; i++) {
-            test.placeBet(1);
-            test.spinReels();
-        }
+        //SlotMachineGame test = new SlotMachineGame(new Player(100000, "SlotMachine"));
+        //for (int i = 0; i < 100000; i++) {
+            //test.placeBet(1);
+            //test.spinReels();
+        //}
 
     }
 

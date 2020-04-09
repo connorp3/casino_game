@@ -6,13 +6,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SlotMachineBoard implements GameBoard {
     private HBox myWheels;
     private List<Text> myOutcome;
+    private Map<Integer, Node> displaySymbols;
     public SlotMachineBoard() {
         myWheels = new HBox();
+        myWheels.setSpacing(20);
         Text wheel1 = new Text("1");
         Text wheel2 = new Text("1");
         Text wheel3 = new Text("1");
@@ -21,20 +25,27 @@ public class SlotMachineBoard implements GameBoard {
         myOutcome.add(wheel2);
         myOutcome.add(wheel3);
 
+        displaySymbols = new HashMap<Integer, Node>();   //Turn this into a properties file
+        for(int x = 0; x<=2; x++) {
+            displaySymbols.put(x+1, new Text("1"));
+        }
+
+
     }
     @Override
     public Node drawGame() {
-        int colInd = 0;
         for(Node wheel : myOutcome) {
             myWheels.getChildren().add(wheel);
-            colInd++;
         }
         return myWheels;
     }
 
     @Override
-    public void showOutcome(Object outcome) {
-        outcome = (List<Text>) outcome;
+    public void showOutcome(List<Integer> outcome) {
+        for(int currWheel : outcome) {
+            myWheels.getChildren().add(displaySymbols.get(currWheel));
+        }
+
 
     }
 
