@@ -66,6 +66,7 @@ public class Controller {
         if (amount > 0) {
             currentBet = new Bet(amount, currentPlayer);
             view.updateBetTotal(amount);
+            view.updateBankRoll(currentPlayer.getMyBankRoll());
             betActive = true;
         }
     }
@@ -73,6 +74,9 @@ public class Controller {
     public void clearBets() {
         currentBet = null;
         betActive = false;
+        view.updateBetTotal(0);
+        // add money back to player
+        view.updateBankRoll(currentPlayer.getMyBankRoll());
     }
 
     public void setGameTable(GameTable gameTable, GameBoard game) {
