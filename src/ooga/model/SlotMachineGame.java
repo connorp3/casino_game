@@ -9,18 +9,27 @@ import java.util.Random;
 public class SlotMachineGame implements Game {
 
     public static final float CASINO_MULTIPLE = (float) 0.95;
+    public static final String ALL_ALIGNED = "ALL_ALIGNED";
+    public static final String LOSS = "LOSS";
 
     int reelCount;
     int symbolCount;
     int allAlignedMultiple;
 
+    /**
+     * Creates a new slot machine game
+     * @param reels - number of reels to use in the simulation
+     * @param symbols - number of symbols to use in the simulation
+     */
     public SlotMachineGame(int reels, int symbols) {
         reelCount = reels;
         symbolCount = symbols;
         allAlignedMultiple = (int) (Math.pow(symbolCount, reelCount-1) * CASINO_MULTIPLE);
     }
 
-    // generate a random outcome for the game as a list of integers
+    /**
+     * Generating a random outcome for the game
+     */
     public List<Integer> generateRandomOutcome() {
         List<Integer> listOfSymbols = new ArrayList<>();
         Random random = new Random();
@@ -30,19 +39,23 @@ public class SlotMachineGame implements Game {
         return listOfSymbols;
     }
 
-    // check the outcome of the round for a winning/losing event
+    /**
+     * Checking the outcome to determine what event it corresponds to
+     */
     public String checkOutcome(List<Integer> result) {
         if (areAllAligned(result)) {
-            return "ALL_ALIGNED";
+            return ALL_ALIGNED;
         }
         else {
-            return "LOSS";
+            return LOSS;
         }
     }
 
-    // calculates the payout multiple
+    /**
+     * Given an event that took place, calculates the appropriate payout multiple
+     */
     public int calculatePayoutMultiple(String outcome) {
-        if (outcome.equals("ALL_ALIGNED")) {
+        if (outcome.equals(ALL_ALIGNED)) {
             return allAlignedMultiple;
         }
         else {
