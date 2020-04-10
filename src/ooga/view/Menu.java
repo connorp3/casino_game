@@ -71,7 +71,6 @@ public class Menu {
         Button GameButton = new Button(game);
         GameButton.setOnAction(event -> setUpGame(game));
         GameButton.setId(game);
-        System.out.println(game);
         return GameButton;
     }
 
