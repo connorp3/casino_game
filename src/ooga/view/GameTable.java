@@ -1,9 +1,7 @@
-package ooga;
+package ooga.view;
 
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,6 +9,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import ooga.controller.Controller;
+import ooga.model.Player;
 
 //This will need to implement an interface to give restricted access of its public methods to each game
 public class GameTable {
@@ -19,11 +19,14 @@ public class GameTable {
     Text bankrollDisplay;
     Text betTotalDisplay;
     Stage gameOverWindow;
+    Controller myController;
 
 
     public GameTable(SceneChanger scene, GameBoard gameBoard, Player player) {
+        myController = new Controller();
         initialize(scene, player);
         initiateGame(gameBoard, player);
+
     }
 
     private void initialize(SceneChanger scene, Player player) {
@@ -45,12 +48,12 @@ public class GameTable {
 
         betTotalDisplay = new Text("Total Bet: $0");
         Button betButton = new Button("$1"); //This will probably have to be created in its own class
-        //betButton.setOnAction(event -> Controller.placeBet(1, null));
+        betButton.setOnAction(event -> myController.placeBet(1, null));
 
         Button clearBet = new Button("Clear Bet");
-        //clearBet.setOnAction(event -> Controller.clearBets());
+        clearBet.setOnAction(event -> myController.clearBets());
         Button playRound = new Button("Play Round");
-        //playRound.setOnAction(event -> Controller.playRound());
+        playRound.setOnAction(event -> myController.playRound());
 
         bottomLeftDisplay.getChildren().addAll(betTotalDisplay, betButton);
         bottomRightDisplay.getChildren().addAll(clearBet, playRound);
@@ -62,6 +65,7 @@ public class GameTable {
 
     private void Quit() {
         gameRoot.getChildren().clear();
+
         if(gameOverWindow != null){
             gameOverWindow.close();
         }
@@ -79,7 +83,11 @@ public class GameTable {
     private void initiateGame(GameBoard game, Player player) {
         Node gameDisplay = game.drawGame();
         gameRoot.add(gameDisplay, 1, 1);
-        SlotMachineGame x = new SlotMachineGame(player, this, game);
+
+        myController.setGameTable(this, game);
+        myController.loadPlayer(player);
+        myController.startGame("SLOTS");
+
     }
 
     public void updateBankRoll(int bankroll) {

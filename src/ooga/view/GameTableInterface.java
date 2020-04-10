@@ -1,4 +1,4 @@
-package ooga;
+package ooga.view;
 
 public interface GameTableInterface {
 

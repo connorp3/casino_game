@@ -1,16 +1,15 @@
-package ooga;
+package ooga.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-
-
+import ooga.model.Player;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
