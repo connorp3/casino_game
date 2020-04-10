@@ -1,10 +1,15 @@
 package ooga;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +40,8 @@ public class Menu {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + RESOURCES_FILE);
         myScene = scene;
         menuRoot = new GridPane();
+        menuRoot.setId("menuRoot");
+        menuRoot.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         scene.setRoot(menuRoot);
         menuRoot.setAlignment(Pos.CENTER);
         menuRoot.setHgap(Double.parseDouble(myResources.getString("HorizontalSpacing")));
@@ -65,6 +72,7 @@ public class Menu {
         Button GameButton = new Button(game);
         GameButton.setOnAction(event -> setUpGame(game));
         GameButton.setId(game);
+        System.out.println(game);
         return GameButton;
     }
 

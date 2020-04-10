@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -28,12 +29,11 @@ public class GameTable {
     private void initialize(SceneChanger scene, Player player) {
         myScene = scene;
         gameRoot = new GridPane();
+        gameRoot.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         gameRoot.setHgap(100);
         gameRoot.setVgap(150);
         gameRoot.setAlignment(Pos.CENTER);
         gameRoot.setPadding(new Insets(1,1,1,1));
-
-        HBox topDisplay = new HBox();
 
         gameRoot.add(createMainMenuButton(), 0, 0);
 
@@ -62,7 +62,9 @@ public class GameTable {
 
     private void Quit() {
         gameRoot.getChildren().clear();
-        gameOverWindow.close();
+        if(gameOverWindow != null){
+            gameOverWindow.close();
+        }
         new Menu(myScene);
 
     }
