@@ -9,6 +9,8 @@ import java.util.Random;
 public class SlotMachineGame implements Game {
 
     public static final float CASINO_MULTIPLE = (float) 0.95;
+    public static final String ALL_ALIGNED = "ALL_ALIGNED";
+    public static final String LOSS = "LOSS";
 
     int reelCount;
     int symbolCount;
@@ -33,16 +35,16 @@ public class SlotMachineGame implements Game {
     // check the outcome of the round for a winning/losing event
     public String checkOutcome(List<Integer> result) {
         if (areAllAligned(result)) {
-            return "ALL_ALIGNED";
+            return ALL_ALIGNED;
         }
         else {
-            return "LOSS";
+            return LOSS;
         }
     }
 
     // calculates the payout multiple
     public int calculatePayoutMultiple(String outcome) {
-        if (outcome.equals("ALL_ALIGNED")) {
+        if (outcome.equals(ALL_ALIGNED)) {
             return allAlignedMultiple;
         }
         else {

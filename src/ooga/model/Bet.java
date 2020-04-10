@@ -2,11 +2,12 @@ package ooga.model;
 
 public class Bet {
 
+    public static final int NULL_AMOUNT = 0;
     int amount;
     Player player;
 
     public Bet(Player p) {
-        amount = 0;
+        amount = NULL_AMOUNT;
         player = p;
     }
 
@@ -21,16 +22,16 @@ public class Bet {
 
     public void betWon(int multiplier) {
         player.setMyBankRoll(amount * multiplier);
-        amount = 0;
+        amount = NULL_AMOUNT;
     }
 
     public void betLost() {
-        amount = 0;
+        amount = NULL_AMOUNT;
     }
 
     public void cancel() {
         player.setMyBankRoll(amount);
-        amount = 0;
+        amount = NULL_AMOUNT;
     }
 
 }

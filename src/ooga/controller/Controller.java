@@ -15,6 +15,7 @@ public class Controller {
     public static final int DEFAULT_SLOTS_SYMBOLS = 3;
     public static final String ALL_ALIGNED = "ALL_ALIGNED";
     public static final String SLOTS = "SLOTS";
+    public static final int NULL_AMOUNT = 0;
 
     Game game;
     Bet currentBet;
@@ -77,7 +78,7 @@ public class Controller {
     private void betLost() {
         currentBet.betLost();
         resetCurrentBet();
-        if (currentPlayer.getMyBankRoll() == 0) {
+        if (currentPlayer.getMyBankRoll() == NULL_AMOUNT) {
             view.displayGameOver();
         }
     }
