@@ -23,6 +23,7 @@ Connor:
 - 4/5/20: 1 hour (Plan presentation)
 - 4/6/20: 2.5 hours (Added Player and GameBoard classes (GameBoard extremely hard-coded currently))
 - 4/8/20: 3 hours (Planning interaction between frontend/backend, team meeting, basic implementation of frontend buttons/display)
+- 4/9/20: 3.5 hours (Integrating frontend and backend, debugging after integration, writing tests)
 
 ### Primary Roles
 
