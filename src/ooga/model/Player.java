@@ -5,6 +5,11 @@ public class Player {
     private int maxBankRoll;
     private String myCurrentGame;
 
+    /**
+     * Creates a new player
+     * @param bankroll - bankroll the player starts with - cannot be changed later
+     * @param currentGame - type of game the player is playing currently
+     */
     public Player(int bankroll, String currentGame) {
         myBankRoll = bankroll;
         maxBankRoll = bankroll;

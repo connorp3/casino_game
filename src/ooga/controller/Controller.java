@@ -23,9 +23,21 @@ public class Controller {
     GameTable view;
     GameBoard board;
 
+
+    /**
+    Creating the controller that will manage the casino games holistically
+     The controller will not be functional unless you also call the
+     startGame(String type), loadPlayer(Player player), and
+     setGameTable(GameTable gameTable, GameBoard game) methods.
+     */
     public Controller() {
     }
 
+    /**
+    Defining a game for the Controller
+    @param type - String containing the type of game to initiate
+                - SLOTS for a slot machine game
+     */
     public void startGame(String type) {
         if (type.equals(SLOTS)) {
             game = new SlotMachineGame(DEFAULT_SLOTS_REELS, DEFAULT_SLOTS_SYMBOLS);
@@ -33,10 +45,45 @@ public class Controller {
         }
     }
 
+    /**
+     Loading a player to interact with the Controller
+     @param player - Player object
+     */
     public void loadPlayer(Player player) {
         currentPlayer = player;
     }
 
+    /**
+     Placing a bet or adding an amount to an existing bet
+     @param amount - int with the amount of the bet
+     */
+    public void placeBet(int amount, Object type) {
+        currentBet.addFunds(amount);
+        updateScreen();
+    }
+
+    /**
+     Clears the existing bet and resets the bet amount to 0
+     */
+    public void clearBets() {
+        currentBet.cancel();
+        resetCurrentBet();
+        updateScreen();
+    }
+
+    /**
+     Connecting the GameTable and GameBoard in order for the controller to communicate with the view
+     @param gameTable - GameTable for the game
+     @param game - GameBoard for the game
+     */
+    public void setGameTable(GameTable gameTable, GameBoard game) {
+        view = gameTable;
+        board = game;
+    }
+
+    /**
+     Playing a round of a game and updating the view
+     */
     public void playRound() {
 
         // Generate a random outcome for the game as a list of integers
@@ -88,19 +135,5 @@ public class Controller {
         view.updateBankRoll(currentPlayer.getMyBankRoll());
     }
 
-    public void placeBet(int amount, Object type) {
-        currentBet.addFunds(amount);
-        updateScreen();
-    }
 
-    public void clearBets() {
-        currentBet.cancel();
-        resetCurrentBet();
-        updateScreen();
-    }
-
-    public void setGameTable(GameTable gameTable, GameBoard game) {
-        view = gameTable;
-        board = game;
-    }
 }
