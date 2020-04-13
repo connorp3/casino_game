@@ -10,6 +10,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import ooga.model.Player;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -67,17 +70,38 @@ public class Menu {
         return gamesList;
     }
 
-    private Button makeButton(String game) { //This will need to access a properties file and determine the proper settings for each game button
-        Button GameButton = new Button(game);
-        GameButton.setOnAction(event -> setUpGame(game));
+    private Button makeButton(String game) {
+        ResourceBundle gameResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + game);//This will need to access a properties file and determine the proper settings for each game button
+        Button GameButton = new Button(gameResources.getString("ButtonLabel"));
+        GameButton.setOnAction(event -> {
+            try {
+                setUpGame(gameResources);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        });
         GameButton.setId(game);
         return GameButton;
     }
 
-    private void setUpGame(String game) { //should take argument that tells it which game it should set up
+    private void setUpGame(ResourceBundle gameResources) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException { //should take argument that tells it which game it should set up
         menuRoot.getChildren().clear();
-        SlotMachineBoard gameBoard = new SlotMachineBoard();
-        myPlayer.setMyCurrentGame(game);
+
+        String game = gameResources.getString("GameClass");
+        Class gameClass = Class.forName(game);
+        Constructor gameConstructor = gameClass.getConstructor(ResourceBundle.class);
+        ResourceBundle gameMode = ResourceBundle.getBundle(gameResources.getString("DefaultGameMode"));
+        GameBoard gameBoard = (GameBoard) gameConstructor.newInstance((gameMode));
+
+        myPlayer.setMyCurrentGame(gameResources.getString("GameTitle"));
         new GameTable(myScene, gameBoard, myPlayer);
 
 
