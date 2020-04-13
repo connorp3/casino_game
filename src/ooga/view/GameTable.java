@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import ooga.controller.Controller;
 import ooga.model.Player;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 //This will need to implement an interface to give restricted access of its public methods to each game
 public class GameTable {
     GridPane gameRoot;
@@ -22,7 +25,7 @@ public class GameTable {
     Controller myController;
 
 
-    public GameTable(SceneChanger scene, GameBoard gameBoard, Player player) {
+    public GameTable(SceneChanger scene, GameBoard gameBoard, Player player) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         myController = new Controller();
         initialize(scene, player);
         initiateGame(gameBoard, player);
@@ -52,6 +55,7 @@ public class GameTable {
         betTotalDisplay.setId("betTotalDisplay");
         Button betButton = new Button("$1"); //This will probably have to be created in its own class
         betButton.setOnAction(event -> myController.placeBet(1, null));
+        betButton.setDisable(myController.isBetZero()); //Need this controller method
         betButton.setId("betButton");
 
         Button clearBet = new Button("Clear Bet");
@@ -86,8 +90,11 @@ public class GameTable {
         return MainMenuButton;
     }
 
-    private void initiateGame(GameBoard game, Player player) {
-        Node gameDisplay = game.drawGame();
+    private void initiateGame(GameBoard game, Player player) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class gameClass = game.getClass();
+        Class gameInterface = gameClass.getInterfaces()[0];
+        Method m = gameInterface.getMethod("drawGame");
+        Node gameDisplay = (Node) m.invoke(game);
         gameRoot.add(gameDisplay, 1, 1);
 
         myController.setGameTable(this, game);
@@ -119,4 +126,5 @@ public class GameTable {
     public void updateBetTotal(int amount) {
         betTotalDisplay.setText("Total Bet: $" + amount);
     }
+
 }

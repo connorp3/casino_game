@@ -4,31 +4,23 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SlotMachineBoard implements GameBoard {
     private HBox myWheels;
     private List<Text> myOutcome;
-    private Map<Integer, Node> displaySymbols;
-    public SlotMachineBoard() {
+    private ResourceBundle myGameMode;
+    public SlotMachineBoard(ResourceBundle gameMode) {
+        myGameMode = gameMode;
         myWheels = new HBox();
         myWheels.setSpacing(20);
-        Text wheel1 = new Text("1");
-        Text wheel2 = new Text("1");
-        Text wheel3 = new Text("1");
+
+        int numReels = Integer.parseInt(myGameMode.getString("NumReels"));
         myOutcome = new ArrayList<Text>();
-        myOutcome.add(wheel1);
-        myOutcome.add(wheel2);
-        myOutcome.add(wheel3);
 
-        displaySymbols = new HashMap<Integer, Node>();   //Turn this into a properties file
-        for(int x = 0; x<=2; x++) {
-            displaySymbols.put(x+1, new Text(Integer.toString(x+1)));
+        for(int x =1; x<=numReels; x++) {
+            myOutcome.add(new Text(myGameMode.getString("0")));
         }
-
 
     }
     @Override
@@ -43,7 +35,7 @@ public class SlotMachineBoard implements GameBoard {
     public void showOutcome(List<Integer> outcome) {
         myWheels.getChildren().clear();
         for(int currWheel : outcome) {
-            myWheels.getChildren().add(new Text(Integer.toString(currWheel)));
+            myWheels.getChildren().add(new Text(myGameMode.getString(Integer.toString(currWheel))));
         }
 
 

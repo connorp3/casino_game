@@ -15,6 +15,9 @@ import ooga.view.SlotMachineBoard;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTableTest extends DukeApplicationTest {
@@ -28,12 +31,12 @@ class GameTableTest extends DukeApplicationTest {
     private Button mainMenuButton;
     private GameTable gameTable;
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Group root = new Group();
         testScene = new GameScene(root, 500, 500, Color.GREEN);
 
         Player myPlayer = new Player(10, null);
-        SlotMachineBoard gameBoard = new SlotMachineBoard();
+        SlotMachineBoard gameBoard = new SlotMachineBoard(ResourceBundle.getBundle("src.resources.SlotMachineGameModes.default"));
 
         gameTable = new GameTable(testScene, gameBoard, myPlayer);
 
