@@ -24,7 +24,10 @@ Connor:
 - 4/6/20: 2.5 hours (Added Player and GameBoard classes (GameBoard extremely hard-coded currently))
 - 4/8/20: 3 hours (Planning interaction between frontend/backend, team meeting, basic implementation of frontend buttons/display)
 - 4/9/20: 3.5 hours (Integrating frontend and backend, debugging after integration, writing tests)
-
+- 4/11/20: 0.5 hours (Investigating reflection tools relevant to frontend)
+- 4/12/20: 2 hours (Office hours to discuss using reflection, Sprint 1 presentation)
+- 4/13/20: 1.5 hours (Implementing reflection for the Menu, creating data files to do so)
+- 4/14/20: 1 hour (Creating RouletteBoard for the frontend display)
 ### Primary Roles
 
 

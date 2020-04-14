@@ -55,7 +55,7 @@ public class GameTable {
         betTotalDisplay.setId("betTotalDisplay");
         Button betButton = new Button("$1"); //This will probably have to be created in its own class
         betButton.setOnAction(event -> myController.placeBet(1, null));
-        betButton.setDisable(myController.isBetZero()); //Need this controller method
+        //betButton.setDisable(myController.isBetZero()); //Need this controller method
         betButton.setId("betButton");
 
         Button clearBet = new Button("Clear Bet");
