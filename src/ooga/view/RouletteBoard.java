@@ -37,5 +37,7 @@ public class RouletteBoard implements GameBoard {
     public void showOutcome(List<Integer> outcome) {
        // myOutcome.setText(outcome.getNum());
        // myOutcome.setFill(wheelColors.get(outcome.getColor()));
+        myOutcome.setText("34");
+        myOutcome.setFill(Color.RED);
     }
 }

@@ -14,6 +14,9 @@ import ooga.model.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 //This will need to implement an interface to give restricted access of its public methods to each game
 public class GameTable {
@@ -23,6 +26,7 @@ public class GameTable {
     Text betTotalDisplay;
     Stage gameOverWindow;
     Controller myController;
+    ResourceBundle buttonResources;
 
 
     public GameTable(SceneChanger scene, GameBoard gameBoard, Player player) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -32,7 +36,7 @@ public class GameTable {
 
     }
 
-    private void initialize(SceneChanger scene, Player player) {
+    private void initialize(SceneChanger scene, Player player) throws NoSuchMethodException {
         myScene = scene;
         gameRoot = new GridPane();
         gameRoot.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -41,6 +45,7 @@ public class GameTable {
         gameRoot.setAlignment(Pos.CENTER);
         gameRoot.setPadding(new Insets(1,1,1,1));
         gameRoot.setId("gameDisplay");
+        buttonResources = ResourceBundle.getBundle("resources.GameTableButtons");
 
         gameRoot.add(createMainMenuButton(), 0, 0);
 
@@ -55,22 +60,49 @@ public class GameTable {
         betTotalDisplay.setId("betTotalDisplay");
         Button betButton = new Button("$1"); //This will probably have to be created in its own class
         betButton.setOnAction(event -> myController.placeBet(1, null));
+        Method m = myController.getClass().getMethod("placeBet", int.class, Object.class);
         //betButton.setDisable(myController.isBetZero()); //Need this controller method
-        betButton.setId("betButton");
+        betButton.setId("betButton1");
 
-        Button clearBet = new Button("Clear Bet");
-        clearBet.setOnAction(event -> myController.clearBets());
-        clearBet.setId("clearBet");
-        Button playRound = new Button("Play Round");
-        playRound.setOnAction(event -> myController.playRound());
-        playRound.setId("playRound");
+        //Button clearBet = new Button("Clear Bet");
+        //clearBet.setOnAction(event -> myController.clearBets());
+        //clearBet.setId("clearBet");
+        //Button playRound = new Button("Play Round");
+        //playRound.setOnAction(event -> myController.playRound());
+        //playRound.setId("playRound");
+        bottomRightDisplay.getChildren().addAll(createGamePlayButtons());
 
         bottomLeftDisplay.getChildren().addAll(betTotalDisplay, betButton);
-        bottomRightDisplay.getChildren().addAll(clearBet, playRound);
+        //bottomRightDisplay.getChildren().addAll(clearBet, playRound);
         gameRoot.add(bottomLeftDisplay, 0, 2);
         gameRoot.add(bottomRightDisplay, 2, 2);
 
         myScene.setRoot(gameRoot);
+    }
+
+    private void createBetButtons() throws NoSuchMethodException {
+
+    }
+
+    private List<Button> createGamePlayButtons() throws NoSuchMethodException {
+        List<Button> gamePlayButtons = new ArrayList<>();
+        for (String key : buttonResources.keySet()) {
+            String[] buttonProperties = buttonResources.getString(key).split(",");
+            Button button = new Button(buttonProperties[0]);
+            button.setId(key);
+            Method m = myController.getClass().getMethod(buttonProperties[1]);
+            button.setOnAction(event -> {
+                try {
+                    m.invoke(myController);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            });
+            gamePlayButtons.add(button);
+        }
+        return gamePlayButtons;
     }
 
     private void Quit() {
@@ -94,7 +126,9 @@ public class GameTable {
         Class gameClass = game.getClass();
         Class gameInterface = gameClass.getInterfaces()[0];
         Method m = gameInterface.getMethod("drawGame");
-        Node gameDisplay = (Node) m.invoke(game);
+        System.out.print(m);
+        //Node gameDisplay = (Node) m.invoke(game);
+        Node gameDisplay = game.drawGame();
         gameRoot.add(gameDisplay, 1, 1);
 
         myController.setGameTable(this, game);
