@@ -33,7 +33,7 @@ class GameTableTest extends DukeApplicationTest {
     @Override
     public void start(Stage stage) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Group root = new Group();
-        testScene = new GameScene(root, 500, 500, Color.GREEN);
+        testScene = new GameScene(root, 500, 500);
 
         Player myPlayer = new Player(10, null);
         SlotMachineBoard gameBoard = new SlotMachineBoard(ResourceBundle.getBundle("src.resources.SlotMachineGameModes.default"));

@@ -50,6 +50,7 @@ public class GameTable {
         gameRoot.add(createMainMenuButton(), 0, 0);
 
         bankrollDisplay = new Text("BankRoll: $" + player.getMyBankRoll());
+        //bankrollDisplay.setFill(Color.WHITE);
         bankrollDisplay.setId("bankrollDisplay");
         gameRoot.add(bankrollDisplay, 1, 0);
 
@@ -57,6 +58,7 @@ public class GameTable {
         VBox bottomRightDisplay = new VBox(20);
 
         betTotalDisplay = new Text("Total Bet: $0");
+        //betTotalDisplay.setFill(Color.WHITE);
         betTotalDisplay.setId("betTotalDisplay");
         Button betButton = new Button("$1"); //This will probably have to be created in its own class
         betButton.setOnAction(event -> myController.placeBet(1, null));

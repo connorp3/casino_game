@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -21,11 +22,13 @@ public class Menu {
     private static final String RESOURCES = "resources/";
     public static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES.replace("/", ".");
     public static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES;
-    public static final String RESOURCES_FILE = "MenuGames";
+    public static final String GAME_RESOURCES_FILE = "MenuGames";
+    public static final String STYLING_RESOURCES_FILE = "Styles";
 
     private GridPane menuRoot;
     private SceneChanger myScene;
     private ResourceBundle myResources;
+    private ResourceBundle myStyles;
     private Player myPlayer;
 
     public Menu(SceneChanger scene) {
@@ -39,10 +42,12 @@ public class Menu {
     }
 
     private void initialize(SceneChanger scene) {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + RESOURCES_FILE);
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + GAME_RESOURCES_FILE);
+        myStyles = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + STYLING_RESOURCES_FILE);
         myScene = scene;
         menuRoot = new GridPane();
         menuRoot.setId("menuRoot");
+        menuRoot.add(createStyleDropdown(), 0, 0);
         menuRoot.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         scene.setRoot(menuRoot);
         menuRoot.setAlignment(Pos.CENTER);
@@ -55,7 +60,7 @@ public class Menu {
 
     private void makeGameButtons(List<String> games) {
         int colInd = 0;
-        int rowInd = 0;
+        int rowInd = 1;
         for(String game : games) {
             menuRoot.add(makeButton(game), colInd, rowInd);
             if(colInd < 4) { colInd += 1;}
@@ -103,7 +108,17 @@ public class Menu {
 
         myPlayer.setMyCurrentGame(gameResources.getString("GameTitle"));
         new GameTable(myScene, gameBoard, myPlayer);
+    }
 
+    private ChoiceBox<String> createStyleDropdown() {
+        ChoiceBox<String> styles = new ChoiceBox();
+        styles.getItems().addAll(myStyles.keySet());
+        styles.setOnAction(e -> applyNewStyle(styles.getValue()));
+        return styles;
+    }
 
+    private void applyNewStyle(String style) {
+        myScene.getStylesheets().clear();
+        myScene.getStylesheets().add(myStyles.getString(style));
     }
 }

@@ -26,7 +26,7 @@ class MenuTest extends DukeApplicationTest {
     @Override
     public void start(Stage stage) {
         Group root = new Group();
-        testScene = new GameScene(root, 500, 500, Color.GREEN);
+        testScene = new GameScene(root, 500, 500);
         new Menu(testScene);
         stage.setScene(testScene);
 

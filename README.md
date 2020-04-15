@@ -27,7 +27,8 @@ Connor:
 - 4/11/20: 0.5 hours (Investigating reflection tools relevant to frontend)
 - 4/12/20: 2 hours (Office hours to discuss using reflection, Sprint 1 presentation)
 - 4/13/20: 1.5 hours (Implementing reflection for the Menu, creating data files to do so)
-- 4/14/20: 1 hour (Creating RouletteBoard for the frontend display)
+- 4/14/20: 2.5 hours (Creating RouletteBoard for the frontend display, attempting to apply reflection to GameTable)
+- 4/15/20: 2 hours (Implementing dark mode using CSS files)
 ### Primary Roles
 
 
