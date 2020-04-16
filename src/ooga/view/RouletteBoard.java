@@ -67,7 +67,7 @@ public class RouletteBoard implements GameBoard {
         for(String bet : betLabels) {
             Button betButton = new Button(bet);
             betButton.setId(bet);
-            betButton.setOnAction(e -> myController.placeBet(1, betOptions.getValue()), myBetTypes.getString(betOptions.getValue()));
+            //betButton.setOnAction(e -> myController.placeBet(1, betOptions.getValue()), myBetTypes.getString(betOptions.getValue()));
             betButtons.getChildren().add(betButton);
         }
         return betButtons;
