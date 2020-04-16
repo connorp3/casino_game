@@ -1,8 +1,10 @@
 package ooga.view;
 
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import ooga.controller.Controller;
 
 import java.util.*;
 
@@ -39,6 +41,24 @@ public class SlotMachineBoard implements GameBoard {
         }
 
 
+    }
+
+    @Override
+    public HBox createBetButtons(Controller myController) {
+        List<String> betLabels = new ArrayList();
+        betLabels.add("$1");
+        betLabels.add("$5");
+        betLabels.add("$10");
+        betLabels.add("$20");
+
+        HBox betButtons = new HBox(5);
+        for(String bet : betLabels) {
+            Button betButton = new Button(bet);
+            betButton.setId(bet);
+            betButton.setOnAction(e -> myController.placeBet(1,null));
+            betButtons.getChildren().add(betButton);
+        }
+        return betButtons;
     }
 
 }

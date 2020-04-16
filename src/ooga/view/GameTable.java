@@ -26,13 +26,15 @@ public class GameTable {
     Text betTotalDisplay;
     Stage gameOverWindow;
     Controller myController;
+    GameBoard myGameBoard;
     ResourceBundle buttonResources;
 
 
     public GameTable(SceneChanger scene, GameBoard gameBoard, Player player) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         myController = new Controller();
+        myGameBoard = gameBoard;
         initialize(scene, player);
-        initiateGame(gameBoard, player);
+        initiateGame(player);
 
     }
 
@@ -58,11 +60,9 @@ public class GameTable {
 
         betTotalDisplay = new Text("Total Bet: $0");
         betTotalDisplay.setId("betTotalDisplay");
-        Button betButton = new Button("$1"); //This will probably have to be created in its own class
-        betButton.setOnAction(event -> myController.placeBet(1, null));
-        Method m = myController.getClass().getMethod("placeBet", int.class, Object.class);
+
         //betButton.setDisable(myController.isBetZero()); //Need this controller method
-        betButton.setId("betButton1");
+
 
         //Button clearBet = new Button("Clear Bet");
         //clearBet.setOnAction(event -> myController.clearBets());
@@ -72,16 +72,12 @@ public class GameTable {
         //playRound.setId("playRound");
         bottomRightDisplay.getChildren().addAll(createGamePlayButtons());
 
-        bottomLeftDisplay.getChildren().addAll(betTotalDisplay, betButton);
+        bottomLeftDisplay.getChildren().addAll(betTotalDisplay, myGameBoard.createBetButtons(myController));
         //bottomRightDisplay.getChildren().addAll(clearBet, playRound);
         gameRoot.add(bottomLeftDisplay, 0, 2);
         gameRoot.add(bottomRightDisplay, 2, 2);
 
         myScene.setRoot(gameRoot);
-    }
-
-    private void createBetButtons() throws NoSuchMethodException {
-
     }
 
     private List<Button> createGamePlayButtons() throws NoSuchMethodException {
@@ -122,16 +118,15 @@ public class GameTable {
         return MainMenuButton;
     }
 
-    private void initiateGame(GameBoard game, Player player) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Class gameClass = game.getClass();
-        Class gameInterface = gameClass.getInterfaces()[0];
-        Method m = gameInterface.getMethod("drawGame");
-        System.out.print(m);
+    private void initiateGame(Player player) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        //Class gameClass = game.getClass();
+        //Class gameInterface = gameClass.getInterfaces()[0];
+        //Method m = gameInterface.getMethod("drawGame");
         //Node gameDisplay = (Node) m.invoke(game);
-        Node gameDisplay = game.drawGame();
+        Node gameDisplay = myGameBoard.drawGame();
         gameRoot.add(gameDisplay, 1, 1);
 
-        myController.setGameTable(this, game);
+        myController.setGameTable(this, myGameBoard);
         myController.loadPlayer(player);
         myController.startGame("SLOTS");
 
