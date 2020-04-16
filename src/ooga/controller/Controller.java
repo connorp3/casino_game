@@ -57,7 +57,7 @@ public class Controller {
      Placing a bet or adding an amount to an existing bet
      @param amount - int with the amount of the bet
      */
-    public void placeBet(int amount, Object type) {
+    public void placeBet(int amount, String type) {
         currentBet.addFunds(amount);
         updateScreen();
     }
