@@ -129,7 +129,6 @@ public class Controller {
             }
         }
 
-
         updateScreen();
 
         // Send the interpretation to the view - TBD
