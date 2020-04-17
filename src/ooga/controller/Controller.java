@@ -13,6 +13,8 @@ public class Controller {
     public static final int DEFAULT_SLOTS_SYMBOLS = 3;
     public static final String ALL_ALIGNED = "ALL_ALIGNED";
     public static final String LOSS = "LOSS";
+    public static final String HALF_EVENT = "HALF_EVENT";
+    public static final String NUMBER = "NUMBER";
     public static final String SLOTS = "SLOTS";
     public static final String ROULETTE = "ROULETTE";
     public static final int NULL_AMOUNT = 0;
@@ -22,6 +24,8 @@ public class Controller {
     Player currentPlayer;
     GameTable view;
     GameBoard board;
+    String betType;
+    String gameType;
 
 
     /**
@@ -40,6 +44,7 @@ public class Controller {
                 - ROULETTE for roulette game
      */
     public void startGame(String type) {
+        gameType = type;
         if (type.equals(SLOTS)) {
             game = new SlotMachineGame(DEFAULT_SLOTS_REELS, DEFAULT_SLOTS_SYMBOLS);
         }
@@ -63,6 +68,7 @@ public class Controller {
      */
     public void placeBet(int amount, String type) {
         currentBet.addFunds(amount);
+        betType = type;
         updateScreen();
     }
 
@@ -97,13 +103,61 @@ public class Controller {
         board.showOutcome(symbols);
 
         // Distribute payout according to outcome type
-        String result = game.checkOutcome(symbols);
-        distributePayout(result);
+        if (gameType.equals(SLOTS)) {
+            String result = game.checkOutcome(symbols);
+            distributePayout(result);
+        }
+        else if (gameType.equals(ROULETTE)) {
+            String result = String.valueOf(symbols.get(0));
+            if (isRed(result.toLowerCase()) && isRed(betType.toLowerCase())) {
+                distributePayout(HALF_EVENT);
+            }
+            else if (isBlack(result.toLowerCase()) && isBlack(betType.toLowerCase())) {
+                distributePayout(HALF_EVENT);
+            }
+            else if (isEven(result.toLowerCase()) && isEven(betType.toLowerCase())) {
+                distributePayout(HALF_EVENT);
+            }
+            else if (isOdd(result.toLowerCase()) && isOdd(betType.toLowerCase())) {
+                distributePayout(HALF_EVENT);
+            }
+            else if (result.equals(betType.toLowerCase())) {
+                distributePayout(NUMBER);
+            }
+            else {
+                distributePayout(LOSS);
+            }
+        }
+
 
         updateScreen();
 
         // Send the interpretation to the view - TBD
         // board.showMessage(result);
+    }
+
+    private boolean isRed(String s) {
+        ResourceBundle x = ResourceBundle.getBundle("resources.RouletteGameModes.American");
+        return (x.getString(s).equals("red"));
+    }
+
+    private boolean isBlack(String s) {
+        ResourceBundle x = ResourceBundle.getBundle("resources.RouletteGameModes.American");
+        return (x.getString(s).equals("black"));
+    }
+
+    private boolean isEven(String s) {
+        if (s.equals("red") || s.equals("black") || s.equals("even")||  s.equals("odd")) {
+            return false;
+        }
+        return (Integer.parseInt(s) % 2 == 0);
+    }
+
+    private boolean isOdd(String s) {
+        if (s.equals("red") || s.equals("black") || s.equals("even")||  s.equals("odd")) {
+            return false;
+        }
+        return (Integer.parseInt(s) % 2 != 0);
     }
 
     private void distributePayout(String result) {
@@ -112,6 +166,12 @@ public class Controller {
         }
         else if (result.equals(LOSS)) {
             betLost();
+        }
+        else if (result.equals(HALF_EVENT)) {
+            betWon(HALF_EVENT);
+        }
+        else if (result.equals(NUMBER)) {
+            betWon(NUMBER);
         }
         else { // if it's a loss
             betLost();

@@ -9,6 +9,8 @@ public class RouletteGame implements Game {
 
 
     public static final int EVENT_COUNT = 42;
+    public static final String HALF_EVENT = "HALF_EVENT";
+    public static final String NUMBER = "NUMBER";
 
     /**
      * Creates a new roulette game
@@ -31,19 +33,18 @@ public class RouletteGame implements Game {
      * Checking the outcome to determine what event it corresponds to
      */
     public String checkOutcome(List<Integer> result) {
-        int num = result.get(0);
-        return "";
 
+        return "";
     }
 
     /**
      * Given an event that took place, calculates the appropriate payout multiple
      */
     public int calculatePayoutMultiple(String outcome) {
-        if (outcome.equals("HALF")) {
+        if (outcome.equals(HALF_EVENT)) {
             return 2;
         }
-        else if (outcome.equals("NUMBER")) {
+        else if (outcome.equals(NUMBER)) {
             return 36;
         }
         else {
