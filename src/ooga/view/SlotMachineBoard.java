@@ -45,17 +45,17 @@ public class SlotMachineBoard implements GameBoard {
 
     @Override
     public HBox createBetButtons(Controller myController) {
-        List<String> betLabels = new ArrayList();
-        betLabels.add("$1");
-        betLabels.add("$5");
-        betLabels.add("$10");
-        betLabels.add("$20");
+        Map<String, Integer> betLabels = new HashMap<>();
+        betLabels.put("$1", 1);
+        betLabels.put("$5", 5);
+        betLabels.put("$10", 10);
+        betLabels.put("$20", 20);
 
         HBox betButtons = new HBox(5);
-        for(String bet : betLabels) {
+        for(String bet : betLabels.keySet()) {
             Button betButton = new Button(bet);
             betButton.setId(bet);
-            betButton.setOnAction(e -> myController.placeBet(1,null));
+            betButton.setOnAction(e -> myController.placeBet(betLabels.get(bet),null));
             betButtons.getChildren().add(betButton);
         }
         return betButtons;

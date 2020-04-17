@@ -24,7 +24,9 @@ class GameTableTest extends DukeApplicationTest {
     private GameScene testScene;
     private GridPane gameDisplay;
     private Text bankrollDisplay;
-    private Button betButton;
+    private Button betButton1;
+    private Button betButton5;
+    private Button betButton10;
     private Text betTotalDisplay;
     private Button clearBetButton;
     private Button playRoundButton;
@@ -47,7 +49,9 @@ class GameTableTest extends DukeApplicationTest {
         gameDisplay = lookup("#gameDisplay").query();
 
         bankrollDisplay = lookup("#bankrollDisplay").query();
-        betButton = lookup("#betButton").query();
+        betButton1 = lookup("#$1").query();
+        betButton5 = lookup("#$5").query();
+        betButton10 = lookup("#$10").query();
         betTotalDisplay = lookup("#betTotalDisplay").query();
         clearBetButton = lookup("#clearBet").query();
         playRoundButton = lookup("#playRound").query();
@@ -55,10 +59,10 @@ class GameTableTest extends DukeApplicationTest {
     }
 
     @Test
-    void testBetButton() {
+    void testBetButton1() {
         assertEquals("BankRoll: $10", bankrollDisplay.getText());
         assertEquals("Total Bet: $0", betTotalDisplay.getText());
-        clickOn(betButton);
+        clickOn(betButton1);
 
         assertEquals("BankRoll: $9", bankrollDisplay.getText());
         assertEquals("Total Bet: $1", betTotalDisplay.getText());
@@ -66,8 +70,27 @@ class GameTableTest extends DukeApplicationTest {
     }
 
     @Test
+    void testBetButton5() {
+        assertEquals("BankRoll: $10", bankrollDisplay.getText());
+        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        clickOn(betButton5);
+
+        assertEquals("BankRoll: $5", bankrollDisplay.getText());
+        assertEquals("Total Bet: $5", betTotalDisplay.getText());
+    }
+
+    @Test
+    void testBetButton10() {
+        assertEquals("BankRoll: $10", bankrollDisplay.getText());
+        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        clickOn(betButton10);
+
+        assertEquals("BankRoll: $0", bankrollDisplay.getText());
+        assertEquals("Total Bet: $10", betTotalDisplay.getText());
+    }
+    @Test
     void testPlayRoundButton() {
-        clickOn(betButton);
+        clickOn(betButton1);
         assertEquals("Total Bet: $1", betTotalDisplay.getText());
 
         clickOn(playRoundButton);
@@ -90,7 +113,7 @@ class GameTableTest extends DukeApplicationTest {
     @Test
     void testDisplayGameOver() {
         for(int x = 0; x < 10; x++) {
-            clickOn(betButton);
+            clickOn(betButton1);
         }
         clickOn(playRoundButton);
         VBox gameOverWindow = lookup("#GameOverWindow").query();
@@ -102,7 +125,7 @@ class GameTableTest extends DukeApplicationTest {
     @Test
     void testClearBetButton() {
         for(int x = 0; x < 5; x++) {
-            clickOn(betButton);
+            clickOn(betButton1);
         }
         assertEquals("Total Bet: $5", betTotalDisplay.getText());
         assertEquals("BankRoll: $5", bankrollDisplay.getText());
