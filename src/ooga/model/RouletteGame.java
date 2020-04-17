@@ -34,29 +34,39 @@ public class RouletteGame implements Game {
         return listOfSymbols;
     }
 
+    @Override
+    public String checkOutcome(List<Integer> result) {
+        return null;
+    }
+
+    @Override
+    public int calculatePayoutMultiple(String outcome) {
+        return 0;
+    }
+
     /**
      * Checking the outcome to determine what event it corresponds to
      */
-    public String checkOutcome(List<Integer> result) {
+    /*public String checkOutcome(List<Integer> result) {
         if (areAllAligned(result)) {
             return ALL_ALIGNED;
         }
         else {
             return LOSS;
         }
-    }
+    }*/
 
     /**
      * Given an event that took place, calculates the appropriate payout multiple
      */
-    public int calculatePayoutMultiple(String outcome) {
+    /*public int calculatePayoutMultiple(String outcome) {
         if (outcome.equals(ALL_ALIGNED)) {
             return allAlignedMultiple;
         }
         else {
             return 0;
         }
-    }
+    }*/
 
     private boolean areAllAligned(List<Integer> listOfSymbols) {
 

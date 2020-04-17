@@ -1,5 +1,6 @@
 package ooga.view;
 
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -9,8 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import ooga.controller.Controller;
 import ooga.model.BetType;
-
-import java.lang.reflect.Method;
 import java.util.*;
 
 public class RouletteBoard implements GameBoard {
@@ -25,7 +24,7 @@ public class RouletteBoard implements GameBoard {
     private ResourceBundle myGameMode;
     private static final ResourceBundle myBetTypes = ResourceBundle.getBundle("resources.RouletteGameModes.betTypes");
     private Text myOutcome;
-    private ChoiceBox<String> betOptions;
+    private HBox betOptions;
     private VBox gameDisplay;
 
     public RouletteBoard(ResourceBundle gameMode) {
@@ -67,22 +66,37 @@ public class RouletteBoard implements GameBoard {
         for(String bet : betLabels) {
             Button betButton = new Button(bet);
             betButton.setId(bet);
-            //betButton.setOnAction(e -> myController.placeBet(1, betOptions.getValue()), myBetTypes.getString(betOptions.getValue()));
+            betButton.setOnAction(e -> getBetChoices(1, myController));
             betButtons.getChildren().add(betButton);
         }
         return betButtons;
     }
 
-    private ChoiceBox<String> createBetOptions() {
-        ChoiceBox<String> betOptions = new ChoiceBox();
-        betOptions.getItems().addAll(myBetTypes.keySet());
-        /*for(BetType bets : EnumSet.allOf(BetType.class)) {
-
-            betOptions.getItems().addAll(bets.getValues());
-            betOptions.getChildren().add(betType);
+    private HBox createBetOptions() {
+        HBox betOptions = new HBox(20);
+        ChoiceBox<String> numberBet = new ChoiceBox<>();
+        ChoiceBox<String> colorBet = new ChoiceBox<>();
+        ChoiceBox<String> parityBet = new ChoiceBox<>();
+        for(String key : myBetTypes.keySet()) {
+            if(myBetTypes.getString(key).equals("number")) {
+                numberBet.getItems().add(key);
+            }
+            if(myBetTypes.getString(key).equals("color")) {
+                colorBet.getItems().add(key);
+            }
+            if(myBetTypes.getString(key).equals("parity")) {
+                parityBet.getItems().add(key);
+            }
         }
-         */
+        betOptions.getChildren().addAll(numberBet, colorBet, parityBet);
         return betOptions;
+    }
+
+    private void getBetChoices(int amount, Controller myController) {
+        for(Node node : betOptions.getChildren()) {
+            ChoiceBox<String> betType = (ChoiceBox<String>) node;
+            myController.placeBet(amount, betType.getValue());
+        }
     }
 
 }
