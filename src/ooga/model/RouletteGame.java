@@ -50,7 +50,7 @@ public class RouletteGame implements Game {
         }
 
         outcomeColor = americanData.getString(outcomeNumber);
-        if (!outcomeNumber.equals("0") && !outcomeNumber.equals("00")) {
+        if (outcomeNumber.equals("0") || outcomeNumber.equals("00")) {
             outcomeParity = "none";
         }
         else if (outcome.get(0) % 2 == 0) {
