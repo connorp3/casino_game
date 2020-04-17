@@ -7,64 +7,62 @@ import java.util.ResourceBundle;
 
 public class RouletteGame implements Game {
 
-
-    public static final int EVENT_COUNT = 42;
-    public static final String HALF_EVENT = "HALF_EVENT";
-    public static final String NUMBER = "NUMBER";
+    ResourceBundle americanData;
+    ResourceBundle betTypeData;
+    Bet numberBet;
+    Bet colorBet;
+    Bet parityBet;
 
     /**
      * Creates a new roulette game
+     * @param player
      */
-    public RouletteGame() {
-
+    public RouletteGame(Player player) {
+        americanData.getBundle("resources.RouletteGameModes.American");
+        betTypeData.getBundle("resources.RouletteGameModes.betType");
     }
 
     /**
      * Generating a random outcome for the game
      */
-    public List<Integer> generateRandomOutcome() {
+    public List<Integer> generateOutcome() {
         List<Integer> rouletteOutcome = new ArrayList<>();
         Random random = new Random();
-        rouletteOutcome.add(getRandomSymbol(random));
+        rouletteOutcome.add(random.nextInt(38));
         return rouletteOutcome;
     }
-    
-    /**
-     * Checking the outcome to determine what event it corresponds to
-     */
-    public String checkOutcome(List<Integer> result) {
 
-        return "";
+    @Override
+    public void payout(List<Integer> outcome) {
+
     }
 
-    /**
-     * Given an event that took place, calculates the appropriate payout multiple
-     */
-    public int calculatePayoutMultiple(String outcome) {
-        if (outcome.equals(HALF_EVENT)) {
-            return 2;
+    @Override
+    public int getBetTotal() {
+        return 0;
+    }
+
+    @Override
+    public void placeBet(int amount, String type) {
+
+        if (betTypeData.getString("color").contains(type)) {
+            colorBet.addFunds(amount);
+            colorBet.setEvent(type);
         }
-        else if (outcome.equals(NUMBER)) {
-            return 36;
+        else if (betTypeData.getString("parity").contains(type)) {
+            parityBet.addFunds(amount);
+            parityBet.setEvent(type);
         }
-        else {
-            return 0;
+        else if (betTypeData.getString("number").contains(type)) {
+            numberBet.addFunds(amount);
+            numberBet.setEvent(type);
         }
     }
 
-    /**
-     * Returns the number of symbols to the controller to keep track of all the possible bets
-     */
-    public int getEventCount() {
-        return EVENT_COUNT;
+    @Override
+    public void clearBets() {
+
     }
-
-    private int getRandomSymbol(Random random) {
-
-        int randomInteger = random.nextInt(38);
-        return randomInteger;
-    }
-
 
 
 }

@@ -5,6 +5,7 @@ public class Bet {
     public static final int NULL_AMOUNT = 0;
     int amount;
     Player player;
+    String type;
 
     /**
      Creating a Bet object to contain a bet
@@ -20,8 +21,18 @@ public class Bet {
      @param newAmount - amount to add
      */
     public void addFunds(int newAmount) {
-        amount = amount + newAmount;
-        player.setMyBankRoll(-newAmount);
+        if (newAmount <= player.getMyBankRoll()) {
+            amount = amount + newAmount;
+            player.setMyBankRoll(-newAmount);
+        }
+    }
+
+    public void setEvent(String t) {
+        type = t;
+    }
+
+    public String getEvent() {
+        return type;
     }
 
     /**
@@ -50,7 +61,7 @@ public class Bet {
     /**
      * Cancelling a bet - marking amount as 0 and restoring previous player bankroll
      */
-    public void cancel() {
+    public void restore() {
         player.setMyBankRoll(amount);
         amount = NULL_AMOUNT;
     }

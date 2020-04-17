@@ -19,7 +19,7 @@ public class BettingTest {
 
     @Test
     public void testClearBet(){
-        bet1.cancel();
+        bet1.restore();
         assertEquals(0, bet1.getAmount());
         assertEquals(1000, player1.getMyBankRoll());
     }

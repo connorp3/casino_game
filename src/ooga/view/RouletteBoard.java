@@ -9,7 +9,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import ooga.controller.Controller;
-import ooga.model.BetType;
 import java.util.*;
 
 public class RouletteBoard implements GameBoard {

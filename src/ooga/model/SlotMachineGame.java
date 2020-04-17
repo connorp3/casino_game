@@ -1,75 +1,76 @@
 package ooga.model;
 
-import ooga.model.Game;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 public class SlotMachineGame implements Game {
 
-    public static final float CASINO_MULTIPLE = (float) 0.95;
-    public static final String ALL_ALIGNED = "ALL_ALIGNED";
-    public static final String LOSS = "LOSS";
-
     int reelCount;
     int symbolCount;
+    double casinoMultiple;
     int allAlignedMultiple;
+    ResourceBundle defaultData;
+    Bet currentBet;
 
     /**
      * Creates a new slot machine game
-     * @param reels - number of reels to use in the simulation
-     * @param symbols - number of symbols to use in the simulation
      */
-    public SlotMachineGame(int reels, int symbols) {
-        reelCount = reels;
-        symbolCount = symbols;
-        allAlignedMultiple = (int) (Math.pow(symbolCount, reelCount-1) * CASINO_MULTIPLE);
+    public SlotMachineGame(Player player) {
+        defaultData = ResourceBundle.getBundle("resources.SlotMachineGameModes.default");
+        String test = defaultData.getString("NumReels");
+        reelCount = Integer.parseInt(defaultData.getString("NumReels"));
+        symbolCount = Integer.parseInt(defaultData.getString("NumSymbols"));
+        casinoMultiple = Double.parseDouble(defaultData.getString("CasinoMultiple"));
+        allAlignedMultiple = (int) (Math.pow(symbolCount, reelCount-1) * casinoMultiple);
+        currentBet = new Bet(player);
     }
 
     /**
      * Generating a random outcome for the game
      */
-    public List<Integer> generateRandomOutcome() {
+    public List<Integer> generateOutcome() {
         List<Integer> listOfSymbols = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < reelCount; i++) {
-            listOfSymbols.add(getRandomSymbol(random));
+            listOfSymbols.add(random.nextInt(symbolCount));
         }
         return listOfSymbols;
     }
 
-    /**
-     * Checking the outcome to determine what event it corresponds to
-     */
-    public String checkOutcome(List<Integer> result) {
+    public void payout(List<Integer> result) {
+
         if (areAllAligned(result)) {
-            return ALL_ALIGNED;
+            currentBet.betWon(allAlignedMultiple);
         }
         else {
-            return LOSS;
+            currentBet.betLost();
         }
     }
 
     /**
-     * Given an event that took place, calculates the appropriate payout multiple
+     * Return total amount of current pending bets
      */
-    public int calculatePayoutMultiple(String outcome) {
-        if (outcome.equals(ALL_ALIGNED)) {
-            return allAlignedMultiple;
-        }
-        else {
-            return 0;
-        }
+    public int getBetTotal() {
+        return currentBet.getAmount();
     }
 
-    @Override
-    public int getEventCount() {
-        return 1;
+    /**
+     * Place a bet
+     */
+    public void placeBet(int amount, String type) {
+        currentBet.addFunds(amount);
+    }
+
+    /**
+     * Clear bets and return amount to player
+     */
+    public void clearBets() {
+        currentBet.restore();
     }
 
     private boolean areAllAligned(List<Integer> listOfSymbols) {
-
         for (Integer sym : listOfSymbols) {
             if (!sym.equals(listOfSymbols.get(0))) {
                 return false;
@@ -77,12 +78,5 @@ public class SlotMachineGame implements Game {
         }
         return true;
     }
-
-    private int getRandomSymbol(Random random) {
-
-        int randomInteger = random.nextInt(symbolCount);
-        return randomInteger;
-    }
-
 
 }
