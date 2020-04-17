@@ -126,7 +126,7 @@ public class GameTable {
         Node gameDisplay = myGameBoard.drawGame();
         gameRoot.add(gameDisplay, 1, 1);
         myController.setGameTable(this, myGameBoard);
-        myController.startGame("SLOTS", player);
+        myController.startGame("ROULETTE", player);
 
     }
 

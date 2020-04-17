@@ -18,8 +18,11 @@ public class RouletteGame implements Game {
      * @param player
      */
     public RouletteGame(Player player) {
-        americanData.getBundle("resources.RouletteGameModes.American");
-        betTypeData.getBundle("resources.RouletteGameModes.betType");
+        americanData = ResourceBundle.getBundle("resources.RouletteGameModes.American");
+        betTypeData = ResourceBundle.getBundle("resources.RouletteGameModes.betType");
+        numberBet = new Bet(player);
+        colorBet = new Bet(player);
+        parityBet = new Bet(player);
     }
 
     /**
@@ -35,16 +38,57 @@ public class RouletteGame implements Game {
     @Override
     public void payout(List<Integer> outcome) {
 
+        String outcomeNumber;
+        String outcomeParity;
+        String outcomeColor;
+
+        if (outcome.get(0) == 37) {
+            outcomeNumber = "00";
+        }
+        else {
+            outcomeNumber = outcome.get(0).toString();
+        }
+
+        outcomeColor = americanData.getString(outcomeNumber);
+        if (!outcomeNumber.equals("0") && !outcomeNumber.equals("00")) {
+            outcomeParity = "none";
+        }
+        else if (outcome.get(0) % 2 == 0) {
+            outcomeParity = "even";
+        }
+        else {
+            outcomeParity = "odd";
+        }
+
+        if (numberBet.getEvent().equals(outcomeNumber)) {
+            numberBet.betWon(36);
+        }
+        else if (!numberBet.getEvent().equals(outcomeNumber)) {
+            numberBet.betLost();
+        }
+        if (parityBet.getEvent().equals(outcomeParity)) {
+            parityBet.betWon(2);
+        }
+        else if (!parityBet.getEvent().equals(outcomeParity)) {
+            parityBet.betLost();
+        }
+        if (colorBet.getEvent().equals(outcomeColor)) {
+            colorBet.betWon(2);
+        }
+        else if (!colorBet.getEvent().equals(outcomeColor)) {
+            colorBet.betLost();
+        }
+
+
     }
 
     @Override
     public int getBetTotal() {
-        return 0;
+        return numberBet.getAmount() + parityBet.getAmount() + colorBet.getAmount();
     }
 
     @Override
     public void placeBet(int amount, String type) {
-
         if (betTypeData.getString("color").contains(type)) {
             colorBet.addFunds(amount);
             colorBet.setEvent(type);
@@ -61,7 +105,9 @@ public class RouletteGame implements Game {
 
     @Override
     public void clearBets() {
-
+        numberBet.restore();
+        parityBet.restore();
+        colorBet.restore();
     }
 
 

@@ -14,6 +14,7 @@ public class Bet {
     public Bet(Player p) {
         amount = NULL_AMOUNT;
         player = p;
+        type = "";
     }
 
     /**
