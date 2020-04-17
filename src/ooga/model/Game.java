@@ -18,4 +18,6 @@ public interface Game {
      * Given an event that took place, calculates the appropriate payout multiple
      */
     public int calculatePayoutMultiple(String outcome);
+
+    public int getEventCount();
 }

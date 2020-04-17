@@ -63,6 +63,11 @@ public class SlotMachineGame implements Game {
         }
     }
 
+    @Override
+    public int getEventCount() {
+        return 1;
+    }
+
     private boolean areAllAligned(List<Integer> listOfSymbols) {
 
         for (Integer sym : listOfSymbols) {

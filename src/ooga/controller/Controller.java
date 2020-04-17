@@ -1,20 +1,20 @@
 package ooga.controller;
 
-import ooga.model.Bet;
-import ooga.model.Game;
-import ooga.model.Player;
-import ooga.model.SlotMachineGame;
+import ooga.model.*;
 import ooga.view.GameBoard;
 import ooga.view.GameTable;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class Controller {
 
     public static final int DEFAULT_SLOTS_REELS = 3;
     public static final int DEFAULT_SLOTS_SYMBOLS = 3;
     public static final String ALL_ALIGNED = "ALL_ALIGNED";
+    public static final String LOSS = "LOSS";
     public static final String SLOTS = "SLOTS";
+    public static final String ROULETTE = "ROULETTE";
     public static final int NULL_AMOUNT = 0;
 
     Game game;
@@ -37,12 +37,16 @@ public class Controller {
     Defining a game for the Controller
     @param type - String containing the type of game to initiate
                 - SLOTS for a slot machine game
+                - ROULETTE for roulette game
      */
     public void startGame(String type) {
         if (type.equals(SLOTS)) {
             game = new SlotMachineGame(DEFAULT_SLOTS_REELS, DEFAULT_SLOTS_SYMBOLS);
-            currentBet = new Bet(currentPlayer);
         }
+        else if (type.equals(ROULETTE)) {
+            game = new RouletteGame();
+        }
+        currentBet = new Bet(currentPlayer);
     }
 
     /**
@@ -63,7 +67,7 @@ public class Controller {
     }
 
     /**
-     Clears the existing bet and resets the bet amount to 0
+     Clears the existing bets and resets the bet amounts to 0
      */
     public void clearBets() {
         currentBet.cancel();
@@ -105,6 +109,9 @@ public class Controller {
     private void distributePayout(String result) {
         if (result.equals(ALL_ALIGNED)) { // if it's a win
             betWon(result);
+        }
+        else if (result.equals(LOSS)) {
+            betLost();
         }
         else { // if it's a loss
             betLost();
