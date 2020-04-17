@@ -9,6 +9,9 @@ public class RouletteGame implements Game {
 
     ResourceBundle americanData;
     ResourceBundle betTypeData;
+    ResourceBundle defaultData;
+    int randomGenBound;
+    int doubleZeroValue;
     Bet numberBet;
     Bet colorBet;
     Bet parityBet;
@@ -20,6 +23,9 @@ public class RouletteGame implements Game {
     public RouletteGame(Player player) {
         americanData = ResourceBundle.getBundle("resources.RouletteGameModes.American");
         betTypeData = ResourceBundle.getBundle("resources.RouletteGameModes.betType");
+        defaultData = ResourceBundle.getBundle("resources.RouletteGameModes.default");
+        randomGenBound = Integer.parseInt(defaultData.getString("RandomGenBound"));
+        doubleZeroValue = Integer.parseInt(defaultData.getString("DoubleZeroValue"));
         numberBet = new Bet(player);
         colorBet = new Bet(player);
         parityBet = new Bet(player);
@@ -31,7 +37,7 @@ public class RouletteGame implements Game {
     public List<Integer> generateOutcome() {
         List<Integer> rouletteOutcome = new ArrayList<>();
         Random random = new Random();
-        rouletteOutcome.add(random.nextInt(38));
+        rouletteOutcome.add(random.nextInt(randomGenBound));
         return rouletteOutcome;
     }
 
@@ -42,7 +48,7 @@ public class RouletteGame implements Game {
         String outcomeParity;
         String outcomeColor;
 
-        if (outcome.get(0) == 37) {
+        if (outcome.get(0) == doubleZeroValue) {
             outcomeNumber = "00";
         }
         else {
