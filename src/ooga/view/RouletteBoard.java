@@ -22,7 +22,7 @@ public class RouletteBoard implements GameBoard {
         wheelColors = Collections.unmodifiableMap(aMap);
     }
     private ResourceBundle myGameMode;
-    private static final ResourceBundle myBetTypes = ResourceBundle.getBundle("resources.RouletteGameModes.betTypes");
+    private static final ResourceBundle myBetTypes = ResourceBundle.getBundle("resources.RouletteGameModes.betType");
     private Text myOutcome;
     private HBox betOptions;
     private VBox gameDisplay;
@@ -48,10 +48,9 @@ public class RouletteBoard implements GameBoard {
 
     @Override
     public void showOutcome(List<Integer> outcome) {
-       // myOutcome.setText(outcome.getNum());
-       // myOutcome.setFill(wheelColors.get(outcome.getColor()));
-        myOutcome.setText("34");
-        myOutcome.setFill(Color.RED);
+        String pocket = Integer.toString(outcome.get(0));
+        myOutcome.setText(pocket);
+        myOutcome.setFill(wheelColors.get(myGameMode.getString(pocket)));
     }
 
     @Override
@@ -74,27 +73,20 @@ public class RouletteBoard implements GameBoard {
 
     private HBox createBetOptions() {
         HBox betOptions = new HBox(20);
-        ChoiceBox<String> numberBet = new ChoiceBox<>();
-        ChoiceBox<String> colorBet = new ChoiceBox<>();
-        ChoiceBox<String> parityBet = new ChoiceBox<>();
         for(String key : myBetTypes.keySet()) {
-            if(myBetTypes.getString(key).equals("number")) {
-                numberBet.getItems().add(key);
-            }
-            if(myBetTypes.getString(key).equals("color")) {
-                colorBet.getItems().add(key);
-            }
-            if(myBetTypes.getString(key).equals("parity")) {
-                parityBet.getItems().add(key);
-            }
+            ChoiceBox<String> betChoice = new ChoiceBox<>();
+            betChoice.getItems().add("None");
+            String[] bets = myBetTypes.getString(key).split(",");
+            betChoice.getItems().addAll(bets);
+            betOptions.getChildren().add(betChoice);
         }
-        betOptions.getChildren().addAll(numberBet, colorBet, parityBet);
         return betOptions;
     }
 
     private void getBetChoices(int amount, Controller myController) {
         for(Node node : betOptions.getChildren()) {
             ChoiceBox<String> betType = (ChoiceBox<String>) node;
+            if(!betType.getValue().equals("None"))
             myController.placeBet(amount, betType.getValue());
         }
     }
