@@ -29,7 +29,8 @@ Connor:
 - 4/13/20: 1.5 hours (Implementing reflection for the Menu, creating data files to do so)
 - 4/14/20: 2.5 hours (Creating RouletteBoard for the frontend display, attempting to apply reflection to GameTable)
 - 4/15/20: 2 hours (Implementing dark mode using CSS files)
-- 4/16/20: 2 hours (Working through Roulette betting implementation)
+- 4/16/20: 3.5 hours (Working through Roulette betting implementation, team meeting, writing bet button tests)
+
 ### Primary Roles
 
 

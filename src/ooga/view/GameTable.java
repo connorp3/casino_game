@@ -14,9 +14,7 @@ import ooga.model.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 //This will need to implement an interface to give restricted access of its public methods to each game
 public class GameTable {
@@ -30,11 +28,11 @@ public class GameTable {
     ResourceBundle buttonResources;
 
 
-    public GameTable(SceneChanger scene, GameBoard gameBoard, Player player) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public GameTable(SceneChanger scene, GameBoard gameBoard, Player player, String game) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         myController = new Controller();
         myGameBoard = gameBoard;
         initialize(scene, player);
-        initiateGame(player);
+        initiateGame(player, game);
 
     }
 
@@ -72,7 +70,7 @@ public class GameTable {
         //playRound.setId("playRound");
         bottomRightDisplay.getChildren().addAll(createGamePlayButtons());
 
-        bottomLeftDisplay.getChildren().addAll(betTotalDisplay, myGameBoard.createBetButtons(myController));
+        bottomLeftDisplay.getChildren().addAll(betTotalDisplay, createBetButtons(myController));
         //bottomRightDisplay.getChildren().addAll(clearBet, playRound);
         gameRoot.add(bottomLeftDisplay, 0, 2);
         gameRoot.add(bottomRightDisplay, 2, 2);
@@ -101,6 +99,23 @@ public class GameTable {
         return gamePlayButtons;
     }
 
+    private HBox createBetButtons(Controller myController) {
+        Map<String, Integer> betLabels = new HashMap<>();
+        betLabels.put("$1", 1);
+        betLabels.put("$5", 5);
+        betLabels.put("$10", 10);
+        betLabels.put("$20", 20);
+
+        HBox betButtons = new HBox(5);
+        for(String bet : betLabels.keySet()) {
+            Button betButton = new Button(bet);
+            betButton.setId(bet);
+            betButton.setOnAction(e -> myGameBoard.getBetChoices(betLabels.get(bet), myController));
+            betButtons.getChildren().add(betButton);
+        }
+        return betButtons;
+    }
+
     private void Quit() {
         gameRoot.getChildren().clear();
 
@@ -118,7 +133,7 @@ public class GameTable {
         return MainMenuButton;
     }
 
-    private void initiateGame(Player player) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private void initiateGame(Player player, String game) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         //Class gameClass = game.getClass();
         //Class gameInterface = gameClass.getInterfaces()[0];
         //Method m = gameInterface.getMethod("drawGame");
@@ -126,7 +141,7 @@ public class GameTable {
         Node gameDisplay = myGameBoard.drawGame();
         gameRoot.add(gameDisplay, 1, 1);
         myController.setGameTable(this, myGameBoard);
-        myController.startGame("ROULETTE", player);
+        myController.startGame(game, player);
 
     }
 

@@ -10,6 +10,6 @@ public interface GameBoard {
 
     Node drawGame();
     void showOutcome(List<Integer> outcome);
-    HBox createBetButtons(Controller myController);
+    void getBetChoices(int amount, Controller myController);
 
 }

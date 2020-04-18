@@ -106,8 +106,9 @@ public class Menu {
         ResourceBundle gameMode = ResourceBundle.getBundle(gameResources.getString("DefaultGameMode"));
         GameBoard gameBoard = (GameBoard) gameConstructor.newInstance((gameMode));
 
-        myPlayer.setMyCurrentGame(gameResources.getString("GameTitle"));
-        new GameTable(myScene, gameBoard, myPlayer);
+        String gameTitle = gameResources.getString("GameTitle");
+        myPlayer.setMyCurrentGame(gameTitle);
+        new GameTable(myScene, gameBoard, myPlayer, gameTitle);
     }
 
     private ChoiceBox<String> createStyleDropdown() {

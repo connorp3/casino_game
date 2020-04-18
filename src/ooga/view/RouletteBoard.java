@@ -52,29 +52,12 @@ public class RouletteBoard implements GameBoard {
         myOutcome.setFill(wheelColors.get(myGameMode.getString(pocket)));
     }
 
-    @Override
-    public HBox createBetButtons(Controller myController) {
-        Map<String, Integer> betLabels = new HashMap<>();
-        betLabels.put("$1", 1);
-        betLabels.put("$5", 5);
-        betLabels.put("$10", 10);
-        betLabels.put("$20", 20);
-
-        HBox betButtons = new HBox(5);
-        for(String bet : betLabels.keySet()) {
-            Button betButton = new Button(bet);
-            betButton.setId(bet);
-            betButton.setOnAction(e -> getBetChoices(betLabels.get(bet), myController));
-            betButtons.getChildren().add(betButton);
-        }
-        return betButtons;
-    }
-
     private HBox createBetOptions() {
         HBox betOptions = new HBox(20);
         for(String key : myBetTypes.keySet()) {
             ChoiceBox<String> betChoice = new ChoiceBox<>();
             betChoice.getItems().add("None");
+            betChoice.setValue("None");
             String[] bets = myBetTypes.getString(key).split(",");
             betChoice.getItems().addAll(bets);
             betOptions.getChildren().add(betChoice);
@@ -82,7 +65,8 @@ public class RouletteBoard implements GameBoard {
         return betOptions;
     }
 
-    private void getBetChoices(int amount, Controller myController) {
+    @Override
+    public void getBetChoices(int amount, Controller myController) {
         for(Node node : betOptions.getChildren()) {
             ChoiceBox<String> betType = (ChoiceBox<String>) node;
             if(!betType.getValue().equals("None"))

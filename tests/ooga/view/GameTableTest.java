@@ -40,7 +40,7 @@ class GameTableTest extends DukeApplicationTest {
         Player myPlayer = new Player(10, null);
         SlotMachineBoard gameBoard = new SlotMachineBoard(ResourceBundle.getBundle("src.resources.SlotMachineGameModes.default"));
 
-        gameTable = new GameTable(testScene, gameBoard, myPlayer);
+        gameTable = new GameTable(testScene, gameBoard, myPlayer, "SLOTS");
 
         stage.setScene(testScene);
 

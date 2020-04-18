@@ -44,6 +44,9 @@ public class SlotMachineBoard implements GameBoard {
     }
 
     @Override
+    public void getBetChoices(int amount, Controller myController) {
+        myController.placeBet(amount, null);
+    }
     public HBox createBetButtons(Controller myController) {
         Map<String, Integer> betLabels = new HashMap<>();
         betLabels.put("$1", 1);
