@@ -1,0 +1,129 @@
+package ooga.view;
+
+import javafx.scene.Group;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import ooga.model.Player;
+import ooga.view.GameScene;
+import ooga.view.Menu;
+import org.junit.jupiter.api.Test;
+import util.DukeApplicationTest;
+
+import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class RouletteTest extends DukeApplicationTest {
+    private GameScene testScene;
+    private GameTable gameTable;
+    private GameBoard gameBoard;
+    private GridPane gameDisplay;
+    private Text bankrollDisplay;
+    private Button betButton1;
+    private Button betButton5;
+    private Button betButton10;
+    private Text betTotalDisplay;
+    private Button clearBetButton;
+    private Button playRoundButton;
+    private Button mainMenuButton;
+    private ChoiceBox numberChoice;
+    private ChoiceBox colorChoice;
+    private ChoiceBox parityChoice;
+
+    @Override
+    public void start(Stage stage) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Group root = new Group();
+        testScene = new GameScene(root, 500, 500);
+
+        Player myPlayer = new Player(10, null);
+        gameBoard = new RouletteBoard(ResourceBundle.getBundle("resources.RouletteGameModes.american"));
+
+        gameTable = new GameTable(testScene, gameBoard, myPlayer, "ROULETTE");
+
+        stage.setScene(testScene);
+
+        stage.show();
+
+        gameDisplay = lookup("#gameDisplay").query();
+
+        bankrollDisplay = lookup("#bankrollDisplay").query();
+        betButton1 = lookup("#$1").query();
+        betButton5 = lookup("#$5").query();
+        betButton10 = lookup("#$10").query();
+        betTotalDisplay = lookup("#betTotalDisplay").query();
+        clearBetButton = lookup("#clearBet").query();
+        playRoundButton = lookup("#playRound").query();
+        mainMenuButton = lookup("#MainMenu").query();
+        numberChoice = lookup("#number").query();
+        colorChoice = lookup("#color").query();
+        parityChoice = lookup("#parity").query();
+    }
+
+    @Test
+    void testBetOnNumber() {
+        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("BankRoll: $10", bankrollDisplay.getText());
+
+        select(numberChoice, "0");
+        clickOn(betButton1);
+
+        assertEquals("Total Bet: $1", betTotalDisplay.getText());
+        assertEquals("BankRoll: $9", bankrollDisplay.getText());
+    }
+    @Test
+    void testBetOnColor() {
+        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("BankRoll: $10", bankrollDisplay.getText());
+
+        select(colorChoice, "red");
+        clickOn(betButton1);
+
+        assertEquals("Total Bet: $1", betTotalDisplay.getText());
+        assertEquals("BankRoll: $9", bankrollDisplay.getText());
+    }
+    @Test
+    void testBetOnParity() {
+        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("BankRoll: $10", bankrollDisplay.getText());
+
+        select(colorChoice, "even");
+        clickOn(betButton1);
+
+        assertEquals("Total Bet: $1", betTotalDisplay.getText());
+        assertEquals("BankRoll: $9", bankrollDisplay.getText());
+    }
+    @Test
+    void testBetNoSelection() {
+        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("BankRoll: $10", bankrollDisplay.getText());
+
+        select(colorChoice, "None");
+        select(numberChoice, "None");
+        select(parityChoice, "None");
+        clickOn(betButton1);
+
+        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("BankRoll: $10", bankrollDisplay.getText());
+    }
+    @Test
+    void testBetCombo() {
+        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("BankRoll: $10", bankrollDisplay.getText());
+
+        select(colorChoice, "red");
+        select(numberChoice, "36");
+        select(parityChoice, "even");
+        clickOn(betButton1);
+
+        assertEquals("Total Bet: $3", betTotalDisplay.getText());
+        assertEquals("BankRoll: $7", bankrollDisplay.getText());
+    }
+}

@@ -1,5 +1,6 @@
 package ooga.view;
 
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -38,8 +39,12 @@ public class SlotMachineBoard implements GameBoard {
     @Override
     public void showOutcome(List<Integer> outcome) {
         myWheels.getChildren().clear();
-        for(int currWheel : outcome) {
-            myWheels.getChildren().add(new Text(myGameMode.getString(Integer.toString(currWheel))));
+        int wheelNum = 1;
+        for (int currWheel : outcome) {
+            Text wheel = new Text(myGameMode.getString(Integer.toString(currWheel)));
+            wheel.setId("wheel" + wheelNum);
+            myWheels.getChildren().add(wheel);
+            wheelNum++;
         }
 
 

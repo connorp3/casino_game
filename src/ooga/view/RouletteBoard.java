@@ -59,6 +59,7 @@ public class RouletteBoard implements GameBoard {
         HBox betOptions = new HBox(20);
         for(String key : myBetTypes.keySet()) {
             ChoiceBox<String> betChoice = new ChoiceBox<>();
+            betChoice.setId(key);
             betChoice.getItems().add("None");
             betChoice.setValue("None");
             String[] bets = myBetTypes.getString(key).split(",");
