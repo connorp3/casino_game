@@ -26,6 +26,7 @@ public class GameTable {
     Controller myController;
     GameBoard myGameBoard;
     ResourceBundle buttonResources;
+    ResourceBundle betButtonResources;
 
 
     public GameTable(SceneChanger scene, GameBoard gameBoard, Player player, String game) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -46,6 +47,7 @@ public class GameTable {
         gameRoot.setPadding(new Insets(1,1,1,1));
         gameRoot.setId("gameDisplay");
         buttonResources = ResourceBundle.getBundle("resources.GameTableButtons");
+        betButtonResources = ResourceBundle.getBundle("resources.BetButtons");
 
         gameRoot.add(createMainMenuButton(), 0, 0);
 
@@ -70,7 +72,7 @@ public class GameTable {
         //playRound.setId("playRound");
         bottomRightDisplay.getChildren().addAll(createGamePlayButtons());
 
-        bottomLeftDisplay.getChildren().addAll(betTotalDisplay, createBetButtons(myController));
+        bottomLeftDisplay.getChildren().addAll(betTotalDisplay, createBetButtons());
         //bottomRightDisplay.getChildren().addAll(clearBet, playRound);
         gameRoot.add(bottomLeftDisplay, 0, 2);
         gameRoot.add(bottomRightDisplay, 2, 2);
@@ -99,18 +101,12 @@ public class GameTable {
         return gamePlayButtons;
     }
 
-    private HBox createBetButtons(Controller myController) {
-        Map<String, Integer> betLabels = new HashMap<>();
-        betLabels.put("$1", 1);
-        betLabels.put("$5", 5);
-        betLabels.put("$10", 10);
-        betLabels.put("$20", 20);
-
+    private HBox createBetButtons() {
         HBox betButtons = new HBox(5);
-        for(String bet : betLabels.keySet()) {
-            Button betButton = new Button(bet);
-            betButton.setId(bet);
-            betButton.setOnAction(e -> myGameBoard.getBetChoices(betLabels.get(bet), myController));
+        for(String bet : betButtonResources.keySet()) {
+            Button betButton = new Button(betButtonResources.getString(bet));
+            betButton.setId(betButtonResources.getString(bet));
+            betButton.setOnAction(e -> myGameBoard.performBetAction(Integer.parseInt(bet), myController));
             betButtons.getChildren().add(betButton);
         }
         return betButtons;

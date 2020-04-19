@@ -10,6 +10,6 @@ public interface GameBoard {
 
     Node drawGame();
     void showOutcome(List<Integer> outcome);
-    void getBetChoices(int amount, Controller myController);
+    void performBetAction(int amount, Controller myController);
 
 }

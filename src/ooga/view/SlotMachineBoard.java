@@ -21,7 +21,9 @@ public class SlotMachineBoard implements GameBoard {
         myOutcome = new ArrayList<Text>();
 
         for(int x =1; x<=numReels; x++) {
-            myOutcome.add(new Text(myGameMode.getString("0")));
+            Text wheel = new Text(myGameMode.getString("0"));
+            wheel.setId("wheel" + x);
+            myOutcome.add(wheel);
         }
 
     }
@@ -44,24 +46,8 @@ public class SlotMachineBoard implements GameBoard {
     }
 
     @Override
-    public void getBetChoices(int amount, Controller myController) {
+    public void performBetAction(int amount, Controller myController) {
         myController.placeBet(amount, null);
-    }
-    public HBox createBetButtons(Controller myController) {
-        Map<String, Integer> betLabels = new HashMap<>();
-        betLabels.put("$1", 1);
-        betLabels.put("$5", 5);
-        betLabels.put("$10", 10);
-        betLabels.put("$20", 20);
-
-        HBox betButtons = new HBox(5);
-        for(String bet : betLabels.keySet()) {
-            Button betButton = new Button(bet);
-            betButton.setId(bet);
-            betButton.setOnAction(e -> myController.placeBet(betLabels.get(bet),null));
-            betButtons.getChildren().add(betButton);
-        }
-        return betButtons;
     }
 
 }

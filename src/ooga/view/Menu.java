@@ -93,7 +93,7 @@ public class Menu {
                 e.printStackTrace();
             }
         });
-        GameButton.setId(game);
+        GameButton.setId(gameResources.getString("GameTitle"));
         return GameButton;
     }
 

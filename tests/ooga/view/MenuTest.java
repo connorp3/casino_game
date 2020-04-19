@@ -33,9 +33,8 @@ class MenuTest extends DukeApplicationTest {
         stage.show();
 
         gameButtons = lookup("#menuRoot").query();
-        mySlotMachineButton = lookup("#SlotMachine").query();
-        myRouletteButton = lookup("#Roulette").query();
-        myBlackJackButton = lookup("#BlackJack").query();
+        mySlotMachineButton = lookup("#SLOTS").query();
+        myRouletteButton = lookup("#ROULETTE").query();
 
     }
 
@@ -46,13 +45,16 @@ class MenuTest extends DukeApplicationTest {
 
         lookup("#bankrollDisplay").query();
         lookup("#betTotalDisplay").query();
-        lookup("#betButton").query();
+        lookup("#$1").query();
+        lookup("#$5").query();
+        lookup("#$10").query();
+        lookup("#$20").query();
         lookup("#clearBet").query();
         lookup("#playRound").query();
         lookup("#MainMenu").query();
 
     }
-    @Test
+    /*@Test
     public void TestBlackJackButtonPress() {
         clickOn(myBlackJackButton);
         assertTrue(gameButtons.getChildren().isEmpty());
@@ -64,7 +66,7 @@ class MenuTest extends DukeApplicationTest {
         lookup("#playRound").query();
         lookup("#MainMenu").query();
 
-    }
+    }*/
     @Test
     public void TestRouletteButtonPress() {
         clickOn(myRouletteButton);
@@ -72,7 +74,10 @@ class MenuTest extends DukeApplicationTest {
 
         lookup("#bankrollDisplay").query();
         lookup("#betTotalDisplay").query();
-        lookup("#betButton").query();
+        lookup("#$1").query();
+        lookup("#$5").query();
+        lookup("#$10").query();
+        lookup("#$20").query();
         lookup("#clearBet").query();
         lookup("#playRound").query();
         lookup("#MainMenu").query();

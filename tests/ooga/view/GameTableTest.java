@@ -1,5 +1,6 @@
 package ooga.view;
 
+
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -38,7 +39,7 @@ class GameTableTest extends DukeApplicationTest {
         testScene = new GameScene(root, 500, 500);
 
         Player myPlayer = new Player(10, null);
-        SlotMachineBoard gameBoard = new SlotMachineBoard(ResourceBundle.getBundle("src.resources.SlotMachineGameModes.default"));
+        SlotMachineBoard gameBoard = new SlotMachineBoard(ResourceBundle.getBundle("resources.SlotMachineGameModes.default"));
 
         gameTable = new GameTable(testScene, gameBoard, myPlayer, "SLOTS");
 
@@ -104,9 +105,8 @@ class GameTableTest extends DukeApplicationTest {
         clickOn(mainMenuButton);
         assertTrue(gameDisplay.getChildren().isEmpty());
 
-        lookup("#SlotMachine").query();
-        lookup("#Roulette").query();
-        lookup("#BlackJack").query();
+        lookup("#SLOTS").query();
+        lookup("#ROULETTE").query();
     }
 
 

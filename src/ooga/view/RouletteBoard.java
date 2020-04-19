@@ -48,7 +48,10 @@ public class RouletteBoard implements GameBoard {
     @Override
     public void showOutcome(List<Integer> outcome) {
         String pocket = Integer.toString(outcome.get(0));
-        myOutcome.setText(pocket);
+        if(pocket.equals(-1)) {
+            myOutcome.setText("00");
+        }
+        else {myOutcome.setText(pocket);}
         myOutcome.setFill(wheelColors.get(myGameMode.getString(pocket)));
     }
 
@@ -66,11 +69,12 @@ public class RouletteBoard implements GameBoard {
     }
 
     @Override
-    public void getBetChoices(int amount, Controller myController) {
+    public void performBetAction(int amount, Controller myController) {
         for(Node node : betOptions.getChildren()) {
             ChoiceBox<String> betType = (ChoiceBox<String>) node;
-            if(!betType.getValue().equals("None"))
-            myController.placeBet(amount, betType.getValue());
+            //if(!betType.getValue().equals("None")) {
+                myController.placeBet(amount, betType.getValue());
+           // }
         }
     }
 
