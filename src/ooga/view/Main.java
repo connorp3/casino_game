@@ -15,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Group root = new Group();
-        GameScene scene = new GameScene(root, 750, 750);
+        GameScene scene = new GameScene(root, 1000, 750);
         new Menu(scene);
         primaryStage.setScene(scene);
 
