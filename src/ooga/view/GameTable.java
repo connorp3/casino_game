@@ -46,7 +46,7 @@ public class GameTable {
         gameRoot.setAlignment(Pos.CENTER);
         gameRoot.setPadding(new Insets(1,1,1,1));
         gameRoot.setId("gameDisplay");
-        buttonResources = ResourceBundle.getBundle("resources.GameTableButtons");
+        buttonResources = ResourceBundle.getBundle("resources.GameTableLabels");
         betButtonResources = ResourceBundle.getBundle("resources.BetButtons");
 
         gameRoot.add(createMainMenuButton(), 0, 0);

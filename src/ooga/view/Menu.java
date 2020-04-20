@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import ooga.model.Player;
 
+import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -47,6 +48,8 @@ public class Menu {
         myScene = scene;
         menuRoot = new GridPane();
         menuRoot.setId("menuRoot");
+        ChoiceBox styleChoice = createStyleDropdown();
+        styleChoice.setValue("default");
         menuRoot.add(createStyleDropdown(), 0, 0);
         menuRoot.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         scene.setRoot(menuRoot);
@@ -121,5 +124,6 @@ public class Menu {
     private void applyNewStyle(String style) {
         myScene.getStylesheets().clear();
         myScene.getStylesheets().add(myStyles.getString(style));
+
     }
 }
