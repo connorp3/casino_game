@@ -51,7 +51,6 @@ public class Menu {
         ChoiceBox styleChoice = createStyleDropdown();
         styleChoice.setValue("default");
         menuRoot.add(createStyleDropdown(), 0, 0);
-        menuRoot.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         scene.setRoot(menuRoot);
         menuRoot.setAlignment(Pos.CENTER);
         menuRoot.setHgap(Double.parseDouble(myResources.getString("HorizontalSpacing")));
@@ -94,13 +93,15 @@ public class Menu {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
             }
         });
         GameButton.setId(gameResources.getString("GameTitle"));
         return GameButton;
     }
 
-    private void setUpGame(ResourceBundle gameResources) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException { //should take argument that tells it which game it should set up
+    private void setUpGame(ResourceBundle gameResources) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException { //should take argument that tells it which game it should set up
         menuRoot.getChildren().clear();
 
         String game = gameResources.getString("GameClass");

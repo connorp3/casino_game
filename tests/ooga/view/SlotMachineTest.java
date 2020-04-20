@@ -35,7 +35,7 @@ class SlotMachineTest extends DukeApplicationTest {
     private Button mainMenuButton;
 
     @Override
-    public void start(Stage stage) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public void start(Stage stage) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, ClassNotFoundException {
         Group root = new Group();
         testScene = new GameScene(root, 500, 500);
 
