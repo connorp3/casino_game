@@ -31,7 +31,8 @@ Connor:
 - 4/15/20: 2 hours (Implementing dark mode using CSS files)
 - 4/16/20: 3.5 hours (Working through Roulette betting implementation, team meeting, writing bet button tests)
 - 4/18/20: 45 min (Shifting bet button implementation to GameTable class)
-- 4/19/20: 1 hour (Sprint 2 Presentation)
+- 4/19/20: 2 hours (Sprint 2 Presentation, Shifting GameTable elements to data files)
+- 4/20/20: 2 hours (Shifting GameTable elements to data files)
 ### Primary Roles
 
 
