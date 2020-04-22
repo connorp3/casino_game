@@ -4,10 +4,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import ooga.controller.BetController;
 import ooga.controller.Controller;
 import java.util.*;
 
@@ -20,6 +22,9 @@ public class RouletteBoard implements GameBoard {
         aMap.put("green", Color.GREEN);
         wheelColors = Collections.unmodifiableMap(aMap);
     }
+    private static final String DEFAULT_BET_CHOICE = "None";
+    private static final int GAME_DISPLAY_SPACING = 20;
+    private static final String DEFAULT_OUTCOME = "36";
     private ResourceBundle myGameMode;
     private static final ResourceBundle myBetTypes = ResourceBundle.getBundle("resources.RouletteGameModes.betType");
     private Text myOutcome;
@@ -30,12 +35,11 @@ public class RouletteBoard implements GameBoard {
         myOutcome = new Text();
         myGameMode = gameMode;
         betOptions = createBetOptions();
-        gameDisplay = new VBox(20);
+        gameDisplay = new VBox(GAME_DISPLAY_SPACING);
 
-        String outcomeNum = "36";
-        String outcomeColor = gameMode.getString(outcomeNum);
+        String outcomeColor = gameMode.getString(DEFAULT_OUTCOME);
 
-        myOutcome.setText(outcomeNum);
+        myOutcome.setText(DEFAULT_OUTCOME);
         myOutcome.setFill(wheelColors.get(outcomeColor));
 
         gameDisplay.getChildren().addAll(myOutcome, betOptions);
@@ -60,8 +64,10 @@ public class RouletteBoard implements GameBoard {
         for(String key : myBetTypes.keySet()) {
             ChoiceBox<String> betChoice = new ChoiceBox<>();
             betChoice.setId(key);
-            betChoice.getItems().add("None");
-            betChoice.setValue("None");
+            betChoice.getItems().add(DEFAULT_BET_CHOICE);
+            betChoice.setValue(DEFAULT_BET_CHOICE);
+            Label betType = new Label (key);
+            betType.setLabelFor(betChoice);
             String[] bets = myBetTypes.getString(key).split(",");
             betChoice.getItems().addAll(bets);
             betOptions.getChildren().add(betChoice);
@@ -70,12 +76,10 @@ public class RouletteBoard implements GameBoard {
     }
 
     @Override
-    public void performBetAction(int amount, Controller myController) {
+    public void performBetAction(int amount, BetController myController) {
         for(Node node : betOptions.getChildren()) {
             ChoiceBox<String> betType = (ChoiceBox<String>) node;
-            //if(!betType.getValue().equals("None")) {
-                myController.placeBet(amount, betType.getValue());
-           // }
+            myController.placeBet(amount, betType.getValue());
         }
     }
 

@@ -21,11 +21,13 @@ public class GameTable {
     private static final String BANKROLL_ID = "bankrollDisplay";
     private static final String BET_TOTAL_ID = "betTotalDisplay";
     private static final String GAME_OVER_ID = "GameOverMessage";
-    private static final String GAME_BUTTON_RESOURCES = "resources.GameTableProperties.GameTableButtons";
-    private static final String BET_BUTTON_RESOURCES = "resources..GameTableProperties.BetButtons";
-    private static final String DISPLAY_RESOURCES = "resources.GameTableProperties.GameTableDisplays";
-    private static final String LAYOUT_RESOURCES = "resources.GameTableProperties.GameTableLayout";
-    private static final String ADMIN_RESOURCES = "resources.GameTableProperties.AdminButtons";
+    private static final String RESOURCES_PACKAGE = "resources.GameTableProperties.";
+    private static final String GAME_BUTTON_RESOURCES = "GameTableButtons";
+    private static final String BET_BUTTON_RESOURCES = "BetButtons";
+    private static final String DISPLAY_RESOURCES = "GameTableDisplays";
+    private static final String LAYOUT_RESOURCES = "GameTableLayout";
+    private static final String ADMIN_RESOURCES = "AdminButtons";
+    private Locale myLocale;
     private GridPane gameRoot;
     private VBox gamePlayElements;
     private VBox betElements;
@@ -47,7 +49,8 @@ public class GameTable {
     private static ResourceBundle adminButtonResources;
 
 
-    public GameTable(SceneChanger scene, GameBoard gameBoard, Player player, String game) {
+    public GameTable(SceneChanger scene, GameBoard gameBoard, Player player, String game, Locale locale) {
+        myLocale = locale;
         myController = new Controller();
         myPlayer = player;
         myGameBoard = gameBoard;
@@ -64,11 +67,11 @@ public class GameTable {
         gameRoot.setAlignment(Pos.CENTER);
         gameRoot.setPadding(new Insets(1,1,1,1));
         gameRoot.setId("gameDisplay");
-        gameplayButtonResources = ResourceBundle.getBundle(GAME_BUTTON_RESOURCES);
-        betButtonResources = ResourceBundle.getBundle(BET_BUTTON_RESOURCES);
-        gameDisplayResources = ResourceBundle.getBundle(DISPLAY_RESOURCES);
-        layoutResources = ResourceBundle.getBundle(LAYOUT_RESOURCES);
-        adminButtonResources = ResourceBundle.getBundle(ADMIN_RESOURCES);
+        betButtonResources = ResourceBundle.getBundle(RESOURCES_PACKAGE + BET_BUTTON_RESOURCES);
+        gameplayButtonResources = ResourceBundle.getBundle(RESOURCES_PACKAGE + GAME_BUTTON_RESOURCES, myLocale);
+        gameDisplayResources = ResourceBundle.getBundle(RESOURCES_PACKAGE + DISPLAY_RESOURCES, myLocale);
+        layoutResources = ResourceBundle.getBundle(RESOURCES_PACKAGE + LAYOUT_RESOURCES, myLocale);
+        adminButtonResources = ResourceBundle.getBundle(RESOURCES_PACKAGE + ADMIN_RESOURCES, myLocale);
 
         adminButtons = new HBox(20);
         betElements = new VBox(20);
@@ -166,7 +169,7 @@ public class GameTable {
     }
 
     public void updateBankRoll(int bankroll) {
-        bankrollDisplay.setText(gameDisplayResources.getString(BET_TOTAL_ID) + bankroll);
+        bankrollDisplay.setText(gameDisplayResources.getString(BANKROLL_ID) + bankroll);
     }
 
     public void displayGameOver() {

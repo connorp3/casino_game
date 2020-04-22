@@ -7,17 +7,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ooga.model.Player;
-import ooga.view.GameScene;
-import ooga.view.Menu;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-
-import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,14 +31,14 @@ class RouletteTest extends DukeApplicationTest {
     private ChoiceBox parityChoice;
 
     @Override
-    public void start(Stage stage) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, ClassNotFoundException {
+    public void start(Stage stage) {
         Group root = new Group();
         testScene = new GameScene(root, 500, 500);
 
         Player myPlayer = new Player(10, null);
         gameBoard = new RouletteBoard(ResourceBundle.getBundle("resources.RouletteGameModes.american"));
 
-        gameTable = new GameTable(testScene, gameBoard, myPlayer, "ROULETTE");
+        gameTable = new GameTable(testScene, gameBoard, myPlayer, "ROULETTE", new Locale("en"));
 
         stage.setScene(testScene);
 
@@ -61,7 +53,7 @@ class RouletteTest extends DukeApplicationTest {
         betTotalDisplay = lookup("#betTotalDisplay").query();
         clearBetButton = lookup("#clearBet").query();
         playRoundButton = lookup("#playRound").query();
-        mainMenuButton = lookup("#MainMenu").query();
+        mainMenuButton = lookup("#mainMenu").query();
         numberChoice = lookup("#number").query();
         colorChoice = lookup("#color").query();
         parityChoice = lookup("#parity").query();
@@ -69,7 +61,7 @@ class RouletteTest extends DukeApplicationTest {
 
     @Test
     void testBetOnNumber() {
-        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("Total Bet: $", betTotalDisplay.getText());
         assertEquals("BankRoll: $10", bankrollDisplay.getText());
 
         select(numberChoice, "0");
@@ -80,7 +72,7 @@ class RouletteTest extends DukeApplicationTest {
     }
     @Test
     void testBetOnColor() {
-        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("Total Bet: $", betTotalDisplay.getText());
         assertEquals("BankRoll: $10", bankrollDisplay.getText());
 
         select(colorChoice, "red");
@@ -91,7 +83,7 @@ class RouletteTest extends DukeApplicationTest {
     }
     @Test
     void testBetOnParity() {
-        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("Total Bet: $", betTotalDisplay.getText());
         assertEquals("BankRoll: $10", bankrollDisplay.getText());
 
         select(colorChoice, "even");
@@ -102,7 +94,7 @@ class RouletteTest extends DukeApplicationTest {
     }
     @Test
     void testBetNoSelection() {
-        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("Total Bet: $", betTotalDisplay.getText());
         assertEquals("BankRoll: $10", bankrollDisplay.getText());
 
         select(colorChoice, "None");
@@ -115,7 +107,7 @@ class RouletteTest extends DukeApplicationTest {
     }
     @Test
     void testBetCombo() {
-        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("Total Bet: $", betTotalDisplay.getText());
         assertEquals("BankRoll: $10", bankrollDisplay.getText());
 
         select(colorChoice, "red");

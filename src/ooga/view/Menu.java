@@ -17,6 +17,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Menu {
@@ -24,6 +25,7 @@ public class Menu {
     public static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES.replace("/", ".");
     public static final String GAME_RESOURCES_FILE = "MenuGames";
     public static final String STYLING_RESOURCES_FILE = "Styles";
+    public static final Locale LANGUAGE_LOCALE = new Locale("en");
 
     private GridPane menuRoot;
     private SceneChanger myScene;
@@ -77,7 +79,7 @@ public class Menu {
     }
 
     private Button makeButton(String game) {
-        ResourceBundle gameResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + game);//This will need to access a properties file and determine the proper settings for each game button
+        ResourceBundle gameResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + game, LANGUAGE_LOCALE);//This will need to access a properties file and determine the proper settings for each game button
         Button GameButton = new Button(gameResources.getString("ButtonLabel"));
         GameButton.setOnAction(event ->  {
                 setUpGame(gameResources);
@@ -96,7 +98,7 @@ public class Menu {
             GameBoard gameBoard = (GameBoard) gameConstructor.newInstance((gameMode));
             String gameTitle = gameResources.getString("GameTitle");
             myPlayer.setMyCurrentGame(gameTitle);
-            new GameTable(myScene, gameBoard, myPlayer, gameTitle);
+            new GameTable(myScene, gameBoard, myPlayer, gameTitle, LANGUAGE_LOCALE);
         }
 
         catch (Exception e){

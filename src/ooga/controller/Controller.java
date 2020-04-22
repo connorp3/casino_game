@@ -7,7 +7,7 @@ import ooga.view.GameTable;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements BetController {
 
     Game game;
     Player currentPlayer;
@@ -49,6 +49,7 @@ public class Controller {
      @param amount - int with the amount of the bet
      @param type - String with bet specifics
      */
+    @Override
     public void placeBet(int amount, String type) {
         game.placeBet(amount, type);
         updateScreen();

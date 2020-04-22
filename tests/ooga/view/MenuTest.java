@@ -20,7 +20,6 @@ class MenuTest extends DukeApplicationTest {
     private GameScene testScene;
     private Button mySlotMachineButton;
     private Button myRouletteButton;
-    private Button myBlackJackButton;
     private GridPane gameButtons;
 
     @Override
@@ -51,22 +50,10 @@ class MenuTest extends DukeApplicationTest {
         lookup("#$20").query();
         lookup("#clearBet").query();
         lookup("#playRound").query();
-        lookup("#MainMenu").query();
+        lookup("#mainMenu").query();
 
     }
-    /*@Test
-    public void TestBlackJackButtonPress() {
-        clickOn(myBlackJackButton);
-        assertTrue(gameButtons.getChildren().isEmpty());
 
-        lookup("#bankrollDisplay").query();
-        lookup("#betTotalDisplay").query();
-        lookup("#betButton").query();
-        lookup("#clearBet").query();
-        lookup("#playRound").query();
-        lookup("#MainMenu").query();
-
-    }*/
     @Test
     public void TestRouletteButtonPress() {
         clickOn(myRouletteButton);
@@ -80,7 +67,7 @@ class MenuTest extends DukeApplicationTest {
         lookup("#$20").query();
         lookup("#clearBet").query();
         lookup("#playRound").query();
-        lookup("#MainMenu").query();
+        lookup("#mainMenu").query();
 
     }
 }

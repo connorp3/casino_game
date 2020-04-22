@@ -13,10 +13,7 @@ import util.DukeApplicationTest;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,7 +39,7 @@ class SlotMachineTest extends DukeApplicationTest {
         Player myPlayer = new Player(10, null);
         gameBoard = new SlotMachineBoard(ResourceBundle.getBundle("resources.SlotMachineGameModes.default"));
 
-        gameTable = new GameTable(testScene, gameBoard, myPlayer, "SLOTS");
+        gameTable = new GameTable(testScene, gameBoard, myPlayer, "SLOTS", new Locale("en"));
 
         stage.setScene(testScene);
 
@@ -57,7 +54,7 @@ class SlotMachineTest extends DukeApplicationTest {
         betTotalDisplay = lookup("#betTotalDisplay").query();
         clearBetButton = lookup("#clearBet").query();
         playRoundButton = lookup("#playRound").query();
-        mainMenuButton = lookup("#MainMenu").query();
+        mainMenuButton = lookup("#mainMenu").query();
     }
 
     @Test

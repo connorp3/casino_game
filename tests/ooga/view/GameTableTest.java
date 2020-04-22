@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,7 +42,7 @@ class GameTableTest extends DukeApplicationTest {
         Player myPlayer = new Player(10, null);
         SlotMachineBoard gameBoard = new SlotMachineBoard(ResourceBundle.getBundle("resources.SlotMachineGameModes.default"));
 
-        gameTable = new GameTable(testScene, gameBoard, myPlayer, "SLOTS");
+        gameTable = new GameTable(testScene, gameBoard, myPlayer, "SLOTS", new Locale("en"));
 
         stage.setScene(testScene);
 
@@ -56,13 +57,13 @@ class GameTableTest extends DukeApplicationTest {
         betTotalDisplay = lookup("#betTotalDisplay").query();
         clearBetButton = lookup("#clearBet").query();
         playRoundButton = lookup("#playRound").query();
-        mainMenuButton = lookup("#MainMenu").query();
+        mainMenuButton = lookup("#mainMenu").query();
     }
 
     @Test
     void testBetButton1() {
         assertEquals("BankRoll: $10", bankrollDisplay.getText());
-        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("Total Bet: $", betTotalDisplay.getText());
         clickOn(betButton1);
 
         assertEquals("BankRoll: $9", bankrollDisplay.getText());
@@ -73,7 +74,7 @@ class GameTableTest extends DukeApplicationTest {
     @Test
     void testBetButton5() {
         assertEquals("BankRoll: $10", bankrollDisplay.getText());
-        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("Total Bet: $", betTotalDisplay.getText());
         clickOn(betButton5);
 
         assertEquals("BankRoll: $5", bankrollDisplay.getText());
@@ -83,7 +84,7 @@ class GameTableTest extends DukeApplicationTest {
     @Test
     void testBetButton10() {
         assertEquals("BankRoll: $10", bankrollDisplay.getText());
-        assertEquals("Total Bet: $0", betTotalDisplay.getText());
+        assertEquals("Total Bet: $", betTotalDisplay.getText());
         clickOn(betButton10);
 
         assertEquals("BankRoll: $0", bankrollDisplay.getText());
@@ -101,7 +102,6 @@ class GameTableTest extends DukeApplicationTest {
 
     @Test
     void testMainMenu() {
-        Button mainMenuButton = lookup("#MainMenu").query();
         clickOn(mainMenuButton);
         assertTrue(gameDisplay.getChildren().isEmpty());
 

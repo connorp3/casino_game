@@ -5,25 +5,30 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import ooga.controller.BetController;
 import ooga.controller.Controller;
 
 import java.util.*;
 
 public class SlotMachineBoard implements GameBoard {
     private HBox myWheels;
+    private String WHEEL_ID = "wheel";
+    private String WHEELS_NUMBER = "NumReels";
+    private static final String DEFAULT_WHEEL_VALUE = "0";
+    private static final int DEFAULT_SPACING = 20;
     private List<Text> myOutcome;
     private ResourceBundle myGameMode;
     public SlotMachineBoard(ResourceBundle gameMode) {
         myGameMode = gameMode;
         myWheels = new HBox();
-        myWheels.setSpacing(20);
+        myWheels.setSpacing(DEFAULT_SPACING);
 
-        int numReels = Integer.parseInt(myGameMode.getString("NumReels"));
+        int numReels = Integer.parseInt(myGameMode.getString(WHEELS_NUMBER));
         myOutcome = new ArrayList<Text>();
 
         for(int x =1; x<=numReels; x++) {
-            Text wheel = new Text(myGameMode.getString("0"));
-            wheel.setId("wheel" + x);
+            Text wheel = new Text(myGameMode.getString(DEFAULT_WHEEL_VALUE));
+            wheel.setId(WHEEL_ID + x);
             myOutcome.add(wheel);
         }
 
@@ -42,7 +47,7 @@ public class SlotMachineBoard implements GameBoard {
         int wheelNum = 1;
         for (int currWheel : outcome) {
             Text wheel = new Text(myGameMode.getString(Integer.toString(currWheel)));
-            wheel.setId("wheel" + wheelNum);
+            wheel.setId(WHEEL_ID + wheelNum);
             myWheels.getChildren().add(wheel);
             wheelNum++;
         }
@@ -51,7 +56,7 @@ public class SlotMachineBoard implements GameBoard {
     }
 
     @Override
-    public void performBetAction(int amount, Controller myController) {
+    public void performBetAction(int amount, BetController myController) {
         myController.placeBet(amount, null);
     }
 
