@@ -20,9 +20,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Menu {
-    private static final String RESOURCES = "resources/";
+    private static final String RESOURCES = "resources/MenuProperties/";
     public static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES.replace("/", ".");
-    public static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES;
     public static final String GAME_RESOURCES_FILE = "MenuGames";
     public static final String STYLING_RESOURCES_FILE = "Styles";
 
@@ -80,39 +79,30 @@ public class Menu {
     private Button makeButton(String game) {
         ResourceBundle gameResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + game);//This will need to access a properties file and determine the proper settings for each game button
         Button GameButton = new Button(gameResources.getString("ButtonLabel"));
-        GameButton.setOnAction(event -> {
-            try {
+        GameButton.setOnAction(event ->  {
                 setUpGame(gameResources);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            }
         });
         GameButton.setId(gameResources.getString("GameTitle"));
         return GameButton;
     }
 
-    private void setUpGame(ResourceBundle gameResources) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException { //should take argument that tells it which game it should set up
+    private void setUpGame(ResourceBundle gameResources) { //should take argument that tells it which game it should set up
         menuRoot.getChildren().clear();
+        try {
+            String game = gameResources.getString("GameClass");
+            Class gameClass = Class.forName(game);
+            Constructor gameConstructor = gameClass.getConstructor(ResourceBundle.class);
+            ResourceBundle gameMode = ResourceBundle.getBundle(gameResources.getString("DefaultGameMode"));
+            GameBoard gameBoard = (GameBoard) gameConstructor.newInstance((gameMode));
+            String gameTitle = gameResources.getString("GameTitle");
+            myPlayer.setMyCurrentGame(gameTitle);
+            new GameTable(myScene, gameBoard, myPlayer, gameTitle);
+        }
 
-        String game = gameResources.getString("GameClass");
-        Class gameClass = Class.forName(game);
-        Constructor gameConstructor = gameClass.getConstructor(ResourceBundle.class);
-        ResourceBundle gameMode = ResourceBundle.getBundle(gameResources.getString("DefaultGameMode"));
-        GameBoard gameBoard = (GameBoard) gameConstructor.newInstance((gameMode));
+        catch (Exception e){
+            throw new ReflectionException("Improperly Configured Menu Reflection File", e);
+        }
 
-        String gameTitle = gameResources.getString("GameTitle");
-        myPlayer.setMyCurrentGame(gameTitle);
-        new GameTable(myScene, gameBoard, myPlayer, gameTitle);
     }
 
     private ChoiceBox<String> createStyleDropdown() {

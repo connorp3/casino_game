@@ -33,6 +33,8 @@ Connor:
 - 4/18/20: 45 min (Shifting bet button implementation to GameTable class)
 - 4/19/20: 2 hours (Sprint 2 Presentation, Shifting GameTable elements to data files)
 - 4/20/20: 2 hours (Shifting GameTable elements to data files)
+- 4/21/20: 3 hours (Refactoring GameTable even further using reflection, Handling exceptions)
+
 ### Primary Roles
 
 

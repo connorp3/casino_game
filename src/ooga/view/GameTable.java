@@ -21,37 +21,42 @@ public class GameTable {
     private static final String BANKROLL_ID = "bankrollDisplay";
     private static final String BET_TOTAL_ID = "betTotalDisplay";
     private static final String GAME_OVER_ID = "GameOverMessage";
-    private static final String MAIN_MENU_ID = "mainMenu";
-    private static final String GAME_BUTTON_RESOURCES = "resources.GameTableButtons";
-    private static final String BET_BUTTON_RESOURCES = "resources.BetButtons";
-    private static final String DISPLAY_RESOURCES = "resources.GameTableDisplays";
-    private static final String LAYOUT_RESOURCES = "resources.GameTableLayout";
+    private static final String GAME_BUTTON_RESOURCES = "resources.GameTableProperties.GameTableButtons";
+    private static final String BET_BUTTON_RESOURCES = "resources..GameTableProperties.BetButtons";
+    private static final String DISPLAY_RESOURCES = "resources.GameTableProperties.GameTableDisplays";
+    private static final String LAYOUT_RESOURCES = "resources.GameTableProperties.GameTableLayout";
+    private static final String ADMIN_RESOURCES = "resources.GameTableProperties.AdminButtons";
     private GridPane gameRoot;
-    private VBox betElements;
     private VBox gamePlayElements;
+    private VBox betElements;
+    private HBox adminButtons;
     private Node gameDisplay;
     private Button mainMenuButton;
+    private Button changeGameButton;
     private SceneChanger myScene;
     private Text bankrollDisplay;
     private Text betTotalDisplay;
     private Stage gameOverWindow;
     private Controller myController;
+    private Player myPlayer;
     private GameBoard myGameBoard;
-    private ResourceBundle gameplayButtonResources;
-    private ResourceBundle betButtonResources;
-    private ResourceBundle gameDisplayResources;
-    private ResourceBundle layoutResources;
+    private static ResourceBundle gameplayButtonResources;
+    private static ResourceBundle betButtonResources;
+    private static ResourceBundle gameDisplayResources;
+    private static ResourceBundle layoutResources;
+    private static ResourceBundle adminButtonResources;
 
 
-    public GameTable(SceneChanger scene, GameBoard gameBoard, Player player, String game) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException {
+    public GameTable(SceneChanger scene, GameBoard gameBoard, Player player, String game) {
         myController = new Controller();
+        myPlayer = player;
         myGameBoard = gameBoard;
         initiateGame(player, game);
         initialize(scene, player);
 
     }
 
-    private void initialize(SceneChanger scene, Player player) throws NoSuchMethodException, NoSuchFieldException, IllegalAccessException {
+    private void initialize(SceneChanger scene, Player player) {
         myScene = scene;
         gameRoot = new GridPane();
         gameRoot.setHgap(100);
@@ -63,8 +68,14 @@ public class GameTable {
         betButtonResources = ResourceBundle.getBundle(BET_BUTTON_RESOURCES);
         gameDisplayResources = ResourceBundle.getBundle(DISPLAY_RESOURCES);
         layoutResources = ResourceBundle.getBundle(LAYOUT_RESOURCES);
+        adminButtonResources = ResourceBundle.getBundle(ADMIN_RESOURCES);
 
-        createMainMenuButton();
+        adminButtons = new HBox(20);
+        betElements = new VBox(20);
+        gamePlayElements = new VBox(20);
+
+        adminButtons.getChildren().addAll(createGamePlayButtons(this, adminButtonResources));
+        gamePlayElements.getChildren().addAll(createGamePlayButtons(myController, gameplayButtonResources));
 
         bankrollDisplay = new Text(gameDisplayResources.getString(BANKROLL_ID) + player.getMyBankRoll());
         bankrollDisplay.setId(BANKROLL_ID);
@@ -72,43 +83,50 @@ public class GameTable {
         betTotalDisplay = new Text(gameDisplayResources.getString(BET_TOTAL_ID));
         betTotalDisplay.setId(BET_TOTAL_ID);
 
-        betElements = new VBox(20);
-        gamePlayElements = new VBox(20);
-
-        gamePlayElements.getChildren().addAll(createGamePlayButtons());
         betElements.getChildren().addAll(betTotalDisplay, createBetButtons());
 
         displaySceneElements();
         myScene.setRoot(gameRoot);
     }
 
-    private void displaySceneElements() throws NoSuchFieldException, IllegalAccessException {
+    private void displaySceneElements() {
         for(String element : layoutResources.keySet()) {
-            Field sceneElement = GameTable.class.getDeclaredField(element);
-            Object x = sceneElement.get(this);
-            String[] coords = layoutResources.getString(element).split(",");
-            System.out.println(x == null);
-            gameRoot.add((Node) x, Integer.parseInt(coords[0]),Integer.parseInt(coords[1]));
+            try {
+                Field sceneElement = GameTable.class.getDeclaredField(element);
+                Object x = sceneElement.get(this);
+                String[] coords = layoutResources.getString(element).split(",");
+                gameRoot.add((Node) x, Integer.parseInt(coords[0]),Integer.parseInt(coords[1]));
+            }
+            catch (Exception e) {
+                throw new ReflectionException("Improperly Configured GameTable Layout File", e);
+            }
+
         }
     }
 
-    private List<Button> createGamePlayButtons() throws NoSuchMethodException, NoSuchFieldException, IllegalAccessException {
+    static <T> List<Button> createGamePlayButtons(T element, ResourceBundle resources) {
         List<Button> gamePlayButtons = new ArrayList<>();
-        for (String key : gameplayButtonResources.keySet()) {
-            String[] buttonProperties = gameplayButtonResources.getString(key).split(",");
+        for (String key : resources.keySet()) {
+            String[] buttonProperties = resources.getString(key).split(",");
             Button button = new Button(buttonProperties[0]);
             button.setId(key);
-            Field f = GameTable.class.getDeclaredField(buttonProperties[2]);
-            Method m = f.get(this).getClass().getMethod(buttonProperties[1]);
             button.setOnAction(event -> {
                 try {
-                    m.invoke(f.get(this));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
+                    Method m = element.getClass().getMethod(buttonProperties[1]);
+                    m.invoke(element);
+                } catch (Exception e) {
+                    throw new ReflectionException("Improperly Configured GameTable Properties File");
                 }
             });
+            try {
+                if (buttonProperties.length == 3) {
+                    Field f = element.getClass().getDeclaredField(buttonProperties[2]);
+                    f.setAccessible(true);
+                    f.set(element, button);
+                }
+            } catch (Exception e) {
+                throw new ReflectionException("Improperly Configured GameTable Properties File", e);
+            }
             gamePlayButtons.add(button);
         }
         return gamePlayButtons;
@@ -125,7 +143,7 @@ public class GameTable {
         return betButtons;
     }
 
-    private void Quit() {
+    public void Quit() {
         gameRoot.getChildren().clear();
 
         if(gameOverWindow != null){
@@ -135,11 +153,9 @@ public class GameTable {
 
     }
 
-    private Button createMainMenuButton() {
-        mainMenuButton = new Button("Quit");
-        mainMenuButton.setOnAction(event -> Quit());
-        mainMenuButton.setId(MAIN_MENU_ID);
-        return mainMenuButton;
+    public void ChangeGame() {
+        gameRoot.getChildren().clear();
+        new Menu(myScene, myPlayer);
     }
 
     private void initiateGame(Player player, String game) {
@@ -160,7 +176,7 @@ public class GameTable {
         layout.setId("GameOverWindow");
         Text gameOverMessage = new Text(gameDisplayResources.getString(GAME_OVER_ID));
         gameOverMessage.setId(GAME_OVER_ID);
-        layout.getChildren().addAll(gameOverMessage, createMainMenuButton());
+        layout.getChildren().addAll(gameOverMessage, mainMenuButton);
 
         Scene gameOverOptions = new Scene(layout, 200, 200);
         gameOverWindow.setScene(gameOverOptions);
