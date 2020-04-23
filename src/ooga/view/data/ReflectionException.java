@@ -1,4 +1,4 @@
-package ooga.view;
+package ooga.view.data;
 
 public class ReflectionException extends RuntimeException  {
 

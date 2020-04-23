@@ -3,6 +3,7 @@ package ooga.view;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import ooga.controller.BetController;
+import ooga.view.data.LabelParser;
 
 import java.util.*;
 

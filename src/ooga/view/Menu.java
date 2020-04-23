@@ -1,20 +1,14 @@
 package ooga.view;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import ooga.model.Player;
+import ooga.view.data.MenuGameParser;
 
-import java.awt.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -22,10 +16,12 @@ import java.util.ResourceBundle;
 
 public class Menu {
     private static final String RESOURCES = "resources/MenuProperties/";
-    public static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES.replace("/", ".");
-    public static final String GAME_RESOURCES_FILE = "MenuGames";
-    public static final String STYLING_RESOURCES_FILE = "Styles";
-    public static final Locale LANGUAGE_LOCALE = new Locale("en");
+    private static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES.replace("/", ".");
+    private static final String GAME_RESOURCES_FILE = "MenuGames";
+    private static final String STYLING_RESOURCES_FILE = "Styles";
+    private static final Locale LANGUAGE_LOCALE = new Locale("en");
+    private static final String INTERNAL_ERROR = "Internal Error: Please exit the program";
+
 
     private GridPane menuRoot;
     private SceneChanger myScene;
@@ -56,7 +52,7 @@ public class Menu {
         menuRoot.setAlignment(Pos.CENTER);
         menuRoot.setHgap(Double.parseDouble(myResources.getString("HorizontalSpacing")));
         menuRoot.setVgap(Double.parseDouble(myResources.getString("VerticalSpacing")));
-        makeGameButtons(parseGameResource());
+        makeGameButtons(getGameList());
         //access resource bundle
     }
 
@@ -64,45 +60,39 @@ public class Menu {
     private void makeGameButtons(List<String> games) {
         int colInd = 0;
         int rowInd = 1;
+        MenuGameParser parser = new MenuGameParser(DEFAULT_RESOURCE_PACKAGE, LANGUAGE_LOCALE);
         for(String game : games) {
-            menuRoot.add(makeButton(game), colInd, rowInd);
+            Button gameButton = parser.makeButton(game);
+            gameButton.setOnAction(e -> setUpGame(parser));
+            menuRoot.add(gameButton, colInd, rowInd);
             if(colInd < 4) { colInd += 1;}
             colInd = 0;
             rowInd += 1;
-        }//This will eventually (hopefully) become a loop that adds buttons for each game
+        }
     }
 
-    private List<String> parseGameResource() {
+    private List<String> getGameList() {
         String games = myResources.getString("Games");
         List<String> gamesList = Arrays.asList(games.split(","));
         return gamesList;
     }
 
-    private Button makeButton(String game) {
-        ResourceBundle gameResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + game, LANGUAGE_LOCALE);//This will need to access a properties file and determine the proper settings for each game button
-        Button GameButton = new Button(gameResources.getString("ButtonLabel"));
-        GameButton.setOnAction(event ->  {
-                setUpGame(gameResources);
-        });
-        GameButton.setId(gameResources.getString("GameTitle"));
-        return GameButton;
-    }
 
-    private void setUpGame(ResourceBundle gameResources) { //should take argument that tells it which game it should set up
+
+    private void setUpGame(MenuGameParser parser) { //should take argument that tells it which game it should set up
         menuRoot.getChildren().clear();
         try {
-            String game = gameResources.getString("GameClass");
-            Class gameClass = Class.forName(game);
-            Constructor gameConstructor = gameClass.getConstructor(ResourceBundle.class);
-            ResourceBundle gameMode = ResourceBundle.getBundle(gameResources.getString("DefaultGameMode"));
-            GameBoard gameBoard = (GameBoard) gameConstructor.newInstance((gameMode));
-            String gameTitle = gameResources.getString("GameTitle");
+            GameBoard gameBoard = parser.parseButtonAction();
+            String gameTitle = parser.parseGameName();
             myPlayer.setMyCurrentGame(gameTitle);
             new GameTable(myScene, gameBoard, myPlayer, gameTitle, LANGUAGE_LOCALE);
         }
 
         catch (Exception e){
-            throw new ReflectionException("Improperly Configured Menu Reflection File", e);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText(INTERNAL_ERROR);
+            a.show();
+            throw e;
         }
 
     }

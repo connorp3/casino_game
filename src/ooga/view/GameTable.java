@@ -10,10 +10,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ooga.controller.Controller;
 import ooga.model.Player;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import ooga.view.data.GamePlayElementsParser;
+import ooga.view.data.ReflectionException;
 import java.util.*;
 
 //This will need to implement an interface to give restricted access of its public methods to each game
@@ -95,10 +93,10 @@ public class GameTable {
     private void displaySceneElements() {
         for(String element : layoutResources.keySet()) {
             try {
-                Field sceneElement = GameTable.class.getDeclaredField(element);
-                Object x = sceneElement.get(this);
+                GamePlayElementsParser parser = new GamePlayElementsParser();
+                Node x = parser.getGamePlayElementsAsField(this, element);
                 String[] coords = layoutResources.getString(element).split(",");
-                gameRoot.add((Node) x, Integer.parseInt(coords[0]),Integer.parseInt(coords[1]));
+                gameRoot.add(x, Integer.parseInt(coords[0]),Integer.parseInt(coords[1]));
             }
             catch (Exception e) {
                 throw new ReflectionException("Improperly Configured GameTable Layout File", e);
@@ -111,24 +109,19 @@ public class GameTable {
         List<Button> gamePlayButtons = new ArrayList<>();
         for (String key : resources.keySet()) {
             String[] buttonProperties = resources.getString(key).split(",");
-            Button button = new Button(buttonProperties[0]);
+            String label = buttonProperties[0];
+            String buttonMethod = buttonProperties[1];
+            Button button = new Button(label);
             button.setId(key);
             button.setOnAction(event -> {
-                try {
-                    Method m = element.getClass().getMethod(buttonProperties[1]);
-                    m.invoke(element);
-                } catch (Exception e) {
-                    throw new ReflectionException("Improperly Configured GameTable Properties File");
+                GamePlayElementsParser parser = new GamePlayElementsParser();
+                parser.setGamePlayButtonAction(element, buttonMethod);
                 }
-            });
-            try {
-                if (buttonProperties.length == 3) {
-                    Field f = element.getClass().getDeclaredField(buttonProperties[2]);
-                    f.setAccessible(true);
-                    f.set(element, button);
-                }
-            } catch (Exception e) {
-                throw new ReflectionException("Improperly Configured GameTable Properties File", e);
+            );
+            if (buttonProperties.length == 3) {
+                String buttonField = buttonProperties[2];
+                GamePlayElementsParser parser = new GamePlayElementsParser();
+                parser.setGamePlayButtonToField(element, button, buttonField);
             }
             gamePlayButtons.add(button);
         }
@@ -189,5 +182,4 @@ public class GameTable {
     }
 
     public void updateBetTotal(int amount) {betTotalDisplay.setText(gameDisplayResources.getString(BET_TOTAL_ID) + amount);}
-
 }
