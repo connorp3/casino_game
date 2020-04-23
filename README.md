@@ -34,7 +34,8 @@ Connor:
 - 4/19/20: 2 hours (Sprint 2 Presentation, Shifting GameTable elements to data files)
 - 4/20/20: 2 hours (Shifting GameTable elements to data files)
 - 4/21/20: 3 hours (Refactoring GameTable even further using reflection, making switching games possible, Handling exceptions)
-
+- 4/22/20: 3 hours (Make Spanish language an option, Make parser for images, Remove magic values, Rerun tests)
+- 4/23/20: 2.5 hours (Abstracting away reflection parsing for View classes)
 ### Primary Roles
 
 
