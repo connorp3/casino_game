@@ -11,5 +11,5 @@ public interface BetController {
 
     public void saveGame();
 
-    public void loadGame(String playerName);
+    public void loadGame(String playerName) throws Exception;
 }

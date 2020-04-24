@@ -91,6 +91,14 @@ public class Controller implements BetController {
 
     @Override
     public void loadGame(String playerName) {
+        try {
+            ResourceBundle playerData = ResourceBundle.getBundle("resources.playerData");
+            String money = playerData.getString(playerName);
+            currentPlayer.overrideBankroll(Integer.parseInt(money));
+        }
+        catch (Exception e) {
+            view.createAlert("Error reading player data.");
+        }
 
     }
 
