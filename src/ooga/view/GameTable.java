@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -196,5 +197,10 @@ public class GameTable {
     }
 
     public void updateBetTotal(int amount) {betTotalDisplay.setText(gameDisplayResources.getString(BET_TOTAL_ID) + amount);}
+
+    public void createAlert(String errorMessage) {
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setContentText(errorMessage);
+    }
 
 }
