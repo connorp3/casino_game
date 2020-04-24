@@ -34,10 +34,10 @@ class SlotMachineTest extends DukeApplicationTest {
     @Override
     public void start(Stage stage) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, ClassNotFoundException {
         Group root = new Group();
-        testScene = new GameScene(root, 500, 500);
+        testScene = new GameScene(root, 1000, 800);
 
         Player myPlayer = new Player(10, null);
-        gameBoard = new SlotMachineBoard(ResourceBundle.getBundle("resources.SlotMachineGameModes.default"));
+        gameBoard = new SlotMachineBoard(ResourceBundle.getBundle("resources.SlotMachineGameModes.default_view"));
 
         gameTable = new GameTable(testScene, gameBoard, myPlayer, "SLOTS", new Locale("en"));
 
