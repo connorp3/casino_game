@@ -28,10 +28,23 @@ public class Bet {
         }
     }
 
+
+    /**
+     Sets the type of bet that is being played
+     Not used for slot machine.
+     For example, for roulette, could be "8", "red", "odd", "even" etc...
+     @param t - String containing the type of event
+     */
     public void setEvent(String t) {
         type = t;
     }
 
+    /**
+     Gets the type of bet that is being played
+     Not used for slot machine.
+     For example, for roulette, could be "8", "red", "odd", "even" etc...
+     @return type - String containing the type of event
+     */
     public String getEvent() {
         return type;
     }

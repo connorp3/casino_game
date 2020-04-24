@@ -73,7 +73,13 @@ public class Controller implements BetController {
         updateScreen();
     }
 
-
+    /**
+     Updates game parameters
+     @param list - List<String> with the parameters - Game can interpret those when they are in the right format
+                    For Slots: takes a list of 2 strings, the first containing the new number of reels and
+     the second containing the new number of symbols.
+                    For Roulette: feature not implemented
+     */
     public void updateGameParameters(List<String> list) {
         try {
             game.updateGameParameters(list);
@@ -84,7 +90,11 @@ public class Controller implements BetController {
 
     }
 
-
+    /**
+     Saves the game to file in a data-driven way to save the player bankroll.
+     Based on PlayerConfig.properties
+     Calls the method of the same name in Player to execute this function.
+     */
     public void saveGame() {
         try {
             currentPlayer.saveGame();
@@ -118,10 +128,19 @@ public class Controller implements BetController {
      */
     public void playRound() {
 
+
         List<Integer> outcome = game.generateOutcome();
+
+
         board.showOutcome(outcome);
 
-        game.payout(outcome);
+        try {
+            game.payout(outcome);
+        }
+        catch (Exception e) {
+            view.createAlert("Error playing round of game.");
+        }
+
 
         updateScreen();
 

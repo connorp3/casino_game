@@ -16,6 +16,7 @@ public class SlotMachineGame implements Game {
 
     /**
      * Creates a new slot machine game
+     * @param player
      */
     public SlotMachineGame(Player player) throws Exception {
         try {
@@ -32,9 +33,7 @@ public class SlotMachineGame implements Game {
         currentBet = new Bet(player);
     }
 
-    /**
-     * Generating a random outcome for the game
-     */
+    @Override
     public List<Integer> generateOutcome() {
         List<Integer> listOfSymbols = new ArrayList<>();
         Random random = new Random();
@@ -45,6 +44,7 @@ public class SlotMachineGame implements Game {
         return listOfSymbols;
     }
 
+    @Override
     public void payout(List<Integer> result) {
 
         if (areAllAligned(result)) {
@@ -55,27 +55,22 @@ public class SlotMachineGame implements Game {
         }
     }
 
-    /**
-     * Return total amount of current pending bets
-     */
+    @Override
     public int getBetTotal() {
         return currentBet.getAmount();
     }
 
-    /**
-     * Place a bet
-     */
+    @Override
     public void placeBet(int amount, String type) {
         currentBet.addFunds(amount);
     }
 
-    /**
-     * Clear bets and return amount to player
-     */
+    @Override
     public void clearBets() {
         currentBet.restore();
     }
 
+    @Override
     public void updateGameParameters(List<String> list) throws Exception {
 
         try {
