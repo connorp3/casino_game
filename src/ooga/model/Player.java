@@ -104,12 +104,6 @@ public class Player {
         return myBankRoll;
     }
 
-    public void overrideBankroll(int amount) {
-        myBankRoll = amount;
-        if (myBankRoll > maxBankRoll) {
-            maxBankRoll = myBankRoll;
-        }
-    }
     public void setMyBankRoll(int amount) {
         if(checkEnoughFunds(amount)) {
             myBankRoll += amount;

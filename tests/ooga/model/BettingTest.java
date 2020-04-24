@@ -44,4 +44,10 @@ public class BettingTest {
         assertEquals(0, bet1.getAmount());
     }
 
+    @Test
+    public void testEvent(){
+        bet1.setEvent("event_abc");
+        assertEquals("event_abc", bet1.getEvent());
+    }
+
     }
