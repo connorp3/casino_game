@@ -21,6 +21,7 @@ public class SlotMachineBoard implements GameBoard {
 
     private String WHEEL_ID = "wheel";
     private String WHEELS_NUMBER = "NumReels";
+    private String SYMBOLS_NUMBER = "NumSymbols";
     private static final String DEFAULT_WHEEL_VALUE = "0";
     private static final int DEFAULT_SPACING = 20;
     private static final String max_Wheels = "MaxReels";
@@ -55,8 +56,10 @@ public class SlotMachineBoard implements GameBoard {
     private void createGameModeOptions() {
         numWheels = new ChoiceBox();
         setGameModeOptions(numWheels, Integer.parseInt(myGameMode.getString(max_Wheels)));
+        numWheels.setValue(myGameMode.getString(WHEELS_NUMBER));
         numSymbols = new ChoiceBox();
         setGameModeOptions(numSymbols, Integer.parseInt(myGameMode.getString(max_Symbols)));
+        numSymbols.setValue(myGameMode.getString(SYMBOLS_NUMBER));
         myDisplay.getChildren().addAll(numSymbols, numWheels);
     }
 

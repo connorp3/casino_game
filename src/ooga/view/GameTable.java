@@ -28,6 +28,7 @@ public class GameTable {
     private static final String BANKROLL_ID = "bankrollDisplay";
     private static final String BET_TOTAL_ID = "betTotalDisplay";
     private static final String GAME_OVER_ID = "GameOverMessage";
+    private static final String PLAYER_ID = "playerDisplay";
     private static final String RESOURCES_PACKAGE = "resources.GameTableProperties.";
     private static final String GAME_BUTTON_RESOURCES = "GameTableButtons";
     private static final String BET_BUTTON_RESOURCES = "BetButtons";
@@ -52,6 +53,7 @@ public class GameTable {
     private SceneChanger myScene;
     private Text bankrollDisplay;
     private Text betTotalDisplay;
+    private Text playerDisplay;
     private Stage gameOverWindow;
     private Controller myController;
     private Player myPlayer;
@@ -99,6 +101,9 @@ public class GameTable {
 
         betTotalDisplay = new Text(gameDisplayResources.getString(BET_TOTAL_ID));
         betTotalDisplay.setId(BET_TOTAL_ID);
+
+        playerDisplay = new Text(gameDisplayResources.getString(PLAYER_ID) + myPlayer.getName());
+        playerDisplay.setId(PLAYER_ID);
 
         betElements.getChildren().addAll(betTotalDisplay, createBetButtons());
 
