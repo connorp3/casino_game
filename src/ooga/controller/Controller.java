@@ -73,7 +73,6 @@ public class Controller implements BetController {
         updateScreen();
     }
 
-    @Override
     public void updateGameParameters(List<String> list) {
         try {
             game.updateGameParameters(list);
@@ -84,12 +83,10 @@ public class Controller implements BetController {
 
     }
 
-    @Override
     public void saveGame() {
 
     }
 
-    @Override
     public void loadGame(String playerName) {
 
     }

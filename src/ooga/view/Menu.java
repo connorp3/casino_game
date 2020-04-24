@@ -142,10 +142,12 @@ public class Menu {
     }
 
     private ChoiceBox<String> createLoadGameDropdown() {
-        //create new gameloader class
+        ChoiceBox<String> loadGame = new ChoiceBox<>();
+        loadGame.getItems().addAll(myPlayer.getPlayers());
+        loadGame.setOnAction(e -> myPlayer.setName(loadGame.getValue()));//create new gameloader class
         //make gameloader player names choices in dropdown
         //set action to load game method given the string
-        return null;
+        return loadGame;
     }
 
     private void createAlert() {

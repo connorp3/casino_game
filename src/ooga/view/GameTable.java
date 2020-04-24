@@ -178,7 +178,7 @@ public class GameTable {
 
     private void setGameMode() {
         if(myGameBoard.getGameMode() != null) {
-            //myController.setParameters(myGameBoard.getGameMode());
+            myController.updateGameParameters(myGameBoard.getGameMode());
         }
     }
     /***
