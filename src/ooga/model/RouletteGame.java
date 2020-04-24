@@ -101,7 +101,7 @@ public class RouletteGame implements Game {
 
     @Override
     public void placeBet(int amount, String type) throws Exception {
-        System.out.println(amount+","+type);
+
         if (betTypeData.getString("color").contains(type)) {
             colorBet.addFunds(amount);
             colorBet.setEvent(type);
@@ -119,16 +119,16 @@ public class RouletteGame implements Game {
         }
     }
 
-    @Override
+
     public void clearBets() {
         numberBet.restore();
         parityBet.restore();
         colorBet.restore();
     }
 
-    @Override
+
     public void updateGameParameters(List<String> list) throws Exception {
-        String gameType = list.get(0);
+        /*String gameType = list.get(0);
         if (gameType.toLowerCase().equals("american")) {
             randomGenBound = 38;
         }
@@ -137,7 +137,7 @@ public class RouletteGame implements Game {
         }
         else {
             throw new Exception("Invalid game parameter.");
-        }
+        }*/
     }
 
 

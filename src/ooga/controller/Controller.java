@@ -88,9 +88,11 @@ public class Controller implements BetController {
     public void saveGame() {
         try {
             currentPlayer.saveGame();
+
         } catch (Exception e) {
-            //
+            view.createAlert("Error saving game.");
         }
+
     }
 
     /**
@@ -122,6 +124,12 @@ public class Controller implements BetController {
         game.payout(outcome);
 
         updateScreen();
+
+        saveGame();
+
+        if (currentPlayer.getMyBankRoll() == 0) {
+            view.displayGameOver();
+        }
 
     }
 
