@@ -7,6 +7,12 @@ import java.lang.reflect.Constructor;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/***
+ * This class is used to parse properties files relevant to the Menu class.
+ * This class abstracts away data reading and reflection in Menu to throw ReflectionExceptions and ResourceExceptions and improve readability.
+ * @author Connor Penny
+ */
+
 public class MenuGameParser {
     private static String myResourcePath;
     private static Locale myLanguage;
@@ -24,6 +30,11 @@ public class MenuGameParser {
 
     }
 
+    /***
+     * Make a button for a given game
+     * @param game the game file for the proper game button to be made
+     * @return a game button
+     */
     public Button makeButton(String game) {
         try {
             gameResources = ResourceBundle.getBundle(myResourcePath + game, myLanguage);//This will need to access a properties file and determine the proper settings for each game button
@@ -36,6 +47,10 @@ public class MenuGameParser {
         }
     }
 
+    /***
+     * Uses reflection to create the proper frontend classes and pass the proper data files for a specific game that will be run
+     * @return the GameBoard frontend object for the proper game
+     */
     public GameBoard parseButtonAction() {
         try {
             String game = gameResources.getString(GAME_CLASS);
@@ -50,6 +65,11 @@ public class MenuGameParser {
         }
     }
 
+    /***
+     * Accesses a the title of the game for a given game resource file
+     * Title is passed to backend to set up proper backend game classes
+     * @return String game title from resource file
+     */
     public String parseGameName() {
 
         try {

@@ -13,6 +13,10 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+/***
+ * Frontend display for Slot Machine game. Allows user to set different game modes for variation of game
+ * @author Connor Penny
+ */
 public class SlotMachineBoard implements GameBoard {
 
     private String WHEEL_ID = "wheel";

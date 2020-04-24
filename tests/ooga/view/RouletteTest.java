@@ -33,7 +33,7 @@ class RouletteTest extends DukeApplicationTest {
     @Override
     public void start(Stage stage) {
         Group root = new Group();
-        testScene = new GameScene(root, 500, 500);
+        testScene = new GameScene(root, 1000, 800);
 
         Player myPlayer = new Player(10, null);
         gameBoard = new RouletteBoard(ResourceBundle.getBundle("resources.RouletteGameModes.american"));

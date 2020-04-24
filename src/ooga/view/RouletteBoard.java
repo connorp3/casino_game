@@ -13,6 +13,10 @@ import ooga.controller.BetController;
 import ooga.controller.Controller;
 import java.util.*;
 
+/***
+ * A frontend display for the RouletteGame. Displays American roulette by default. Allows user to choose bet outcomes to bet on.
+ * @author Connor Penny
+ */
 public class RouletteBoard implements GameBoard {
     private static final Map<String, Color> wheelColors;
     static {
@@ -45,6 +49,7 @@ public class RouletteBoard implements GameBoard {
 
         gameDisplay.getChildren().addAll(myOutcome, betOptions);
     }
+
     @Override
     public Node drawGame() {
         return gameDisplay;

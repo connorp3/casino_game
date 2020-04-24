@@ -7,6 +7,11 @@ import javafx.scene.text.Text;
 
 import javax.imageio.ImageIO;
 
+/***
+ * This class is used to distinguish text from images in the frontend
+ * @author Connor Penny
+ */
+
 public class LabelParser {
     private final String IMAGEFILE_SUFFIXES =
             String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
@@ -16,6 +21,11 @@ public class LabelParser {
     public LabelParser() {
     }
 
+    /***
+     * Determines if the string passed to it is an image and returns an image node if so
+     * @param label the string that may be an image
+     * @return a node that has been properly parsed
+     */
     public Node parseLabel(String label) {
         if (label.matches(IMAGEFILE_SUFFIXES)) {
             ImageView image = new ImageView(new Image(getClass().getResourceAsStream(DEFAULT_RESOURCE_FOLDER + label)));

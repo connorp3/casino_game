@@ -8,9 +8,9 @@ Names:
 
 ### Timeline
 
-Start Date: 
+Start Date: 4/1/20
 
-Finish Date: 
+Finish Date: 4/24/20
 
 Hours Spent:
 
@@ -36,32 +36,76 @@ Connor:
 - 4/21/20: 3 hours (Refactoring GameTable even further using reflection, making switching games possible, Handling exceptions)
 - 4/22/20: 3 hours (Make Spanish language an option, Make parser for images, Remove magic values, Rerun tests)
 - 4/23/20: 4 hours (Abstracting away reflection parsing for View classes, adding gameMode choicebox, setting up frontend for load and save game)
+- 4/24/20: 2 hours (Eliminating magic values, writing tests for exceptions and creating test data files, making sure tests work)
 ### Primary Roles
 
+Connor: Design, implementation, and testing of frontend
 
 ### Resources Used
 
+Stack Overflow
+Oracle
+TA's
+Java Tutorials
 
 ### Running the Program
 
-Main class:
+Main class: Main
 
-Data files needed: 
+Data files needed:
+
+    - MenuProperties
+        - MenuGames
+        - RouletteReflection
+        - SlotMachineReflection
+    - GameTableProperties
+        - AdminButtons
+        - BetButtons
+        - GameTableButtons
+        - GameTableDisplays
+        - GameTableLayout
+    - RouletteGameModes
+        - american
+        - betType
+        - default
+    - SlotMachineGameModes
+        - default
+        - default_view
 
 Features implemented:
 
+- Two example games: Roulette and Slots
+- One variation: Different numbers of wheels and symbols in slot machines
+- Dark Mode
+- Load and Save Game
 
 
 ### Notes/Assumptions
 
 Assumptions or Simplifications:
 
+- Because Casino games almost always occur in discrete rounds, we assumed that a player would simply need to save their money
+at any given time in order to save the progress of the game. Then they can reenter the game and load their money where they left off,
+and simply enter the game again and choose the game or variation they wish to play.
+
 Interesting data files:
+
+- RouletteReflection and SlotReflection use reflection to properly select game classes
+- GameTableProperties data files use reflection to create buttons for game display
+
 
 Known Bugs:
 
 Extra credit:
+- NA
 
 
 ### Impressions
+
+Connor: I spent a very long time working on this project, and I feel like I learned a lot about JavaFX, Reflection, and Data Driven 
+Design because of it. Neither me nor Alex were very skilled at JavaFX, so I took this responsibility to challenge myself. I did a lot
+of research and learning by doing to implement the frontend, and I think I ended up with a highly data driven design (although not 
+as data driven as it could have been). It would have been nice to not have this due over reading period, though, as I feel like I had to
+sacrifice time to study for my finals.
+
 

@@ -15,11 +15,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/***
+ * A main menu screen that the user sees upon launching the program. Displays the proper game buttons for the user to choose from, styling choices, and
+ * a load game choices.
+ * @author Connor Penny
+ */
+
 public class Menu {
     private static final String RESOURCES = "resources/MenuProperties/";
     private static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES.replace("/", ".");
     private static final String DEFAULT_STYLE = "default";
     private static final String GAME_RESOURCES_FILE = "MenuGames";
+    private static final String STARTING_AMOUNT = "StartingAmount";
     private static final String MENU_ID = "menuRoot";
     private static final String STYLING_RESOURCES_FILE = "Styles";
     private static final Locale LANGUAGE_LOCALE = new Locale("en");
@@ -36,18 +43,28 @@ public class Menu {
     private ResourceBundle myStyles;
     private Player myPlayer;
 
+    /***
+     * Creates a new menu with a new player at a new starting amount, effectively restarting the game
+     * @param scene The scene to add elements to
+     */
     public Menu(SceneChanger scene) {
-        myPlayer = new Player(1000, null);
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + GAME_RESOURCES_FILE);
+        myPlayer = new Player(Integer.parseInt(myResources.getString(STARTING_AMOUNT)), null);
         initialize(scene);
     }
 
+    /***
+     * Creates a new menu with an existing player
+     * @param scene The scene to add elements to
+     * @param player The player with data about bankroll amount
+     */
     public Menu(SceneChanger scene, Player player) {
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + GAME_RESOURCES_FILE);
         myPlayer = player;
         initialize(scene);
     }
 
     private void initialize(SceneChanger scene) {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + GAME_RESOURCES_FILE);
         myStyles = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + STYLING_RESOURCES_FILE);
         myScene = scene;
         menuRoot = new GridPane();

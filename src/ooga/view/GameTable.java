@@ -17,6 +17,12 @@ import ooga.view.data.ResourcesException;
 
 import java.util.*;
 
+/***
+ * This creates the general Casino game frontend layout and functionality. Buttons and displays that are common to any casino game
+ * are created here. This class communicates with the controller to manipulate the backend
+ * @author Connor Penny
+ */
+
 //This will need to implement an interface to give restricted access of its public methods to each game
 public class GameTable {
     private static final String BANKROLL_ID = "bankrollDisplay";
@@ -55,7 +61,6 @@ public class GameTable {
     private static ResourceBundle gameDisplayResources;
     private static ResourceBundle layoutResources;
     private static ResourceBundle adminButtonResources;
-
 
     public GameTable(SceneChanger scene, GameBoard gameBoard, Player player, String game, Locale locale) {
         myLocale = locale;
@@ -101,7 +106,7 @@ public class GameTable {
         myScene.setRoot(gameRoot);
     }
 
-    protected void displaySceneElements() {
+    private void displaySceneElements() {
         for(String element : layoutResources.keySet()) {
             try {
                 GamePlayElementsParser parser = new GamePlayElementsParser();
@@ -176,7 +181,10 @@ public class GameTable {
             //myController.setParameters(myGameBoard.getGameMode());
         }
     }
-
+    /***
+     * Returns to the main menu screen and starts a new game
+     * This method is internal, but it is public due to the nature of the reflection process implemented
+     */
     public void Quit() {
         gameRoot.getChildren().clear();
 
@@ -187,6 +195,10 @@ public class GameTable {
 
     }
 
+    /***
+     * Returns to the main menu screen but does not change the money in the player's bankroll
+     * This method is internal, but it is public due to the nature of the reflection process implemented
+     */
     public void ChangeGame() {
         gameRoot.getChildren().clear();
         new Menu(myScene, myPlayer);
@@ -199,11 +211,19 @@ public class GameTable {
 
     }
 
+    /***
+     * Updates the bankroll based on information passed by Controller
+     * @param bankroll Integer new bankroll amount
+     */
     public void updateBankRoll(int bankroll) {
         bankrollDisplay.setText(gameDisplayResources.getString(BANKROLL_ID) + bankroll);
     }
 
     //This should be extracted to its own class
+
+    /***
+     * Displays a game over window
+     */
     public void displayGameOver() {
         gameOverWindow = new Stage();
 
@@ -220,17 +240,25 @@ public class GameTable {
 
     }
 
+    /***
+     * Update bet total amount displayed to user
+     * @param amount bet total amount
+     */
     public void updateBetTotal(int amount) {betTotalDisplay.setText(gameDisplayResources.getString(BET_TOTAL_ID) + amount);}
 
+    /***
+     * Displays an error message to the user
+     * @param errorMessage error message to be displayed to the user
+     */
     public void createAlert(String errorMessage) {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setContentText(errorMessage);
         error.show();
     }
 
-    protected void setLayoutResources(String path) {
-        layoutResources = ResourceBundle.getBundle(path);
-    }
+    //protected void setLayoutResources(String path) {
+        //layoutResources = ResourceBundle.getBundle(path);
+    //}
 
 
 }

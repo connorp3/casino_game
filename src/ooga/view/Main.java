@@ -6,6 +6,11 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/***
+ * Initial class the creates a stage to show the scene
+ * @author Connor Penny
+ */
+
 public class Main extends Application {
     private static final int SCENE_WIDTH = 1500;
     private static final int SCENE_HEIGHT = 800;
