@@ -15,7 +15,7 @@ public class MenuGameParser {
     private static final String GAME_CLASS = "GameClass";
     private static final String DEFAULT_GAME_MODE = "DefaultGameMode";
     private static final String REFLECTION_EXCEPTION_MESSAGE = "Improperly Configured Game Reflection File";
-    private static final String RESOURCES_EXCEPTION_MESSAGE = "Game Reflection File Not Found";
+    private static final String RESOURCES_EXCEPTION_MESSAGE = "Game Reflection File/Elements Invalid";
     private ResourceBundle gameResources;
 
     public MenuGameParser(String resourcePath, Locale language) {
@@ -51,7 +51,12 @@ public class MenuGameParser {
     }
 
     public String parseGameName() {
-        return gameResources.getString(TITLE);
+
+        try {
+            return gameResources.getString(TITLE);
+        } catch(Exception e) {
+            throw new ResourcesException(RESOURCES_EXCEPTION_MESSAGE);
+        }
     }
 
 

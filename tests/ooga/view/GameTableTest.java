@@ -13,6 +13,7 @@ import ooga.model.Player;
 import ooga.view.GameScene;
 import ooga.view.GameTable;
 import ooga.view.SlotMachineBoard;
+import ooga.view.data.ResourcesException;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -40,7 +41,7 @@ class GameTableTest extends DukeApplicationTest {
         testScene = new GameScene(root, 500, 500);
 
         Player myPlayer = new Player(10, null);
-        SlotMachineBoard gameBoard = new SlotMachineBoard(ResourceBundle.getBundle("resources.SlotMachineGameModes.default"));
+        SlotMachineBoard gameBoard = new SlotMachineBoard(ResourceBundle.getBundle("resources.SlotMachineGameModes.default_view"));
 
         gameTable = new GameTable(testScene, gameBoard, myPlayer, "SLOTS", new Locale("en"));
 
@@ -134,4 +135,16 @@ class GameTableTest extends DukeApplicationTest {
         assertEquals("Total Bet: $0", betTotalDisplay.getText());
         assertEquals("BankRoll: $10", bankrollDisplay.getText());
     }
+
+    /*@Test
+    void testExceptionLayoutResources1() {
+        gameTable.setLayoutResources("resources.GameTableProperties.tests.GameTableLayoutTest1");
+        assertThrows(ResourcesException.class, () -> gameTable.displaySceneElements());
+    }
+
+    @Test
+    void testExceptionLayoutResources2() {
+        gameTable.setLayoutResources("resources.GameTableProperties.tests.GameTableLayoutTest2");
+        assertThrows(ResourcesException.class, () -> gameTable.displaySceneElements());
+    }*/
 }

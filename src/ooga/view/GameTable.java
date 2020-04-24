@@ -13,6 +13,8 @@ import ooga.controller.Controller;
 import ooga.model.Player;
 import ooga.view.data.GamePlayElementsParser;
 import ooga.view.data.ReflectionException;
+import ooga.view.data.ResourcesException;
+
 import java.util.*;
 
 //This will need to implement an interface to give restricted access of its public methods to each game
@@ -27,6 +29,12 @@ public class GameTable {
     private static final String LAYOUT_RESOURCES = "GameTableLayout";
     private static final String ADMIN_RESOURCES = "AdminButtons";
     private static final String GAME_MODE_BUTTON= "Set Game Mode";
+    private static final int V_SPACING= 150;
+    private static final int H_SPACING= 100;
+    private static final int BOX_SPACING=20;
+    private static final String DELIMITER = ",";
+    private static final String RESOURCES_EXCEPTION= "Improperly Configured GameTable Layout File";
+    private static final String RESOURCES_ERROR_DISPLAY = "Internal Error: Please exit the program";
     private Locale myLocale;
     private GridPane gameRoot;
     private VBox gamePlayElements;
@@ -62,8 +70,8 @@ public class GameTable {
     private void initialize(SceneChanger scene, Player player) {
         myScene = scene;
         gameRoot = new GridPane();
-        gameRoot.setHgap(100);
-        gameRoot.setVgap(150);
+        gameRoot.setHgap(H_SPACING);
+        gameRoot.setVgap(V_SPACING);
         gameRoot.setAlignment(Pos.CENTER);
         gameRoot.setPadding(new Insets(1,1,1,1));
         gameRoot.setId("gameDisplay");
@@ -73,9 +81,9 @@ public class GameTable {
         layoutResources = ResourceBundle.getBundle(RESOURCES_PACKAGE + LAYOUT_RESOURCES, myLocale);
         adminButtonResources = ResourceBundle.getBundle(RESOURCES_PACKAGE + ADMIN_RESOURCES, myLocale);
 
-        adminButtons = new HBox(20);
-        betElements = new VBox(20);
-        gamePlayElements = new VBox(20);
+        adminButtons = new HBox(BOX_SPACING);
+        betElements = new VBox(BOX_SPACING);
+        gamePlayElements = new VBox(BOX_SPACING);
 
         adminButtons.getChildren().addAll(createGamePlayButtons(this, adminButtonResources));
         gamePlayElements.getChildren().addAll(createGamePlayButtons(myController, gameplayButtonResources));
@@ -93,53 +101,68 @@ public class GameTable {
         myScene.setRoot(gameRoot);
     }
 
-    private void displaySceneElements() {
+    protected void displaySceneElements() {
         for(String element : layoutResources.keySet()) {
             try {
                 GamePlayElementsParser parser = new GamePlayElementsParser();
                 Node x = parser.getGamePlayElementsAsField(this, element);
-                String[] coords = layoutResources.getString(element).split(",");
+                String[] coords = layoutResources.getString(element).split(DELIMITER);
                 gameRoot.add(x, Integer.parseInt(coords[0]),Integer.parseInt(coords[1]));
             }
             catch (Exception e) {
-                throw new ReflectionException("Improperly Configured GameTable Layout File", e);
+                //createAlert(RESOURCES_ERROR_DISPLAY);
+                throw new ReflectionException(RESOURCES_EXCEPTION, e);
             }
 
         }
     }
 
-    static <T> List<Button> createGamePlayButtons(T element, ResourceBundle resources) {
-        List<Button> gamePlayButtons = new ArrayList<>();
-        for (String key : resources.keySet()) {
-            String[] buttonProperties = resources.getString(key).split(",");
-            String label = buttonProperties[0];
-            String buttonMethod = buttonProperties[1];
-            Button button = new Button(label);
-            button.setId(key);
-            button.setOnAction(event -> {
-                GamePlayElementsParser parser = new GamePlayElementsParser();
-                parser.setGamePlayButtonAction(element, buttonMethod);
+    private <T> List<Button> createGamePlayButtons(T element, ResourceBundle resources) {
+        try {
+            List<Button> gamePlayButtons = new ArrayList<>();
+            for (String key : resources.keySet()) {
+                String[] buttonProperties = resources.getString(key).split(DELIMITER);
+                String label = buttonProperties[0];
+                String buttonMethod = buttonProperties[1];
+                Button button = new Button(label);
+                button.setId(key);
+                button.setOnAction(event -> {
+                            GamePlayElementsParser parser = new GamePlayElementsParser();
+                            parser.setGamePlayButtonAction(element, buttonMethod);
+                        }
+                );
+                if (buttonProperties.length == 3) {
+                    String buttonField = buttonProperties[2];
+                    GamePlayElementsParser parser = new GamePlayElementsParser();
+                    parser.setGamePlayButtonToField(element, button, buttonField);
                 }
-            );
-            if (buttonProperties.length == 3) {
-                String buttonField = buttonProperties[2];
-                GamePlayElementsParser parser = new GamePlayElementsParser();
-                parser.setGamePlayButtonToField(element, button, buttonField);
+                gamePlayButtons.add(button);
             }
-            gamePlayButtons.add(button);
+            return gamePlayButtons;
         }
-        return gamePlayButtons;
+        catch (Exception e) {
+            createAlert(RESOURCES_ERROR_DISPLAY);
+            throw new ReflectionException(RESOURCES_EXCEPTION, e);
+        }
     }
 
     private HBox createBetButtons() {
-        HBox betButtons = new HBox(5);
-        for(String bet : betButtonResources.keySet()) {
-            Button betButton = new Button(betButtonResources.getString(bet));
-            betButton.setId(betButtonResources.getString(bet));
-            betButton.setOnAction(e -> myGameBoard.performBetAction(Integer.parseInt(bet), myController));
-            betButtons.getChildren().add(betButton);
+        try {
+            HBox betButtons = new HBox(BOX_SPACING);
+
+            for (String bet : betButtonResources.keySet()) {
+                Button betButton = new Button(betButtonResources.getString(bet));
+                betButton.setId(betButtonResources.getString(bet));
+                betButton.setOnAction(e -> myGameBoard.performBetAction(Integer.parseInt(bet), myController));
+                System.out.println(Integer.parseInt(bet));
+                betButtons.getChildren().add(betButton);
+            }
+            return betButtons;
         }
-        return betButtons;
+        catch (Exception e) {
+            createAlert(RESOURCES_ERROR_DISPLAY);
+            throw new ResourcesException(RESOURCES_EXCEPTION, e);
+        }
     }
 
     private Button makeGameModeButton() {
@@ -180,6 +203,7 @@ public class GameTable {
         bankrollDisplay.setText(gameDisplayResources.getString(BANKROLL_ID) + bankroll);
     }
 
+    //This should be extracted to its own class
     public void displayGameOver() {
         gameOverWindow = new Stage();
 
@@ -201,6 +225,12 @@ public class GameTable {
     public void createAlert(String errorMessage) {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setContentText(errorMessage);
+        error.show();
     }
+
+    protected void setLayoutResources(String path) {
+        layoutResources = ResourceBundle.getBundle(path);
+    }
+
 
 }

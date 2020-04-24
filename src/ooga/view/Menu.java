@@ -18,10 +18,16 @@ import java.util.ResourceBundle;
 public class Menu {
     private static final String RESOURCES = "resources/MenuProperties/";
     private static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES.replace("/", ".");
+    private static final String DEFAULT_STYLE = "default";
     private static final String GAME_RESOURCES_FILE = "MenuGames";
+    private static final String MENU_ID = "menuRoot";
     private static final String STYLING_RESOURCES_FILE = "Styles";
     private static final Locale LANGUAGE_LOCALE = new Locale("en");
     private static final String INTERNAL_ERROR = "Internal Error: Please exit the program";
+    private static final String GAMES_LIST = "Games";
+    private static final String H_SPACING = "HorizontalSpacing";
+    private static final String V_SPACING = "VerticalSpacing";
+    private static final String DELIMITER = ",";
 
 
     private GridPane menuRoot;
@@ -45,36 +51,45 @@ public class Menu {
         myStyles = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + STYLING_RESOURCES_FILE);
         myScene = scene;
         menuRoot = new GridPane();
-        menuRoot.setId("menuRoot");
+        menuRoot.setId(MENU_ID);
         ChoiceBox styleChoice = createStyleDropdown();
-        styleChoice.setValue("default");
-        menuRoot.add(createStyleDropdown(), 0, 0);
+        styleChoice.setValue(DEFAULT_STYLE);
+        //menuRoot.add(createLoadGameDropdown(), 0, 0);
+        menuRoot.add(createStyleDropdown(), 0, 1);
         scene.setRoot(menuRoot);
         menuRoot.setAlignment(Pos.CENTER);
-        menuRoot.setHgap(Double.parseDouble(myResources.getString("HorizontalSpacing")));
-        menuRoot.setVgap(Double.parseDouble(myResources.getString("VerticalSpacing")));
+        menuRoot.setHgap(Double.parseDouble(myResources.getString(H_SPACING)));
+        menuRoot.setVgap(Double.parseDouble(myResources.getString(V_SPACING)));
         makeGameButtons(getGameList());
-        //access resource bundle
     }
 
 
     private void makeGameButtons(List<String> games) {
         int colInd = 0;
-        int rowInd = 1;
+        int rowInd = 2;
         for(String game : games) {
-            MenuGameParser parser = new MenuGameParser(DEFAULT_RESOURCE_PACKAGE, LANGUAGE_LOCALE);
-            Button gameButton = parser.makeButton(game);
-            gameButton.setOnAction(e -> setUpGame(parser));
-            menuRoot.add(gameButton, colInd, rowInd);
+            try{
+                MenuGameParser parser = new MenuGameParser(DEFAULT_RESOURCE_PACKAGE, LANGUAGE_LOCALE);
+                Button gameButton = parser.makeButton(game);
+                gameButton.setOnAction(e -> setUpGame(parser));
+                menuRoot.add(gameButton, colInd, rowInd);
+            } catch (Exception e) {
+                createAlert();
+                throw e;
+            }
+
+
             if(colInd < 4) { colInd += 1;}
-            colInd = 0;
-            rowInd += 1;
+            else {
+                colInd = 0;
+                rowInd += 1;
+            }
         }
     }
 
     private List<String> getGameList() {
-        String games = myResources.getString("Games");
-        List<String> gamesList = Arrays.asList(games.split(","));
+        String games = myResources.getString(GAMES_LIST);
+        List<String> gamesList = Arrays.asList(games.split(DELIMITER));
         return gamesList;
     }
 
@@ -90,9 +105,7 @@ public class Menu {
         }
 
         catch (Exception e){
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setContentText(INTERNAL_ERROR);
-            a.show();
+            createAlert();
             throw e;
         }
 
@@ -116,5 +129,11 @@ public class Menu {
         //make gameloader player names choices in dropdown
         //set action to load game method given the string
         return null;
+    }
+
+    private void createAlert() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setContentText(INTERNAL_ERROR);
+        a.show();
     }
 }

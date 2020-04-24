@@ -25,6 +25,7 @@ public class RouletteBoard implements GameBoard {
     private static final String DEFAULT_BET_CHOICE = "None";
     private static final int GAME_DISPLAY_SPACING = 20;
     private static final String DEFAULT_OUTCOME = "36";
+    private static final String DELIMITER = ",";
     private ResourceBundle myGameMode;
     private static final ResourceBundle myBetTypes = ResourceBundle.getBundle("resources.RouletteGameModes.betType");
     private Text myOutcome;
@@ -68,7 +69,7 @@ public class RouletteBoard implements GameBoard {
             betChoice.setValue(DEFAULT_BET_CHOICE);
             Label betType = new Label (key);
             betType.setLabelFor(betChoice);
-            String[] bets = myBetTypes.getString(key).split(",");
+            String[] bets = myBetTypes.getString(key).split(DELIMITER);
             betChoice.getItems().addAll(bets);
             betOptions.getChildren().add(betChoice);
         }
