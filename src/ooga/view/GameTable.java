@@ -25,6 +25,7 @@ public class GameTable {
     private static final String DISPLAY_RESOURCES = "GameTableDisplays";
     private static final String LAYOUT_RESOURCES = "GameTableLayout";
     private static final String ADMIN_RESOURCES = "AdminButtons";
+    private static final String GAME_MODE_BUTTON= "Set Game Mode";
     private Locale myLocale;
     private GridPane gameRoot;
     private VBox gamePlayElements;
@@ -77,6 +78,7 @@ public class GameTable {
 
         adminButtons.getChildren().addAll(createGamePlayButtons(this, adminButtonResources));
         gamePlayElements.getChildren().addAll(createGamePlayButtons(myController, gameplayButtonResources));
+        gamePlayElements.getChildren().add(makeGameModeButton());
 
         bankrollDisplay = new Text(gameDisplayResources.getString(BANKROLL_ID) + player.getMyBankRoll());
         bankrollDisplay.setId(BANKROLL_ID);
@@ -139,6 +141,18 @@ public class GameTable {
         return betButtons;
     }
 
+    private Button makeGameModeButton() {
+        Button gameModeButton = new Button(GAME_MODE_BUTTON);
+        gameModeButton.setOnAction(e -> setGameMode());
+        return gameModeButton;
+    }
+
+    private void setGameMode() {
+        if(myGameBoard.getGameMode() != null) {
+            //myController.setParameters(myGameBoard.getGameMode());
+        }
+    }
+
     public void Quit() {
         gameRoot.getChildren().clear();
 
@@ -182,4 +196,5 @@ public class GameTable {
     }
 
     public void updateBetTotal(int amount) {betTotalDisplay.setText(gameDisplayResources.getString(BET_TOTAL_ID) + amount);}
+
 }

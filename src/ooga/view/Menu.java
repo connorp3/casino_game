@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
+import ooga.controller.Controller;
 import ooga.model.Player;
 import ooga.view.data.MenuGameParser;
 
@@ -60,8 +61,8 @@ public class Menu {
     private void makeGameButtons(List<String> games) {
         int colInd = 0;
         int rowInd = 1;
-        MenuGameParser parser = new MenuGameParser(DEFAULT_RESOURCE_PACKAGE, LANGUAGE_LOCALE);
         for(String game : games) {
+            MenuGameParser parser = new MenuGameParser(DEFAULT_RESOURCE_PACKAGE, LANGUAGE_LOCALE);
             Button gameButton = parser.makeButton(game);
             gameButton.setOnAction(e -> setUpGame(parser));
             menuRoot.add(gameButton, colInd, rowInd);
@@ -108,5 +109,12 @@ public class Menu {
         myScene.getStylesheets().clear();
         myScene.getStylesheets().add(myStyles.getString(style));
 
+    }
+
+    private ChoiceBox<String> createLoadGameDropdown() {
+        //create new gameloader class
+        //make gameloader player names choices in dropdown
+        //set action to load game method given the string
+        return null;
     }
 }

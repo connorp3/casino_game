@@ -83,4 +83,9 @@ public class RouletteBoard implements GameBoard {
         }
     }
 
+    @Override
+    public List<String> getGameMode() {
+        return null;
+    }
+
 }

@@ -1,22 +1,36 @@
 package ooga.view;
 
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import ooga.controller.BetController;
+import ooga.controller.Controller;
 import ooga.view.data.LabelParser;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class SlotMachineBoard implements GameBoard {
-    private HBox myWheels;
+
     private String WHEEL_ID = "wheel";
     private String WHEELS_NUMBER = "NumReels";
     private static final String DEFAULT_WHEEL_VALUE = "0";
     private static final int DEFAULT_SPACING = 20;
+    private static final String max_Wheels = "MaxReels";
+    private static final String max_Symbols = "MaxSymbols";
+    private HBox myWheels;
+    private VBox myDisplay;
     private List<Node> myOutcome;
+    private ChoiceBox<String> numWheels;
+    private ChoiceBox<String> numSymbols;
     private ResourceBundle myGameMode;
     public SlotMachineBoard(ResourceBundle gameMode) {
         myGameMode = gameMode;
+        myDisplay = new VBox();
+        myDisplay.setSpacing(DEFAULT_SPACING);
         myWheels = new HBox();
         myWheels.setSpacing(DEFAULT_SPACING);
 
@@ -29,14 +43,37 @@ public class SlotMachineBoard implements GameBoard {
             wheel.setId(WHEEL_ID + x);
             myOutcome.add(wheel);
         }
+        myDisplay.getChildren().add(myWheels);
+        createGameModeOptions();
 
+    }
+
+    private void createGameModeOptions() {
+        numWheels = new ChoiceBox();
+        setGameModeOptions(numWheels, Integer.parseInt(myGameMode.getString(max_Wheels)));
+        numSymbols = new ChoiceBox();
+        setGameModeOptions(numSymbols, Integer.parseInt(myGameMode.getString(max_Symbols)));
+        myDisplay.getChildren().addAll(numSymbols, numWheels);
+    }
+
+    @Override
+    public List<String> getGameMode() {
+        List<String> parameters = new ArrayList();
+        parameters.add(numSymbols.getValue());
+        parameters.add(numWheels.getValue());
+        return parameters;
+    }
+    private void setGameModeOptions(ChoiceBox<String> options, int max) {
+        for(int option = 1; option <= max; option++) {
+            options.getItems().add(Integer.toString(option));
+        }
     }
     @Override
     public Node drawGame() {
         for(Node wheel : myOutcome) {
             myWheels.getChildren().add(wheel);
         }
-        return myWheels;
+        return myDisplay;
     }
 
     @Override
@@ -50,13 +87,12 @@ public class SlotMachineBoard implements GameBoard {
             myWheels.getChildren().add(wheel);
             wheelNum++;
         }
-
-
     }
 
     @Override
     public void performBetAction(int amount, BetController myController) {
         myController.placeBet(amount, null);
     }
+
 
 }

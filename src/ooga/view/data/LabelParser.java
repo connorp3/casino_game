@@ -11,16 +11,19 @@ public class LabelParser {
     private final String IMAGEFILE_SUFFIXES =
             String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
     private final String DEFAULT_RESOURCE_FOLDER = "/resources/Images/";
+    private final double DEFAULT_IMAGE_SIZE = 50.0;
 
     public LabelParser() {
     }
 
     public Node parseLabel(String label) {
         if (label.matches(IMAGEFILE_SUFFIXES)) {
-            return new ImageView(new Image(getClass().getResourceAsStream(DEFAULT_RESOURCE_FOLDER + label)));
+            ImageView image = new ImageView(new Image(getClass().getResourceAsStream(DEFAULT_RESOURCE_FOLDER + label)));
+            image.setFitHeight(DEFAULT_IMAGE_SIZE);
+            image.setFitWidth(DEFAULT_IMAGE_SIZE);
+            return image;
         }
         else {
-            System.out.println(IMAGEFILE_SUFFIXES);
             return new Text(label);
         }
     }

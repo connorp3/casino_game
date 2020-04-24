@@ -12,5 +12,5 @@ public interface GameBoard {
     Node drawGame();
     void showOutcome(List<Integer> outcome);
     void performBetAction(int amount, BetController myController);
-
+    List<String> getGameMode();
 }
