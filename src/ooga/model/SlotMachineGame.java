@@ -20,7 +20,6 @@ public class SlotMachineGame implements Game {
     public SlotMachineGame(Player player) throws Exception {
         try {
             defaultData = ResourceBundle.getBundle("resources.SlotMachineGameModes.default");
-            String test = defaultData.getString("NumReels");
             reelCount = Integer.parseInt(defaultData.getString("NumReels"));
             symbolCount = Integer.parseInt(defaultData.getString("NumSymbols"));
             casinoMultiple = Double.parseDouble(defaultData.getString("CasinoMultiple"));
@@ -42,6 +41,7 @@ public class SlotMachineGame implements Game {
         for (int i = 0; i < reelCount; i++) {
             listOfSymbols.add(random.nextInt(symbolCount));
         }
+        System.out.println("size"+listOfSymbols.size());
         return listOfSymbols;
     }
 
@@ -76,7 +76,6 @@ public class SlotMachineGame implements Game {
         currentBet.restore();
     }
 
-    @Override
     public void updateGameParameters(List<String> list) throws Exception {
 
         try {

@@ -101,6 +101,7 @@ public class RouletteGame implements Game {
 
     @Override
     public void placeBet(int amount, String type) throws Exception {
+        System.out.println(amount+","+type);
         if (betTypeData.getString("color").contains(type)) {
             colorBet.addFunds(amount);
             colorBet.setEvent(type);
@@ -113,7 +114,7 @@ public class RouletteGame implements Game {
             numberBet.addFunds(amount);
             numberBet.setEvent(type);
         }
-        else {
+        else if (!type.equals("None")) {
             throw new Exception("Invalid game parameter.");
         }
     }
