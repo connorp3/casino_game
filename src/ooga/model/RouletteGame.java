@@ -37,9 +37,7 @@ public class RouletteGame implements Game {
         parityBet = new Bet(player);
     }
 
-    /**
-     * Generating a random outcome for the game
-     */
+    @Override
     public List<Integer> generateOutcome() {
         List<Integer> rouletteOutcome = new ArrayList<>();
         Random random = new Random();
@@ -119,14 +117,14 @@ public class RouletteGame implements Game {
         }
     }
 
-
+    @Override
     public void clearBets() {
         numberBet.restore();
         parityBet.restore();
         colorBet.restore();
     }
 
-
+    @Override
     public void updateGameParameters(List<String> list) throws Exception {
         /*String gameType = list.get(0);
         if (gameType.toLowerCase().equals("american")) {

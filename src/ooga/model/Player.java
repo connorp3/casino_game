@@ -30,10 +30,19 @@ public class Player {
         playerNames = new ArrayList<String>();
     }
 
+    /**
+     * Sets the game type
+     * @param currentGame - type of game the player is playing currently
+     */
     public void setMyCurrentGame(String currentGame) {
         myCurrentGame = currentGame;
     }
 
+
+    /**
+     * Based on a player name, loads an existing player that has previously played in the game
+     * @param name - name of player tload
+     */
     public void setPlayer(String name) throws Exception {
         myName = name;
         String n;
@@ -47,6 +56,10 @@ public class Player {
         }
     }
 
+    /**
+     * Returns the list of all player names that have previously played a game in the casino
+     * @return List<String> - list of player names loaded from the save file
+     */
     public List<String> getPlayers() throws Exception {
 
         ArrayList<String> toReturn = new ArrayList<String>();
@@ -66,6 +79,11 @@ public class Player {
         return toReturn;
     }
 
+    /**
+     * Saves the bankroll of player to file
+     * If the player already existed, updates its bankroll
+     * If the player is new, creates a new entry in the save file.
+     */
     public void saveGame() throws Exception {
 
         String source = "";
@@ -96,14 +114,27 @@ public class Player {
 
     }
 
+    /**
+     * Returns the name of the current player
+     * @return String
+     */
     public String getName() {
         return myName;
     }
 
+    /**
+     * Returns the current player bankroll
+     * @return int
+     */
     public int getMyBankRoll() {
         return myBankRoll;
     }
 
+    /**
+     * Adds or subtracts an amount to player's bankroll
+     * Used when winning a bet or in the betting process
+     * @param amount - int amount
+     */
     public void setMyBankRoll(int amount) {
         if(checkEnoughFunds(amount)) {
             myBankRoll += amount;
