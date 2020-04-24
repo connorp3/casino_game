@@ -1,5 +1,7 @@
 package ooga.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Player {
@@ -18,7 +20,7 @@ public class Player {
         maxBankRoll = bankroll;
         myCurrentGame = currentGame;
         Random rand = new Random();
-        String rand_int = String.valueOf(rand.nextInt(1000));
+        String rand_int = String.valueOf(rand.nextInt(100000));
         myName = "player_" + rand_int;
     }
 
@@ -28,6 +30,19 @@ public class Player {
 
     public void setName(String name) {
         myName = name;
+    }
+
+    public List<String> getPlayers() {
+
+        return new ArrayList<String>();
+    }
+
+    public void loadGame(String name) throws Exception {
+
+    }
+
+    public void saveGame() throws Exception {
+
     }
 
     public String getName() {

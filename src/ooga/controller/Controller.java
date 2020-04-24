@@ -73,7 +73,7 @@ public class Controller implements BetController {
         updateScreen();
     }
 
-    @Override
+
     public void updateGameParameters(List<String> list) {
         try {
             game.updateGameParameters(list);
@@ -84,22 +84,13 @@ public class Controller implements BetController {
 
     }
 
-    @Override
+
     public void saveGame() {
-
-    }
-
-    @Override
-    public void loadGame(String playerName) {
         try {
-            ResourceBundle playerData = ResourceBundle.getBundle("resources.playerData");
-            String money = playerData.getString(playerName);
-            currentPlayer.overrideBankroll(Integer.parseInt(money));
+            currentPlayer.saveGame();
+        } catch (Exception e) {
+            //
         }
-        catch (Exception e) {
-            view.createAlert("Error reading player data.");
-        }
-
     }
 
     /**
