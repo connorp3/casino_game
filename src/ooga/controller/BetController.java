@@ -8,4 +8,8 @@ public interface BetController {
     void placeBet(int amount, String type);
 
     public void updateGameParameters(List<String> list);
+
+    public void saveGame();
+
+    public void loadGame(String playerName);
 }

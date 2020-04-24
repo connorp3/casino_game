@@ -36,7 +36,7 @@ public class Controller implements BetController {
                 game = new SlotMachineGame(player);
             }
             catch (Exception e) {
-                // send message to user
+                view.createAlert(e.getMessage());
             }
 
             slots = true;
@@ -47,7 +47,7 @@ public class Controller implements BetController {
                 game = new RouletteGame(player);
             }
             catch (Exception e) {
-                // send message to user
+                view.createAlert(e.getMessage());
             }
 
             slots = false;
@@ -67,7 +67,7 @@ public class Controller implements BetController {
             game.placeBet(amount, type);
         }
         catch (Exception e) {
-            // send message top user
+            view.createAlert(e.getMessage());
         }
 
         updateScreen();
@@ -79,8 +79,18 @@ public class Controller implements BetController {
             game.updateGameParameters(list);
         }
         catch (Exception e) {
-            // send message to user
+            view.createAlert(e.getMessage());
         }
+
+    }
+
+    @Override
+    public void saveGame() {
+
+    }
+
+    @Override
+    public void loadGame(String playerName) {
 
     }
 

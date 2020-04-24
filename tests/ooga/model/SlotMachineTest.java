@@ -1,5 +1,6 @@
 package ooga.model;
 
+import jdk.jshell.spi.ExecutionControlProvider;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -18,8 +19,9 @@ public class SlotMachineTest {
 
 
     @Test
-    public void testBasic() {
+    public void testBasic() throws Exception {
         SlotMachineGame g = new SlotMachineGame(player1);
+
         List<Integer> integerList = g.generateOutcome();
         assertEquals(3, integerList.size());
         for (Integer i : integerList) {
