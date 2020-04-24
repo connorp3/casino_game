@@ -119,14 +119,14 @@ public class RouletteGame implements Game {
         }
     }
 
-    @Override
+
     public void clearBets() {
         numberBet.restore();
         parityBet.restore();
         colorBet.restore();
     }
 
-    @Override
+
     public void updateGameParameters(List<String> list) throws Exception {
         String gameType = list.get(0);
         if (gameType.toLowerCase().equals("american")) {
