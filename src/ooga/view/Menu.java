@@ -72,7 +72,7 @@ public class Menu {
         menuRoot.setId(MENU_ID);
         ChoiceBox styleChoice = createStyleDropdown();
         styleChoice.setValue(DEFAULT_STYLE);
-        //menuRoot.add(createLoadGameDropdown(), 0, 0);
+        menuRoot.add(createLoadGameDropdown(), 0, 0);
         menuRoot.add(createStyleDropdown(), 0, 1);
         scene.setRoot(menuRoot);
         menuRoot.setAlignment(Pos.CENTER);
@@ -144,19 +144,15 @@ public class Menu {
 
     private ChoiceBox<String> createLoadGameDropdown() {
         try{
-            //ChoiceBox<String> loadGame = new ChoiceBox<>();
-            //loadGame.getItems().addAll(myPlayer.getPlayers());
+            ChoiceBox<String> loadGame = new ChoiceBox<>();
+            loadGame.getItems().addAll(myPlayer.getPlayers());
             //loadGame.setOnAction(e -> myPlayer.loadGame(loadGame.getValue()));
-            //return loadGame;
-            return null;
+            return loadGame;
         } catch(Exception e) {
+            createAlert();
             throw new ResourcesException("Invalid Resource Configuration", e);
-            //createAlert();
-        }
-        //create new gameloader class
-        //make gameloader player names choices in dropdown
-        //set action to load game method given the string
 
+        }
     }
 
     private void createAlert() {
