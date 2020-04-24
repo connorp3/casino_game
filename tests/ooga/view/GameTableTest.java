@@ -5,15 +5,9 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import ooga.model.Game;
 import ooga.model.Player;
-import ooga.view.GameScene;
-import ooga.view.GameTable;
-import ooga.view.SlotMachineBoard;
-import ooga.view.data.ResourcesException;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 

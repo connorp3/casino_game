@@ -1,9 +1,7 @@
 package ooga.view;
 
 import javafx.scene.Node;
-import javafx.scene.layout.HBox;
 import ooga.controller.BetController;
-import ooga.controller.Controller;
 
 import java.util.List;
 

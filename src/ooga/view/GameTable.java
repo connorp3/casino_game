@@ -23,7 +23,6 @@ import java.util.*;
  * @author Connor Penny
  */
 
-//This will need to implement an interface to give restricted access of its public methods to each game
 public class GameTable {
     private static final String BANKROLL_ID = "bankrollDisplay";
     private static final String BET_TOTAL_ID = "betTotalDisplay";

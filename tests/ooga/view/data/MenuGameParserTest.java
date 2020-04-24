@@ -2,14 +2,11 @@ package ooga.view.data;
 
 
 import javafx.scene.Group;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import ooga.view.GameScene;
-import ooga.view.Menu;
 import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
-import javafx.scene.control.Button;
 import util.DukeApplicationTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,9 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MenuGameParserTest extends DukeApplicationTest {
     private GameScene testScene;
-    private Button mySlotMachineButton;
-    private Button myRouletteButton;
-    private GridPane gameButtons;
 
     @Override
     public void start(Stage stage) {

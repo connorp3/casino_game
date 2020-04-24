@@ -6,12 +6,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ooga.model.Player;
-import ooga.view.GameScene;
-import ooga.view.Menu;
+
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
-import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 

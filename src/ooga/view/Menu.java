@@ -6,7 +6,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
-import ooga.controller.Controller;
 import ooga.model.Player;
 import ooga.view.data.MenuGameParser;
 import ooga.view.data.ResourcesException;
@@ -42,6 +41,7 @@ public class Menu {
     private SceneChanger myScene;
     private ResourceBundle myResources;
     private ResourceBundle myStyles;
+    private ChoiceBox<String> loadGame;
     private Player myPlayer;
 
     /***
@@ -63,6 +63,7 @@ public class Menu {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + GAME_RESOURCES_FILE);
         myPlayer = player;
         initialize(scene);
+        loadGame.setVisible(false);
     }
 
     private void initialize(SceneChanger scene) {
@@ -72,7 +73,8 @@ public class Menu {
         menuRoot.setId(MENU_ID);
         ChoiceBox styleChoice = createStyleDropdown();
         styleChoice.setValue(DEFAULT_STYLE);
-        menuRoot.add(createLoadGameDropdown(), 0, 0);
+        createLoadGameDropdown();
+        menuRoot.add(loadGame, 0, 0);
         menuRoot.add(createStyleDropdown(), 0, 1);
         scene.setRoot(menuRoot);
         menuRoot.setAlignment(Pos.CENTER);
@@ -144,7 +146,7 @@ public class Menu {
 
     private ChoiceBox<String> createLoadGameDropdown() {
         try {
-            ChoiceBox<String> loadGame = new ChoiceBox<>();
+            loadGame = new ChoiceBox<>();
             loadGame.getItems().addAll(myPlayer.getPlayers());
             loadGame.setOnAction(e -> {
                 try {

@@ -1,8 +1,6 @@
 package ooga.view;
 
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -10,7 +8,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import ooga.controller.BetController;
-import ooga.controller.Controller;
 import java.util.*;
 
 /***
@@ -58,7 +55,7 @@ public class RouletteBoard implements GameBoard {
     @Override
     public void showOutcome(List<Integer> outcome) {
         String pocket = Integer.toString(outcome.get(0));
-        if(pocket.equals(-1)) {
+        if(pocket.equals("-1")) {
             myOutcome.setText("00");
         }
         else {myOutcome.setText(pocket);}
