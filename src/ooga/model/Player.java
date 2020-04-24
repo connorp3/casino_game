@@ -34,7 +34,7 @@ public class Player {
         myCurrentGame = currentGame;
     }
 
-    public void setName(String name) throws Exception {
+    public void setPlayer(String name) throws Exception {
         myName = name;
         String n;
         int money;
