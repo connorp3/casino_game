@@ -1,3 +1,5 @@
 test1,5
 test2,8
-player_64368,1000
+player_64368,970
+player_13750,950
+player_13750,930

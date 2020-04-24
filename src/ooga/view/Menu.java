@@ -143,10 +143,16 @@ public class Menu {
     }
 
     private ChoiceBox<String> createLoadGameDropdown() {
-        try{
+        try {
             ChoiceBox<String> loadGame = new ChoiceBox<>();
             loadGame.getItems().addAll(myPlayer.getPlayers());
-            //loadGame.setOnAction(e -> myPlayer.loadGame(loadGame.getValue()));
+            loadGame.setOnAction(e -> {
+                try {
+                    myPlayer.setPlayer(loadGame.getValue());
+                } catch (Exception ex) {
+                    createAlert();
+                }
+            });
             return loadGame;
         } catch(Exception e) {
             createAlert();
