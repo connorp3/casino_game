@@ -1,5 +1,2 @@
-player_93880,0
-player_45026,800
-player_93880,0
-player_45026,800
-player_32119,980
+player_1044,940
+player_1044,940

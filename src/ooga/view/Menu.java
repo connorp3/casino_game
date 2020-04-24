@@ -63,7 +63,9 @@ public class Menu {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + GAME_RESOURCES_FILE);
         myPlayer = player;
         initialize(scene);
+        loadGame.setValue(null);
         loadGame.setVisible(false);
+
     }
 
     private void initialize(SceneChanger scene) {

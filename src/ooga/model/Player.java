@@ -88,7 +88,6 @@ public class Player {
 
         String source = "";
         boolean didMine = false;
-
         for (String s : playerNames) {
             if (!s.split(",")[0].equals(myName)) {
                 source = source + s + "\n";
@@ -102,7 +101,6 @@ public class Player {
             source = source + myName + "," + String.valueOf(myBankRoll) + "\n";
             didMine = true;
         }
-
 
         ResourceBundle bundle = ResourceBundle.getBundle("resources." + PLAYER_CONFIG);
         String filePath = bundle.getString("Path");
