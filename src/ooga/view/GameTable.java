@@ -164,7 +164,6 @@ public class GameTable {
                 Button betButton = new Button(betButtonResources.getString(bet));
                 betButton.setId(betButtonResources.getString(bet));
                 betButton.setOnAction(e -> myGameBoard.performBetAction(Integer.parseInt(bet), myController));
-                System.out.println(Integer.parseInt(bet));
                 betButtons.getChildren().add(betButton);
             }
             return betButtons;

@@ -84,8 +84,7 @@ public class Player {
             source = source + myName + "," + String.valueOf(myBankRoll) + "\n";
             didMine = true;
         }
-
-        System.out.println(source);
+        
 
         ResourceBundle bundle = ResourceBundle.getBundle("resources." + PLAYER_CONFIG);
         String filePath = bundle.getString("Path");
