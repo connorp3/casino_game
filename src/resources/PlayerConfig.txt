@@ -1,10 +1,4 @@
-player_55544,2
-player_55544,2
-player_55544,2
-player_55544,2
-player_864,976
-player_55544,2
-player_55544,2
-player_55544,2
-player_55544,2
-player_864,976
+test1,0
+test2,300
+player_88233,1040
+player_42063,990

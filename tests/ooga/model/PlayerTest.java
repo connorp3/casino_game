@@ -34,10 +34,6 @@ public class PlayerTest {
         g.payout(results);
         assertEquals(0, player1.getMyBankRoll());
         player1.saveGame();
-        player1.setPlayer("test2");
-        assertEquals(8, player1.getMyBankRoll());
-        player1.setPlayer("test1");
-        assertEquals(0, player1.getMyBankRoll());
 
 
 
