@@ -20,12 +20,18 @@ public class RouletteGame implements Game {
      * Creates a new roulette game
      * @param player
      */
-    public RouletteGame(Player player) {
-        americanData = ResourceBundle.getBundle("resources.RouletteGameModes.American");
-        betTypeData = ResourceBundle.getBundle("resources.RouletteGameModes.betType");
-        defaultData = ResourceBundle.getBundle("resources.RouletteGameModes.default");
-        randomGenBound = Integer.parseInt(defaultData.getString("RandomGenBound"));
-        doubleZeroValue = Integer.parseInt(defaultData.getString("DoubleZeroValue"));
+    public RouletteGame(Player player) throws Exception {
+        try {
+            americanData = ResourceBundle.getBundle("resources.RouletteGameModes.American");
+            betTypeData = ResourceBundle.getBundle("resources.RouletteGameModes.betType");
+            defaultData = ResourceBundle.getBundle("resources.RouletteGameModes.default");
+            randomGenBound = Integer.parseInt(defaultData.getString("RandomGenBound"));
+            doubleZeroValue = Integer.parseInt(defaultData.getString("DoubleZeroValue"));
+        }
+        catch (Exception e) {
+            throw new Exception("Error loading game data files.");
+        }
+
         numberBet = new Bet(player);
         colorBet = new Bet(player);
         parityBet = new Bet(player);
@@ -94,7 +100,7 @@ public class RouletteGame implements Game {
     }
 
     @Override
-    public void placeBet(int amount, String type) {
+    public void placeBet(int amount, String type) throws Exception {
         if (betTypeData.getString("color").contains(type)) {
             colorBet.addFunds(amount);
             colorBet.setEvent(type);
@@ -107,6 +113,9 @@ public class RouletteGame implements Game {
             numberBet.addFunds(amount);
             numberBet.setEvent(type);
         }
+        else {
+            throw new Exception("Invalid game parameter.");
+        }
     }
 
     @Override
@@ -114,6 +123,20 @@ public class RouletteGame implements Game {
         numberBet.restore();
         parityBet.restore();
         colorBet.restore();
+    }
+
+    @Override
+    public void updateGameParameters(List<String> list) throws Exception {
+        String gameType = list.get(0);
+        if (gameType.toLowerCase().equals("american")) {
+            randomGenBound = 38;
+        }
+        else if (gameType.toLowerCase().equals("european") || gameType.toLowerCase().equals("french")) {
+            randomGenBound = 37;
+        }
+        else {
+            throw new Exception("Invalid game parameter.");
+        }
     }
 
 

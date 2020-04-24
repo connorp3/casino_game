@@ -19,7 +19,9 @@ public interface Game {
      */
     public int getBetTotal();
 
-    public void placeBet(int amount, String type);
+    public void placeBet(int amount, String type) throws Exception;
 
     public void clearBets();
+
+    public void updateGameParameters(List<String> list) throws Exception;
 }

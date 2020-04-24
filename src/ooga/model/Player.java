@@ -1,9 +1,12 @@
 package ooga.model;
 
+import java.util.Random;
+
 public class Player {
     private int myBankRoll;
     private int maxBankRoll;
     private String myCurrentGame;
+    private String myName;
 
     /**
      * Creates a new player
@@ -14,10 +17,21 @@ public class Player {
         myBankRoll = bankroll;
         maxBankRoll = bankroll;
         myCurrentGame = currentGame;
+        Random rand = new Random();
+        String rand_int = String.valueOf(rand.nextInt(1000));
+        myName = "player_" + rand_int;
     }
 
     public void setMyCurrentGame(String currentGame) {
         myCurrentGame = currentGame;
+    }
+
+    public void setName(String name) {
+        myName = name;
+    }
+
+    public String getName() {
+        return myName;
     }
 
     public int getMyBankRoll() {

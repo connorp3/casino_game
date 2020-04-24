@@ -31,13 +31,25 @@ public class Controller implements BetController {
      */
     public void startGame(String type, Player player) {
 
-        if (type.equals("SLOTS")) {
-            game = new SlotMachineGame(player);
+        if (type.toLowerCase().equals("slots")) {
+            try {
+                game = new SlotMachineGame(player);
+            }
+            catch (Exception e) {
+                // send message to user
+            }
+
             slots = true;
             roulette = false;
         }
-        else if (type.equals("ROULETTE")) {
-            game = new RouletteGame(player);
+        else if (type.toLowerCase().equals("roulette")) {
+            try {
+                game = new RouletteGame(player);
+            }
+            catch (Exception e) {
+                // send message to user
+            }
+
             slots = false;
             roulette = true;
         }
@@ -51,8 +63,25 @@ public class Controller implements BetController {
      */
     @Override
     public void placeBet(int amount, String type) {
-        game.placeBet(amount, type);
+        try {
+            game.placeBet(amount, type);
+        }
+        catch (Exception e) {
+            // send message top user
+        }
+
         updateScreen();
+    }
+
+    @Override
+    public void updateGameParameters(List<String> list) {
+        try {
+            game.updateGameParameters(list);
+        }
+        catch (Exception e) {
+            // send message to user
+        }
+
     }
 
     /**
