@@ -62,6 +62,8 @@ public class Player {
      */
     public List<String> getPlayers() throws Exception {
 
+        playerNames.clear();
+
         ArrayList<String> toReturn = new ArrayList<String>();
 
         ResourceBundle bundle = ResourceBundle.getBundle("resources." + PLAYER_CONFIG);
