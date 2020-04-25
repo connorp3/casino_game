@@ -44,7 +44,7 @@ Connor:
 ### Primary Roles
 
 Connor: Design, implementation, and testing of frontend  
-Alex: Model, Controller, testing of backend, design
+Alex: Model, Controller, testing of backend, design 
 
 ### Resources Used
 
