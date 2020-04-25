@@ -207,13 +207,6 @@ public class GameTable {
         new Menu(myScene, myPlayer);
     }
 
-    /***
-     * Saves the game currently in progress.
-     * This method is internal, but it is public due to the nature of the reflection process implemented
-     */
-    public void saveGame() {
-        myController.saveGame();
-    }
 
     private void initiateGame(Player player, String game) {
         gameDisplay = myGameBoard.drawGame();
