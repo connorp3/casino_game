@@ -1,9 +1,7 @@
 package ooga.view;
 
-import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Paint;
 
 /***
  * This is a sublcass of Scene that implements a SceneChanger interface. It allows the developer to limit

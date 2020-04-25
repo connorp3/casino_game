@@ -2,8 +2,6 @@ package ooga.view;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.paint.Paint;
 
 /***
  * An interface that limits a scene object to the below public methods. Used when passing Scene object between frontend displays

@@ -1,7 +1,6 @@
 package ooga.view.data;
 
 import javafx.scene.control.Button;
-import ooga.controller.Controller;
 import ooga.view.GameBoard;
 import java.lang.reflect.Constructor;
 import java.util.Locale;

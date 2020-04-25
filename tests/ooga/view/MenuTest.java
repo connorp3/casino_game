@@ -3,16 +3,9 @@ package ooga.view;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import ooga.view.GameScene;
-import ooga.view.Menu;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-
-import java.io.FileNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 

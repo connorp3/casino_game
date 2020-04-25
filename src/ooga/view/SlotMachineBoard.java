@@ -1,15 +1,11 @@
 package ooga.view;
 
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import ooga.controller.BetController;
-import ooga.controller.Controller;
 import ooga.view.data.LabelParser;
-
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -40,7 +36,7 @@ public class SlotMachineBoard implements GameBoard {
         myWheels.setSpacing(DEFAULT_SPACING);
 
         int numReels = Integer.parseInt(myGameMode.getString(WHEELS_NUMBER));
-        myOutcome = new ArrayList<Node>();
+        myOutcome = new ArrayList();
 
         for(int x =1; x<=numReels; x++) {
             LabelParser label = new LabelParser();

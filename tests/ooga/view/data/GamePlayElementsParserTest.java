@@ -2,18 +2,12 @@ package ooga.view.data;
 
 
 import javafx.scene.Group;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import ooga.controller.Controller;
 import ooga.view.GameScene;
-import ooga.view.Menu;
 import org.junit.jupiter.api.Test;
-
-import java.util.Locale;
-import javafx.scene.control.Button;
 import util.DukeApplicationTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GamePlayElementsParserTest extends DukeApplicationTest {
