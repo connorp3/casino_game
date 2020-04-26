@@ -2,7 +2,7 @@
 
 ####Project Contributors
 
-Connor Penny
+Connor Penny  
 Alex Angel
 
 Connor Penny: Design, implementation, and testing of frontend  
