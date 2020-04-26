@@ -1,5 +1,6 @@
-####Project Contributors
+*Note that this markdown was originally collaborated on in a Google Doc and pasted into this file
 
+####Project Contributors
 
 Connor Penny
 Alex Angel
