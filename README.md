@@ -3,7 +3,9 @@ final
 
 This project implements a player for multiple related games.
 
-Names:
+Names:  
+Alex Angel  
+Connor Penny
 
 
 ### Timeline
@@ -37,9 +39,12 @@ Connor:
 - 4/22/20: 3 hours (Make Spanish language an option, Make parser for images, Remove magic values, Rerun tests)
 - 4/23/20: 4 hours (Abstracting away reflection parsing for View classes, adding gameMode choicebox, setting up frontend for load and save game)
 - 4/24/20: 2 hours (Eliminating magic values, writing tests for exceptions and creating test data files, making sure tests work)
+
+
 ### Primary Roles
 
-Connor: Design, implementation, and testing of frontend
+Connor: Design, implementation, and testing of frontend  
+Alex: Model, Controller, testing of backend, design 
 
 ### Resources Used
 
@@ -71,6 +76,8 @@ Data files needed:
     - SlotMachineGameModes
         - default
         - default_view
+    PlayerConfig.properties
+    PlayerConfig.txt
 
 Features implemented:
 
