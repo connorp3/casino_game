@@ -1,10 +1,9 @@
 ####Project Contributors
 
-
 Connor Penny
 Alex Angel
 
-Connor Penny: Design, implementation, and testing of frontend
+Connor Penny: Design, implementation, and testing of frontend  
 Alex Angel: Model, Controller, testing of backend, design
 
 ####What are the project's design goals, specifically what kinds of new features did you want to make easy to add
